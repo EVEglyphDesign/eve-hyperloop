@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SteelCloud Chatter Meter — US Mid-Cap ECC→S/4 Conversion Signal Index</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --panel-2: #1c2330;
+    --teal: #00b6b0;
+    --teal-dim: #007a76;
+    --red: #e34c4c;
+    --amber: #e0a93b;
+    --green: #4ec07b;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --border: #30363d;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 32px 40px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Trebuchet MS", "Calibri", "Segoe UI", sans-serif;
+    line-height: 1.5;
+  }
+  h1 {
+    margin: 0 0 4px 0;
+    font-size: 28px;
+    letter-spacing: 0.5px;
+  }
+  h1 .accent { color: var(--teal); }
+  .tagline {
+    font-family: "Georgia", "Times New Roman", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--teal);
+    letter-spacing: 0.5px;
+    margin: 6px 0 2px 0;
+    opacity: 0.9;
+  }
+  .subtitle {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+  h2 {
+    margin: 40px 0 16px 0;
+    font-size: 20px;
+    color: var(--teal);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+  }
+
+  /* ===== Chatter Meter ===== */
+  .meter {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .meter-row {
+    display: grid;
+    grid-template-columns: 220px 90px 1fr 200px;
+    gap: 16px;
+    align-items: center;
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .meter-row:last-child { border-bottom: none; }
+  .meter-row.headline {
+    background: linear-gradient(90deg, rgba(227,76,76,0.10), transparent);
+    border-left: 3px solid var(--red);
+    padding-left: 14px;
+  }
+  .meter-row.distressed {
+    background: linear-gradient(90deg, rgba(224,169,59,0.08), transparent);
+    border-left: 3px solid var(--amber);
+    padding-left: 14px;
+  }
+  .meter-row.floor {
+    background: linear-gradient(90deg, rgba(0,182,176,0.06), transparent);
+    border-left: 3px solid var(--teal-dim);
+    padding-left: 14px;
+    opacity: 0.85;
+  }
+  .indicator-name {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .indicator-name .tag {
+    display: inline-block;
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+  .gauge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .gauge-bar {
+    width: 80px;
+    height: 8px;
+    background: var(--panel-2);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+  .gauge-fill {
+    height: 100%;
+    border-radius: 4px;
+  }
+  .gauge-fill.red { background: var(--red); }
+  .gauge-fill.amber { background: var(--amber); }
+  .gauge-fill.green { background: var(--green); }
+  .gauge-fill.teal { background: var(--teal); }
+  .gauge-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-weight: bold;
+  }
+  .reading {
+    font-size: 13px;
+    color: var(--text);
+  }
+  .reading strong { color: var(--text); }
+  .source a {
+    color: var(--teal);
+    font-size: 12px;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .source a:hover { text-decoration: underline; }
+
+  .meter-summary {
+    margin-top: 20px;
+    padding: 16px 20px;
+    background: var(--panel-2);
+    border-left: 3px solid var(--teal);
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  .meter-summary strong { color: var(--teal); }
+
+  /* ===== Classifications ===== */
+  .classifications {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+  .classification {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+  }
+  .classification-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+  }
+  .classification-number {
+    color: var(--teal);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+  }
+  .classification-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 4px;
+  }
+  .classification-tag {
+    color: var(--text-dim);
+    font-size: 12px;
+    font-style: italic;
+    margin-top: 2px;
+  }
+  .classification-section {
+    margin-bottom: 12px;
+  }
+  .classification-section-title {
+    color: var(--teal);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    font-weight: bold;
+  }
+  .classification-section p {
+    font-size: 13px;
+    margin: 0 0 6px 0;
+    color: var(--text);
+  }
+  .classification-section ul {
+    margin: 0;
+    padding-left: 16px;
+    font-size: 13px;
+  }
+  .classification-section ul li {
+    margin-bottom: 6px;
+  }
+  .stat {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  .stat .pct {
+    color: var(--amber);
+    font-weight: bold;
+  }
+  .stat .pct.red { color: var(--red); }
+  .stat-source {
+    font-size: 11px;
+    color: var(--text-dim);
+    display: block;
+    margin-top: 2px;
+  }
+  .stat-source a {
+    color: var(--teal);
+    text-decoration: none;
+  }
+  .stat-source a:hover { text-decoration: underline; }
+
+  .rescue {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .rescue-label {
+    color: var(--teal);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+  .rescue-text {
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  /* ===== Methodology ===== */
+  .methodology {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    font-size: 13px;
+    margin-bottom: 24px;
+  }
+  .methodology h3 {
+    margin: 0 0 10px 0;
+    color: var(--teal);
+    font-size: 14px;
+  }
+  .methodology table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+  }
+  .methodology th, .methodology td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .methodology th {
+    color: var(--teal);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+  }
+  .methodology a {
+    color: var(--teal);
+    text-decoration: none;
+  }
+  .methodology a:hover { text-decoration: underline; }
+
+  /* ===== Pyramid Formation ===== */
+  .pyramid-wrap {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  .pyramid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 0;
+  }
+  .pyramid-tier {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--teal);
+    border-radius: 4px;
+    padding: 10px 14px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+  .pyramid-tier .tier-label {
+    color: var(--teal);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 3px;
+  }
+  .pyramid-tier .tier-role {
+    color: var(--text);
+    font-weight: bold;
+    font-size: 13px;
+  }
+  .pyramid-tier .tier-cadence {
+    color: var(--text-dim);
+    font-size: 11px;
+    margin-top: 2px;
+    font-style: italic;
+  }
+  .pyramid-tier.apex { width: 200px; border-left-color: var(--red); }
+  .pyramid-tier.t2 { width: 280px; }
+  .pyramid-tier.t3 { width: 360px; }
+  .pyramid-tier.t4 { width: 440px; border-left-color: var(--amber); }
+  .pyramid-base {
+    width: 480px;
+    background: linear-gradient(90deg, rgba(0,182,176,0.10), rgba(0,182,176,0.04));
+    border: 1px dashed var(--teal-dim);
+    border-radius: 4px;
+    padding: 10px 14px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 6px;
+  }
+  .pyramid-base strong { color: var(--teal); }
+
+  .pyramid-details h3 {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    color: var(--teal);
+  }
+  .pyramid-details .principle {
+    margin-bottom: 14px;
+    padding-left: 14px;
+    border-left: 2px solid var(--border);
+  }
+  .pyramid-details .principle-name {
+    font-weight: bold;
+    color: var(--text);
+    font-size: 13px;
+    display: block;
+    margin-bottom: 3px;
+  }
+  .pyramid-details .principle-body {
+    font-size: 13px;
+    color: var(--text);
+  }
+  .pyramid-callout {
+    margin-top: 14px;
+    padding: 12px 16px;
+    background: var(--panel-2);
+    border-left: 3px solid var(--amber);
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  .pyramid-callout strong { color: var(--amber); }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 11px;
+  }
+  footer a { color: var(--teal); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ===== Mobile ===== */
+  @media (max-width: 760px) {
+    body { padding: 20px 16px; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 17px; margin-top: 32px; }
+    .subtitle { font-size: 13px; margin-bottom: 20px; }
+
+    /* Meter rows: stack into a single column, left-aligned, with a thin label */
+    .meter { padding: 14px; }
+    .meter-row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 14px 10px;
+    }
+    .meter-row.headline,
+    .meter-row.distressed,
+    .meter-row.floor { padding-left: 10px; }
+    .indicator-name { font-size: 15px; }
+    .indicator-name .tag { font-size: 10px; }
+    .gauge {
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+    .gauge-bar { width: 100%; max-width: 220px; }
+    .gauge-label { font-size: 12px; }
+    .reading { font-size: 13px; }
+    .source a { font-size: 12px; word-break: break-word; }
+
+    /* Classifications: stack */
+    .classifications {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .classification { padding: 16px; }
+    .classification-name { font-size: 17px; }
+
+    /* Pyramid: stack details under the diagram; cap tier widths to viewport */
+    .pyramid-wrap {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      padding: 18px;
+    }
+    .pyramid { width: 100%; }
+    .pyramid-tier {
+      max-width: 100%;
+      width: auto;
+      padding: 9px 12px;
+    }
+    .pyramid-tier.apex { width: 55%; }
+    .pyramid-tier.t2   { width: 70%; }
+    .pyramid-tier.t3   { width: 85%; }
+    .pyramid-tier.t4   { width: 100%; }
+    .pyramid-base { width: 100%; box-sizing: border-box; }
+    .pyramid-details h3 { font-size: 15px; }
+
+    /* Methodology table: let it scroll horizontally instead of crushing */
+    .methodology { padding: 14px; }
+    .methodology table { display: block; overflow-x: auto; white-space: nowrap; }
+    .methodology th, .methodology td { white-space: normal; min-width: 180px; }
+  }
+
+  @media (max-width: 420px) {
+    body { padding: 16px 12px; }
+    h1 { font-size: 20px; }
+    .gauge-bar { max-width: 160px; }
+    .pyramid-tier.apex { width: 60%; }
+    .pyramid-tier.t2   { width: 75%; }
+    .pyramid-tier.t3   { width: 90%; }
+  }
+</style>
+</head>
+<body>
+
+<h1>SteelCloud <span class="accent">Chatter Meter</span></h1>
+<div class="tagline">Pour le bien-être du peuple.</div>
+<div class="subtitle">US Mid-Cap ECC→S/4 Conversion Signal Index · Updated May 2026 · All sources publicly available</div>
+
+<h2>1. The Meter</h2>
+<div class="meter">
+
+  <div class="meter-row headline">
+    <div class="indicator-name">Conversion Rate
+      <span class="tag">Top of meter — the headline</span>
+    </div>
+    <div class="gauge">
+      <div class="gauge-bar"><div class="gauge-fill red" style="width:39%"></div></div>
+      <div class="gauge-label">39%</div>
+    </div>
+    <div class="reading">
+      <strong>~39% of 35,000 ECC customers worldwide</strong> have licensed S/4HANA. Rimini projects <strong>40–45% will still be on ECC at the 2027 deadline</strong>.
+    </div>
+    <div class="source">
+      <a href="https://www.theregister.com/2025/03/20/sap_sees_little_progress_in/" target="_blank">Gartner via The Register →</a>
+      <a href="https://www.riministreet.com/blog/what-sap-customers-are-really-doing-and-why-it-matters/" target="_blank">Rimini Street →</a>
+    </div>
+  </div>
+
+  <div class="meter-row distressed">
+    <div class="indicator-name">Distressed Projects
+      <span class="tag">Below the headline — where rescue is needed</span>
+    </div>
+    <div class="gauge">
+      <div class="gauge-bar"><div class="gauge-fill amber" style="width:65%"></div></div>
+      <div class="gauge-label">60–65%</div>
+    </div>
+    <div class="reading">
+      <strong>60%+ of in-flight S/4HANA transformations exceed budget and schedule</strong>; projects run <strong>30% longer</strong> than planned on average; <strong>65% report strong quality deficits</strong>; only <strong>&lt;10%</strong> finish on schedule.
+    </div>
+    <div class="source">
+      <a href="https://www.horvath-partners.com/en/press/detail/study-shows-sap-s-4hana-transformations-rarely-go-as-planned-60-percent-exceed-budget-and-schedule-two-thirds-dissatisfied-with-result-quality" target="_blank">Horváth Study (200 executives / 6 countries) →</a>
+    </div>
+  </div>
+
+  <div class="meter-row">
+    <div class="indicator-name">Project Failure Pattern</div>
+    <div class="gauge">
+      <div class="gauge-bar"><div class="gauge-fill red" style="width:70%"></div></div>
+      <div class="gauge-label">~70%</div>
+    </div>
+    <div class="reading">
+      Industry analysts: <strong>~70% of SAP / ERP implementations fail to deliver promised benefits</strong>.
+    </div>
+    <div class="source">
+      <a href="https://www.scmchamps.com/blog/challenges-faced-during-sap-implementations/" target="_blank">SCM Champs / industry analysts →</a>
+    </div>
+  </div>
+
+  <div class="meter-row">
+    <div class="indicator-name">Automation Plateau</div>
+    <div class="gauge">
+      <div class="gauge-bar"><div class="gauge-fill amber" style="width:57%"></div></div>
+      <div class="gauge-label">57%</div>
+    </div>
+    <div class="reading">
+      Automation adoption <strong>stalled at 57%</strong> as migration demands divert resources.
+    </div>
+    <div class="source">
+      <a href="https://www.prnewswire.com/news-releases/new-research-reveals-sap-s4hana-migration-momentum-despite-ongoing-automation-challenges-302603235.html" target="_blank">Precisely + ASUG, Nov 2025 →</a>
+    </div>
+  </div>
+
+  <div class="meter-row">
+    <div class="indicator-name">Pace of Progress</div>
+    <div class="gauge">
+      <div class="gauge-bar"><div class="gauge-fill amber" style="width:15%"></div></div>
+      <div class="gauge-label">+few pts/yr</div>
+    </div>
+    <div class="reading">
+      "A few percentage points per year" — <strong>steady linear, not accelerating</strong>.
+    </div>
+    <div class="source">
+      <a href="https://www.riministreet.com/blog/what-sap-customers-are-really-doing-and-why-it-matters/" target="_blank">Rimini Street →</a>
+    </div>
+  </div>
+
+  <div class="meter-row">
+    <div class="indicator-name">Consulting Rate Pressure</div>
+    <div class="gauge">
+      <div class="gauge-bar"><div class="gauge-fill red" style="width:50%"></div></div>
+      <div class="gauge-label">+30–50%</div>
+    </div>
+    <div class="reading">
+      Rates up <strong>30–50% in 2026–27</strong> as the remaining third competes for a constrained talent pool.
+    </div>
+    <div class="source">
+      <a href="https://www.tachyontech.com/sap-s-4hana-migration-costs-in-2026-what-mid-market-enterprises-should-actually-budget/" target="_blank">Tachyon Technologies →</a>
+    </div>
+  </div>
+
+  <div class="meter-row">
+    <div class="indicator-name">Migration Eating Budgets</div>
+    <div class="gauge">
+      <div class="gauge-bar"><div class="gauge-fill amber" style="width:45%"></div></div>
+      <div class="gauge-label">+7 pts YoY</div>
+    </div>
+    <div class="reading">
+      Budget pressure up 7 points YoY; "<strong>migration is eating their budgets</strong>".
+    </div>
+    <div class="source">
+      <a href="https://www.cio.com/article/4170434/sap-customers-say-migration-is-eating-their-budgets-and-ai-is-next-in-line.html" target="_blank">ASUG via CIO →</a>
+    </div>
+  </div>
+
+  <div class="meter-row">
+    <div class="indicator-name">AI Rollout Reality</div>
+    <div class="gauge">
+      <div class="gauge-bar"><div class="gauge-fill red" style="width:10%"></div></div>
+      <div class="gauge-label">10%</div>
+    </div>
+    <div class="reading">
+      Only <strong>10% of SAP customers</strong> have achieved enterprise-scale AI rollout.
+    </div>
+    <div class="source">
+      <a href="https://www.cio.com/article/4170434/sap-customers-say-migration-is-eating-their-budgets-and-ai-is-next-in-line.html" target="_blank">ASUG via CIO →</a>
+    </div>
+  </div>
+
+  <div class="meter-row floor">
+    <div class="indicator-name">Stock Benchmark
+      <span class="tag">Context floor — where SAP wanted to be</span>
+    </div>
+    <div class="gauge">
+      <div class="gauge-bar"><div class="gauge-fill teal" style="width:40%"></div></div>
+      <div class="gauge-label">~50K target</div>
+    </div>
+    <div class="reading">
+      S/4HANA customer count would be <strong>~50,000 today if SAP's stated 33% YoY growth had held since 2018</strong>; last public number was ~20,000 in Q2 2022.
+    </div>
+    <div class="source">
+      <a href="https://www.linkedin.com/pulse/how-many-customers-s4-sap-isnt-saying-alex-thomas-72jlc" target="_blank">LinkedIn / Alex Thomas →</a>
+    </div>
+  </div>
+
+  <div class="meter-summary">
+    <strong>What the meter says:</strong> US mid-cap CIOs are stalling — and the projects that <em>are</em> moving are arriving late, over budget, and short of expectations. The wall isn't just at the front door of the upgrade decision. It's also inside the projects that already started. <strong>Roughly two-thirds of in-flight transformations are distressed. That's where SteelCloud helps most.</strong>
+  </div>
+</div>
+
+<h2>2. Three Classifications of Distressed Projects</h2>
+
+<div class="classifications">
+
+  <!-- Classification 1 -->
+  <div class="classification">
+    <div class="classification-header">
+      <div class="classification-number">Classification 1</div>
+      <div class="classification-name">Strategic Drift</div>
+      <div class="classification-tag">Loss of target image and stakeholder commitment</div>
+    </div>
+
+    <div class="classification-section">
+      <div class="classification-section-title">What's being counted</div>
+      <p>Projects where the original business case has eroded mid-flight. Measured by gap between expected and actual value, by attrition of executive sponsorship over the program lifecycle, and by retrospective regret about scope clarity.</p>
+    </div>
+
+    <div class="classification-section">
+      <div class="classification-section-title">Statistical evidence</div>
+      <span class="stat">
+        <span class="pct">73%</span> of executives: <strong>expected value significantly exceeded actual results</strong>
+        <span class="stat-source"><a href="https://www.horvath-partners.com/en/press/detail/companies-underestimate-the-challenges-of-the-sap-s-4hana-transformation" target="_blank">Horváth, May 2025 (200 executives, 6 countries)</a></span>
+      </span>
+      <span class="stat">
+        <span class="pct">68%</span>: <strong>stakeholder commitment drops noticeably</strong> as project progresses
+        <span class="stat-source"><a href="https://www.horvath-partners.com/en/press/detail/companies-underestimate-the-challenges-of-the-sap-s-4hana-transformation" target="_blank">Horváth, May 2025</a></span>
+      </span>
+      <span class="stat">
+        <span class="pct">30%</span>: <strong>wish project scope had been defined more clearly</strong>
+        <span class="stat-source"><a href="https://www.horvath-partners.com/en/press/detail/companies-underestimate-the-challenges-of-the-sap-s-4hana-transformation" target="_blank">Horváth, May 2025</a></span>
+      </span>
+    </div>
+
+    <div class="rescue">
+      <div class="rescue-label">EVE Rescue Motion</div>
+      <div class="rescue-text">EVE agents re-anchor the target image — replay the original business case, surface drift against it, restore executive sponsor visibility through DI CoE live-stream.</div>
+    </div>
+  </div>
+
+  <!-- Classification 2 -->
+  <div class="classification">
+    <div class="classification-header">
+      <div class="classification-number">Classification 2</div>
+      <div class="classification-name">Scope Overload</div>
+      <div class="classification-tag">Too many initiatives bolted onto the transformation</div>
+    </div>
+
+    <div class="classification-section">
+      <div class="classification-section-title">What's being counted</div>
+      <p>Projects where the S/4HANA transformation is carrying parallel programs — third-party system replacements, management-model redesign, digital tooling, AI initiatives — all on the same timeline. Measured by reported overload, by mid-flight scope/quality compromises, and by frequency of unresolved priority conflicts.</p>
+    </div>
+
+    <div class="classification-section">
+      <div class="classification-section-title">Statistical evidence</div>
+      <span class="stat">
+        <span class="pct red">78%</span> of respondents: <strong>too many topics integrated into the transformation</strong>
+        <span class="stat-source"><a href="https://www.horvath-partners.com/en/press/detail/study-shows-sap-s-4hana-transformations-rarely-go-as-planned-60-percent-exceed-budget-and-schedule-two-thirds-dissatisfied-with-result-quality" target="_blank">Horváth, April 2025</a></span>
+      </span>
+      <span class="stat">
+        <span class="pct">68%</span>: <strong>reduce scope or quality to meet schedule</strong>
+        <span class="stat-source"><a href="https://www.horvath-partners.com/en/press/detail/companies-underestimate-the-challenges-of-the-sap-s-4hana-transformation" target="_blank">Horváth, May 2025</a></span>
+      </span>
+      <span class="stat">
+        Parallel initiatives commonly bolted on: <strong>third-party system replacement, management-model redesign, AI tooling, digital foundations</strong>
+        <span class="stat-source"><a href="https://www.horvath-partners.com/en/press/detail/companies-underestimate-the-challenges-of-the-sap-s-4hana-transformation" target="_blank">Horváth, May 2025</a></span>
+      </span>
+    </div>
+
+    <div class="rescue">
+      <div class="rescue-label">EVE Rescue Motion</div>
+      <div class="rescue-text">EVE agents triage the program — must-have vs. nice-to-have, sequenced for delivery. Parallel initiatives get unbundled, not abandoned.</div>
+    </div>
+  </div>
+
+  <!-- Classification 3 -->
+  <div class="classification">
+    <div class="classification-header">
+      <div class="classification-number">Classification 3</div>
+      <div class="classification-name">Foundation Decay</div>
+      <div class="classification-tag">Data, change, and resource debt accumulating under the surface</div>
+    </div>
+
+    <div class="classification-section">
+      <div class="classification-section-title">What's being counted</div>
+      <p>Projects where the visible work is moving, but the foundations underneath — master data quality, change-management adoption, resource adequacy — are eroding. Measured by reported budget/resource tightness, by data quality incidents, and by post-go-live adoption shortfall.</p>
+    </div>
+
+    <div class="classification-section">
+      <div class="classification-section-title">Statistical evidence</div>
+      <span class="stat">
+        <span class="pct red">73%</span> of managers: <strong>budget and resources are generally too tight</strong>
+        <span class="stat-source"><a href="https://www.horvath-partners.com/en/press/detail/companies-underestimate-the-challenges-of-the-sap-s-4hana-transformation" target="_blank">Horváth, May 2025</a></span>
+      </span>
+      <span class="stat">
+        Data quality is a <strong>top failure root cause</strong>; legacy data carries forward into the new system and erodes user trust
+        <span class="stat-source"><a href="https://www.prosci.com/blog/why-do-erp-implementations-fail" target="_blank">Prosci research</a></span>
+      </span>
+      <span class="stat">
+        Change management is the <strong>"single biggest failure point"</strong> for ERP projects (Deloitte); human factors matter <strong>6× more</strong> than technical factors
+        <span class="stat-source"><a href="https://www.prosci.com/blog/why-do-erp-implementations-fail" target="_blank">Prosci</a> · <a href="https://www.velosio.com/blog/change-management-mistakes-that-undermine-erp-implementation/" target="_blank">Velosio / Deloitte</a></span>
+      </span>
+    </div>
+
+    <div class="rescue">
+      <div class="rescue-label">EVE Rescue Motion</div>
+      <div class="rescue-text">EVE agents stand up the data quality, change management, and resource governance layer — the work the SI didn't budget for. Classified dataset hardens with every engagement.</div>
+    </div>
+  </div>
+
+</div>
+
+<h2>3. The DI CoE Deployment — Pyramid Formation, Human in the Loop</h2>
+<div class="pyramid-wrap">
+
+  <div class="pyramid">
+    <div class="pyramid-tier apex">
+      <span class="tier-label">Apex</span>
+      <span class="tier-role">Senior Architect</span>
+      <span class="tier-cadence">~1 hour/day · recorded · intense</span>
+    </div>
+    <div class="pyramid-tier t2">
+      <span class="tier-label">Tier 2</span>
+      <span class="tier-role">Solution Architects</span>
+      <span class="tier-cadence">SAP DNA · BDC builders · inside perimeter</span>
+    </div>
+    <div class="pyramid-tier t3">
+      <span class="tier-label">Tier 3</span>
+      <span class="tier-role">Domain Engineers</span>
+      <span class="tier-cadence">Datasphere · SAC · ACDOCA · BW · integration</span>
+    </div>
+    <div class="pyramid-tier t4">
+      <span class="tier-label">Tier 4</span>
+      <span class="tier-role">EVE Agents (DMZ-bound)</span>
+      <span class="tier-cadence">Capture · classify · surface · never act autonomously</span>
+    </div>
+    <div class="pyramid-base">
+      <strong>Capture layer:</strong> WhatsApp + Teams + Email inside the perimeter — every working session recorded, classified, and added to the operational dataset
+    </div>
+  </div>
+
+  <div class="pyramid-details">
+    <h3>How the pyramid runs a rescue</h3>
+
+    <div class="principle">
+      <span class="principle-name">Human in the loop at every decision node.</span>
+      <span class="principle-body">Agents capture, classify, and surface — they do not autonomously act on the engagement. Every meaningful decision is gated by a human at the appropriate tier.</span>
+    </div>
+
+    <div class="principle">
+      <span class="principle-name">Light touch at the apex, depth in the tiers.</span>
+      <span class="principle-body">The senior architect operates at ~1 hour/day in recorded, intense sessions. The pyramid below executes in the gaps. This is how a distressed project can move from intake to control in two weeks without parachuting a 15-person SI team.</span>
+    </div>
+
+    <div class="principle">
+      <span class="principle-name">Capture into a perimeter we own.</span>
+      <span class="principle-body">All sessions are captured inside the DMZ-bound perimeter (WhatsApp / Teams / Email). Phone, SMS, and LinkedIn DMs sit outside by design. Customer data does not leak into third-party model training.</span>
+    </div>
+
+    <div class="principle">
+      <span class="principle-name">Classified-data accumulation.</span>
+      <span class="principle-body">Captured engagement data — patterns, decisions, escalations, root-cause traces — is classified and added to SteelCloud's operational dataset. The corpus hardens with every engagement.</span>
+    </div>
+
+    <div class="principle">
+      <span class="principle-name">Strategic-component automation as the corpus matures.</span>
+      <span class="principle-body">Once a recurring rescue pattern has been captured at sufficient density, the strategic component that recognizes it can be automated — narrowing the pyramid over time as agents absorb validated patterns. Humans stay in the loop on every new pattern.</span>
+    </div>
+
+    <div class="pyramid-callout">
+      <strong>Precondition for a rescue engagement:</strong> appropriate access to materials and people. <strong>Two-week intake-to-control</strong> target. <strong>~1 hour/day</strong> of senior-architect time. <strong>Recorded sessions, inside the perimeter, every time.</strong>
+    </div>
+  </div>
+
+</div>
+
+<h2>4. Methodology — How the Numbers Were Collected</h2>
+<div class="methodology">
+  <h3>Source profiles and statistical composition</h3>
+  <table>
+    <tr>
+      <th>Source</th>
+      <th>Type of study</th>
+      <th>Sample / scope</th>
+      <th>What it measures</th>
+    </tr>
+    <tr>
+      <td><a href="https://www.horvath-partners.com/en/press/detail/study-shows-sap-s-4hana-transformations-rarely-go-as-planned-60-percent-exceed-budget-and-schedule-two-thirds-dissatisfied-with-result-quality" target="_blank">Horváth, April 2025</a></td>
+      <td>Executive survey by management consultancy</td>
+      <td>200 top executives across 6 countries who have completed or are running S/4HANA transformations</td>
+      <td>Budget overruns, schedule overruns, result quality, scope integration</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.horvath-partners.com/en/press/detail/companies-underestimate-the-challenges-of-the-sap-s-4hana-transformation" target="_blank">Horváth, May 2025 (follow-up)</a></td>
+      <td>Follow-up survey, same methodology</td>
+      <td>Same population, deeper questions on root causes</td>
+      <td>Strategic drift, stakeholder commitment loss, resource tightness, scope clarity regret</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.theregister.com/2025/03/20/sap_sees_little_progress_in/" target="_blank">Gartner (via The Register)</a></td>
+      <td>SAP migration tracking research</td>
+      <td>Worldwide SAP ECC installed base (~35,000 customers)</td>
+      <td>License purchase rate for S/4HANA as percentage of ECC base</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.riministreet.com/blog/what-sap-customers-are-really-doing-and-why-it-matters/" target="_blank">Rimini Street</a></td>
+      <td>Industry analyst aggregation</td>
+      <td>Compiles multiple analyst sources on conversion pace</td>
+      <td>Year-over-year migration rate, 2027 deadline projections</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.cio.com/article/4170434/sap-customers-say-migration-is-eating-their-budgets-and-ai-is-next-in-line.html" target="_blank">ASUG (via CIO)</a></td>
+      <td>User group benchmark research</td>
+      <td>ASUG member organizations; AI study included 142 members surveyed Feb 2026 with Microsoft and Intel</td>
+      <td>Budget pressure YoY, S/4HANA adoption rate, enterprise-scale AI rollout rate</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.prnewswire.com/news-releases/new-research-reveals-sap-s4hana-migration-momentum-despite-ongoing-automation-challenges-302603235.html" target="_blank">Precisely + ASUG, Nov 2025</a></td>
+      <td>Joint vendor/user-group survey</td>
+      <td>ASUG member organizations</td>
+      <td>Automation adoption rate, migration progress, process complexity</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.tachyontech.com/sap-s-4hana-migration-costs-in-2026-what-mid-market-enterprises-should-actually-budget/" target="_blank">Tachyon Technologies, March 2026</a></td>
+      <td>Mid-market consulting cost analysis</td>
+      <td>SAP consulting market sizing and rate analysis</td>
+      <td>Consulting rate inflation 2026–27, talent pool constraints</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.prosci.com/blog/why-do-erp-implementations-fail" target="_blank">Prosci research</a></td>
+      <td>Change management research firm</td>
+      <td>Multi-year ERP implementation studies</td>
+      <td>Root causes of ERP failure, human vs. technical factor weighting</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.velosio.com/blog/change-management-mistakes-that-undermine-erp-implementation/" target="_blank">Velosio (citing Deloitte)</a></td>
+      <td>Practitioner analysis citing Deloitte research</td>
+      <td>Cross-industry ERP implementations</td>
+      <td>Change management as primary failure point</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.scmchamps.com/blog/challenges-faced-during-sap-implementations/" target="_blank">SCM Champs / industry analysts</a></td>
+      <td>Practitioner aggregation of industry analyst data</td>
+      <td>US SAP implementations</td>
+      <td>Overall ERP failure rate to deliver promised benefits</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.linkedin.com/pulse/how-many-customers-s4-sap-isnt-saying-alex-thomas-72jlc" target="_blank">LinkedIn / Alex Thomas, May 2025</a></td>
+      <td>Industry commentator analysis of SAP-reported data</td>
+      <td>SAP quarterly financial reports through Q2 2022</td>
+      <td>Reconstructs S/4HANA customer count and projects against SAP's stated 33% YoY growth assumption</td>
+    </tr>
+  </table>
+</div>
+
+<div class="methodology">
+  <h3>How the Chatter Meter is intended to be read</h3>
+  <p style="margin: 8px 0 0 0; color: var(--text);">
+    The meter is ordered top-to-bottom by strategic priority — not by statistical weight. The <strong>conversion rate</strong> sits at the top because it is the single number SAP North America is measured against. <strong>Distressed projects</strong> sits directly underneath because it is the headline number for in-flight remediation, where SteelCloud's rescue motion applies. Supporting indicators are layered below in order of cause-and-effect proximity: failure pattern, automation plateau, pace, consulting cost, budget pressure, AI rollout. The <strong>stock benchmark</strong> at the bottom is a context floor — it is what SAP S/4HANA's installed base would have looked like if growth had held to SAP's stated 33% YoY trajectory from 2018, which it visibly has not.
+  </p>
+</div>
+
+<footer>
+  SteelCloud Chatter Meter · May 2026 · All citations point to publicly accessible primary or secondary sources. No EVE-internal or SteelCloud-internal data is used. Intended for SAP North America channel-partner discussions.
+</footer>
+
+</body>
+</html>
