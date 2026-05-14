@@ -3,15 +3,156 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EVE — Post-Sapphire Sample Summary</title>
+    <meta name="description" content="EVE Glyph applied to the integration of nuclear human safety protocols into a sovereign-AI decision-intelligence model. Sample summary published as a time-stamped record of authorship and intent." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
-    <title>EVE Hyperloop Monitor</title>
-    <meta name="description" content="EVE Hyperloop Monitor — Pour le bien-être du peuple." />
-    <script type="module" crossorigin src="./assets/index-D5fH_AM_.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DWwtbnVx.css">
+    <style>
+      :root{
+        --bg:#0b0d10;
+        --bg-elev:#13161b;
+        --bg-card:#161a20;
+        --fg:#e6ebf5;
+        --fg-muted:#9aa3b2;
+        --fg-soft:#6c7587;
+        --border:#262b34;
+        --border-soft:#1c2027;
+        --accent:#d97e2f;
+        --accent-soft:#e8a468;
+        --green:#5f9e6e;
+        --amber:#caa14b;
+        --serif:Georgia,"Times New Roman",serif;
+        --sans:Inter,system-ui,-apple-system,sans-serif;
+        --mono:"JetBrains Mono",ui-monospace,monospace;
+      }
+      *{box-sizing:border-box}
+      html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
+      a{color:var(--accent-soft);text-decoration:none;border-bottom:1px solid rgba(232,164,104,.3)}
+      a:hover{border-bottom-color:var(--accent-soft)}
+      .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+      header.top{display:flex;gap:20px;align-items:center;padding-bottom:28px;border-bottom:1px solid var(--border);margin-bottom:36px}
+      .glyph{width:64px;height:64px;flex-shrink:0;border-radius:6px;overflow:hidden;background:#0a0c10;border:1px solid var(--border-soft)}
+      .glyph img{width:100%;height:100%;object-fit:cover;display:block}
+      .brand h1{font-family:Oswald,sans-serif;font-weight:700;font-size:26px;letter-spacing:.02em;line-height:1.1;margin:0 0 6px 0;color:var(--fg)}
+      .brand .tagline{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--fg-muted);margin:0}
+      .stamp{margin-left:auto;text-align:right;font-family:var(--mono);font-size:11px;color:var(--fg-soft);line-height:1.5}
+      .stamp .stamp-label{display:block;text-transform:uppercase;letter-spacing:.08em;color:var(--fg-soft);font-size:10px;margin-bottom:2px}
+      section{margin-bottom:44px}
+      h2{font-family:Oswald,sans-serif;font-weight:600;font-size:18px;letter-spacing:.04em;text-transform:uppercase;color:var(--fg);margin:0 0 14px 0;padding-bottom:8px;border-bottom:1px solid var(--border-soft)}
+      h3{font-family:var(--sans);font-weight:600;font-size:15px;color:var(--fg);margin:24px 0 8px 0}
+      p{margin:0 0 14px 0;font-size:15.5px;color:var(--fg)}
+      p.lede{font-size:17px;color:var(--fg);line-height:1.6}
+      .muted{color:var(--fg-muted)}
+      .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0 8px 0}
+      @media (max-width:640px){.grid{grid-template-columns:1fr} header.top{flex-wrap:wrap} .stamp{margin-left:0;text-align:left;width:100%}}
+      .cap{background:var(--bg-card);border:1px solid var(--border-soft);border-left:3px solid var(--accent);border-radius:6px;padding:14px 16px}
+      .cap-title{font-family:Oswald,sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:6px}
+      .cap-body{font-size:14px;color:var(--fg);line-height:1.5}
+      .sample-band{background:linear-gradient(180deg,rgba(217,126,47,.06),rgba(217,126,47,.0));border:1px solid var(--border);border-radius:8px;padding:22px 22px;margin:8px 0 16px 0}
+      .sample-band .kicker{font-family:Oswald,sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:8px}
+      .sample-band h3{margin-top:0}
+      .cta{display:inline-block;background:var(--accent);color:#11151a;font-weight:600;font-family:Oswald,sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:10px 16px;border-radius:5px;border-bottom:none;margin-top:8px}
+      .cta:hover{background:var(--accent-soft);border-bottom:none}
+      ul.tight{margin:0 0 14px 18px;padding:0}
+      ul.tight li{font-size:15px;color:var(--fg);margin-bottom:6px}
+      footer.foot{margin-top:60px;padding-top:24px;border-top:1px solid var(--border);font-size:12.5px;color:var(--fg-soft);font-family:var(--mono);line-height:1.6}
+      footer.foot a{color:var(--fg-muted)}
+      .links-row{display:flex;flex-wrap:wrap;gap:18px;margin-top:10px}
+      .links-row a{color:var(--accent-soft)}
+      blockquote.attest{margin:18px 0;padding:14px 18px;border-left:2px solid var(--accent);background:rgba(217,126,47,.04);font-family:var(--serif);font-style:italic;color:var(--fg);font-size:15.5px}
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div class="wrap">
+      <header class="top">
+        <div class="glyph"><img src="./assets/eve-glyph-CLvHhd6w.jpg" alt="EVE digital stem cell glyph by Dany Theriault" /></div>
+        <div class="brand">
+          <h1>EVE — Post-Sapphire Sample Summary</h1>
+          <p class="tagline">Pour le bien-être du peuple.</p>
+        </div>
+        <div class="stamp">
+          <span class="stamp-label">Published</span>
+          14 May 2026<br />Time-stamped record
+        </div>
+      </header>
+
+      <section>
+        <p class="lede">This page is a sample summary of the EVE glyph applied for the purpose of <strong>integrating nuclear human safety protocols into our decision-intelligence model</strong>. It is published as a time-stamped record of authorship and intent, following the SAP Sapphire 2026 conference. The dashboard at the foot of the page is the worked example.</p>
+        <p>EVE is a research project on classification-led decision intelligence. Its operating premise is that the durable asset in any human-supervised AI deployment is the <em>classified base</em> the institution owns, not the model that operates on it. The framework's role is to keep that asset on the institution's side of the perimeter — capitalisable, regulator-defensible, and protected by an operator-side non-retention guarantee — while the model layer modernises over time on the operator's side.</p>
+        <p>Applied to nuclear-adjacent governance, the same architecture produces a dashboard-shaped consumption surface that fits inside existing control-system protocols. The governing body inspects, the institution owns, the operator carries the labour. No new genre. No new oversight regime. The pattern slides into the seat the regulator already knows how to sit in.</p>
+      </section>
+
+      <section>
+        <h2>Capability Outline</h2>
+        <div class="grid">
+          <div class="cap">
+            <div class="cap-title">Classification Membrane</div>
+            <div class="cap-body">A structured layer that captures streams from the watched system — telemetry, recurring meetings, incident records, supplier exchanges — and classifies them inside a perimeter the institution owns. The classified base is the asset; the membrane is how it accrues.</div>
+          </div>
+          <div class="cap">
+            <div class="cap-title">Probability-Gated Escalation</div>
+            <div class="cap-body">Readings are reported as levels with explicit ignition probability. Escalation across thresholds requires both contextual signal and market or operational confirmation. No single-source alerting. No emergency framing absent corroborating evidence.</div>
+          </div>
+          <div class="cap">
+            <div class="cap-title">Industry-Agnostic Dashboard</div>
+            <div class="cap-body">The dashboard pattern is substrate-independent. Today's worked example watches SAP vendor-lock-in dynamics in the sovereign-AI era. The same pattern wraps reactor margin, grid stability, AI deployment density in critical infrastructure, or any other watched system the governing body chooses to point it at.</div>
+          </div>
+          <div class="cap">
+            <div class="cap-title">Cellular-Disarming Deployment</div>
+            <div class="cap-body">Each deployed instance is detachable from the operator without functional loss to the institution. No phone-home. No licensing leash. No retained rights on the classified base. The institution holds the off-switch — at year ten of asset life, not just at signing.</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Integrating Nuclear Human Safety Protocols</h2>
+        <p>Nuclear governance is the modern template that has successfully kept a dual-use technology operating under public-interest constraints over multi-decade horizons. Its operating elements — independent regulator with statutory authority, peer-reviewed evidence, cautious approval rather than market enablement, dashboard-shaped consumption surfaces in control rooms, and audit trails that survive personnel turnover — are precisely the elements a sovereign-AI oversight regime needs.</p>
+        <p>EVE does not propose a new governance body. It proposes that the dashboard pattern shown below is the consumption surface a nuclear-style governing body can use to extend its existing confidence across industries that today have no equivalent oversight. The governing body's confidence is the asset; the dashboard pattern is the carrier.</p>
+        <blockquote class="attest">The dashboard pattern is the seat the regulator already knows how to sit in. The institution owns the base. The operator carries the labour. The confidence properties survive the migration from one industry to the next.</blockquote>
+        <h3>What this means in practice</h3>
+        <ul class="tight">
+          <li>Human safety protocols from nuclear governance are inherited as classification rules inside the membrane, not bolted on as policy</li>
+          <li>Escalation logic mirrors control-room conventions — probability-gated, evidence-backed, audit-trailed, conservative by default</li>
+          <li>The governing body retains all rights of use over the classified base accrued under its remit</li>
+          <li>Operator-side non-retention is structural, not contractual — see <a href="./terms.html">Terms of Use</a> §3.5</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Worked Example</h2>
+        <div class="sample-band">
+          <div class="kicker">Sample dashboard · live instance</div>
+          <h3>EVE Hyperloop Monitor — SAP Vendor-Lock-In Dynamics</h3>
+          <p>The dashboard below is one instance of the pattern, applied today to SAP vendor-lock-in dynamics in the sovereign-AI era. It is the worked example referenced throughout this page. The same dashboard, with classification rules adjusted, wraps any watched system the governing body chooses to extend its confidence to.</p>
+          <p class="muted" style="margin-bottom:14px">Read it as a draft of what a governing body's own dashboard could look like, not as a product pitch.</p>
+          <a class="cta" href="./monitor.html">Open the worked example →</a>
+        </div>
+      </section>
+
+      <section>
+        <h2>Governance Posture</h2>
+        <p>The framework is dashboard-shaped, fits inside existing control-system consumption, and does not require the governing body to learn a new genre of oversight. Each instance preserves the governing body's confidence properties: independent inspection, probability-gated escalation, evidence-backed readings, audit trails, and full institutional ownership of the classified base accrued under its remit.</p>
+        <p>This pattern extends across industries. Confidence properties are preserved. The dashboard becomes the governing body's.</p>
+      </section>
+
+      <section>
+        <h2>Related Material</h2>
+        <ul class="tight">
+          <li><a href="./monitor.html">EVE Hyperloop Monitor</a> — sample dashboard, SAP vendor-lock-in worked example</li>
+          <li><a href="./projection.html">DI Framework Projection</a> — the pyramid as a projection of the underlying decision-intelligence framework</li>
+          <li><a href="./terms.html">Terms of Use</a> — rights of use, assignment, operator-side non-retention</li>
+        </ul>
+      </section>
+
+      <footer class="foot">
+        <div>© 2026 Dany Theriault. EVE "digital stem cell" glyph and glyph-based design principles — all rights reserved. Stewardship of rights of use and assignment for large public and institutional usage rests with the Pacific Utilities Design Council. Published as a time-stamped record of authorship and intent.</div>
+        <div class="links-row">
+          <a href="./monitor.html">Worked example</a>
+          <a href="./projection.html">DI framework projection</a>
+          <a href="./terms.html">Terms of use</a>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>
