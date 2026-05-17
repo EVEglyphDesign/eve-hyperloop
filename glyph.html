@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EVE Glyph — Geometry and Colour Register</title>
+    <meta name="description" content="EVE Glyph achromatic geometry with the colour register surfaced on hover. The glyph is achromatic; colours live in the guidance system only." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      /* === EVE Glyph — Geometry and Colour Register ==========================
+         Canon discipline:
+           1. The painted glyph stays ACHROMATIC. The image is grayscale and
+              never has colour drawn onto it.
+           2. The colour register lives in the GUIDANCE SYSTEM ONLY — surfaced
+              on hover, in chips that float outside the painted glyph.
+           3. Each geometric feature has an invisible hit-target overlaid in
+              its true position. Hovering reveals the register chip; leaving
+              hides it again.
+           4. The bifurcation chord (where the half-circle's flat top meets
+              the triangle's base) gets a dedicated hover for the OVERALL
+              EFFECT — how the register composes into the umbrella.
+
+         Register (per Turn 67, 2026-05-17 04:31 UTC, canonical):
+           · navy / dark blue      = past · soil               (where we grew from)
+           · red                   = future · truth            (where velocity points)
+           · orange                = velocity vector           (past → future arc)
+           · purple                = HCP lattice               (three-seat connection lines)
+           · green                 = decision intelligence     (merged human + machine, NO WIRES)
+           · baby blue             = ARK vessel                (EVE Glyph Design protocol standard, patent pending)
+         ====================================================================== */
+      :root{
+        --bg:#0b0d10;
+        --bg-elev:#13161b;
+        --bg-card:#161a20;
+        --fg:#e6ebf5;
+        --fg-muted:#9aa3b2;
+        --fg-soft:#6c7587;
+        --border:#262b34;
+        --border-soft:#1c2027;
+        --accent:#d97e2f;
+        --accent-soft:#e8a468;
+
+        /* Register colours — used ONLY in hover chips, never painted on the glyph */
+        --reg-past:#3a7bd5;       /* navy · past / soil */
+        --reg-future:#d7464b;     /* red · future / truth */
+        --reg-velocity:#ee8b3c;   /* orange · velocity vector */
+        --reg-hcp:#7c5ce0;        /* purple · HCP lattice */
+        --reg-di:#3fb27f;         /* green · decision intelligence */
+        --reg-ark:#7fc4e8;        /* baby blue · ARK protocol standard */
+
+        --serif:Georgia,"Times New Roman",serif;
+        --sans:Inter,system-ui,-apple-system,sans-serif;
+        --mono:"JetBrains Mono",ui-monospace,monospace;
+      }
+      *{box-sizing:border-box}
+      html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
+      a{color:var(--accent-soft);text-decoration:none;border-bottom:1px solid rgba(232,164,104,.3)}
+      a:hover{border-bottom-color:var(--accent-soft)}
+      .wrap{max-width:1180px;margin:0 auto;padding:32px 24px 64px}
+
+      header.top{display:flex;gap:20px;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--border);margin-bottom:28px;flex-wrap:wrap}
+      .crest{width:56px;height:56px;flex-shrink:0;border-radius:6px;overflow:hidden;background:#0a0c10;border:1px solid var(--border-soft);filter:grayscale(1)}
+      .crest img{width:100%;height:100%;object-fit:cover;display:block}
+      .brand h1{font-family:Oswald,sans-serif;font-weight:700;font-size:22px;letter-spacing:.02em;line-height:1.1;margin:0 0 5px 0;color:var(--fg)}
+      .brand .tagline{font-family:var(--serif);font-style:italic;font-size:13.5px;color:var(--fg-muted);margin:0}
+      .home-link{margin-left:auto;font-family:Oswald,sans-serif;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-muted);padding:7px 12px;border:1px solid var(--border);border-radius:4px}
+      .home-link:hover{color:var(--accent-soft);border-color:var(--accent)}
+
+      .intro{margin:0 0 22px 0;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--fg-muted);text-align:center;line-height:1.6}
+      .intro strong{color:var(--accent-soft);font-weight:600}
+
+      /* === The stage =====================================================
+         A single, generous canvas. The painted glyph image sits centered and
+         large; an overlay SVG carries the invisible hit-targets in their
+         exact geometric positions. */
+      .stage{position:relative;width:100%;max-width:780px;margin:0 auto;aspect-ratio:1/1;background:#0a0c10;border:1px solid var(--border-soft);border-radius:8px;overflow:visible}
+
+      /* The painted glyph — strictly achromatic. Grayscale filter enforced
+         even if the underlying jpeg has any colour cast. */
+      .stage .painted{position:absolute;inset:6%;display:flex;align-items:center;justify-content:center}
+      .stage .painted img{width:100%;height:100%;object-fit:contain;display:block;filter:grayscale(1) contrast(1.02);border-radius:3px}
+
+      /* Hit-targets overlay. SVG occupies the same 88% inset as the painted
+         image so coordinates map 1:1 against the printed geometry. */
+      .hits{position:absolute;inset:6%;width:88%;height:88%;pointer-events:none;z-index:3}
+      .hits .hit{pointer-events:auto;fill:transparent;stroke:transparent;cursor:help;transition:stroke .15s ease, fill .15s ease}
+      /* Faint resting state — operator sees a thin guide ring on each hit zone */
+      .hits .hit{stroke:rgba(232,164,104,.18);stroke-width:1;stroke-dasharray:2 4}
+      .hits .hit:hover, .hits .hit:focus{outline:none}
+
+      /* === The MICROCHIP callout — surfaces only on hover/focus, anchored
+         OFF-glyph. Each feature has its own chip placed in clear space (top/
+         right/bottom/left of the painted image). Styled as a DIP / IC package:
+         dark substrate body, mono part-number label up top, register colour
+         appears ONLY as the silk-screen accent stripe and the indicator notch.
+         The colour never touches the painted glyph. */
+      .chip{position:absolute;z-index:5;
+            background:linear-gradient(180deg,#181c22 0%,#0e1116 100%);
+            border:1px solid #2a3038;
+            border-radius:4px;
+            padding:18px 14px 13px 14px;
+            width:236px;
+            font-family:var(--sans);font-size:12.5px;line-height:1.45;color:var(--fg);
+            box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 0 0 1px rgba(0,0,0,.4), 0 14px 36px rgba(0,0,0,.78);
+            opacity:0;pointer-events:none;transform:translateY(-3px);
+            transition:opacity .16s ease, transform .16s ease}
+      .chip.show{opacity:1;transform:translateY(0);pointer-events:auto}
+
+      /* Microchip body details — top notch, corner pin-1 dot, side leads */
+      .chip::before{
+        /* indicator notch at top centre */
+        content:"";position:absolute;top:-1px;left:50%;transform:translateX(-50%);
+        width:18px;height:7px;
+        background:#0b0d10;
+        border:1px solid #2a3038;border-top:none;
+        border-bottom-left-radius:9px;border-bottom-right-radius:9px;
+      }
+      .chip::after{
+        /* pin-1 dot (silk-screen orientation marker) */
+        content:"";position:absolute;top:6px;left:8px;
+        width:5px;height:5px;border-radius:50%;
+        background:var(--fg-soft);opacity:.7;
+      }
+      /* Pin-leads — short bars along left + right edges of the chip body */
+      .chip .leads{position:absolute;top:14px;bottom:10px;width:4px;pointer-events:none}
+      .chip .leads.l{left:-4px}
+      .chip .leads.r{right:-4px}
+      .chip .leads span{display:block;width:4px;height:5px;margin-bottom:6px;background:#3b424d;border-radius:1px}
+
+      .chip .reg-label{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.22em;margin-bottom:6px;color:var(--fg-soft);display:flex;align-items:center;gap:6px}
+      .chip .reg-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:1px;background:currentColor;opacity:.85}
+      .chip .reg-name{font-family:Oswald,sans-serif;font-size:13.5px;font-weight:600;color:var(--fg);margin-bottom:5px;letter-spacing:.02em}
+      .chip .reg-body{color:var(--fg-muted);font-size:11.5px;line-height:1.5}
+      .chip .reg-body em{font-family:var(--serif);font-style:italic;color:var(--accent-soft)}
+      /* The silk-screen accent stripe — a thin band along the bottom edge.
+         This is the ONLY painted register colour on the chip body. */
+      .chip .stripe{position:absolute;left:10px;right:10px;bottom:6px;height:2px;background:var(--fg-soft);border-radius:1px;opacity:.85}
+
+      /* Per-chip placement and per-register colour-bar (the ONLY place colour
+         appears — strictly off-glyph, strictly as guidance, never on the
+         painted geometry). */
+      #chip-past{top:62%;left:-266px}
+      #chip-past .reg-label{color:var(--reg-past)} #chip-past .stripe{background:var(--reg-past)}
+      #chip-future{top:8%;right:-266px}
+      #chip-future .reg-label{color:var(--reg-future)} #chip-future .stripe{background:var(--reg-future)}
+      #chip-velocity{top:-118px;left:50%;transform:translate(-50%,-3px);width:306px}
+      #chip-velocity.show{transform:translate(-50%,0)}
+      #chip-velocity .reg-label{color:var(--reg-velocity)} #chip-velocity .stripe{background:var(--reg-velocity)}
+      #chip-hcp{top:35%;left:-266px}
+      #chip-hcp .reg-label{color:var(--reg-hcp)} #chip-hcp .stripe{background:var(--reg-hcp)}
+      #chip-di{top:42%;right:-266px}
+      #chip-di .reg-label{color:var(--reg-di)} #chip-di .stripe{background:var(--reg-di)}
+      #chip-ark{bottom:-138px;left:50%;transform:translate(-50%,-3px);width:306px}
+      #chip-ark.show{transform:translate(-50%,0)}
+      #chip-ark .reg-label{color:var(--reg-ark)} #chip-ark .stripe{background:var(--reg-ark)}
+
+      /* The bifurcation hover — this one is special. It rides along the
+         half-circle's chord (the horizon between truth-above and darkness-
+         below) and reveals the OVERALL EFFECT of the register, not a single
+         feature. Chip is wide, sits below the stage, and carries no single
+         register colour — it carries the umbrella's accent (ochre) because
+         it is the COMPOSITION of all six registers. */
+      #chip-bifurcation{bottom:-198px;left:50%;transform:translate(-50%,-3px);width:564px}
+      #chip-bifurcation.show{transform:translate(-50%,0)}
+      #chip-bifurcation .reg-label{color:var(--accent-soft)}
+      #chip-bifurcation .reg-body{font-size:12px}
+      #chip-bifurcation .stripe{background:linear-gradient(90deg,var(--reg-past) 0%,var(--reg-hcp) 20%,var(--reg-velocity) 40%,var(--reg-future) 60%,var(--reg-di) 80%,var(--reg-ark) 100%)}
+
+      /* === Legend strip — visible at the foot of the page for those who want
+         to read the register without hovering. Same canon: colours live OFF
+         the glyph. */
+      .legend{margin:140px auto 0;max-width:1100px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding-top:32px;border-top:1px solid var(--border)}
+      /* Legend tiles share the microchip vocabulary (notch, pin-1 dot, leads,
+         silk-screen stripe). Same canon: colour is silk-screen only. */
+      .legend .lg{position:relative;padding:18px 14px 14px 14px;background:linear-gradient(180deg,#181c22 0%,#0e1116 100%);border:1px solid #2a3038;border-radius:4px;box-shadow:0 1px 0 rgba(255,255,255,.04) inset}
+      .legend .lg::before{content:"";position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:18px;height:7px;background:#0b0d10;border:1px solid #2a3038;border-top:none;border-bottom-left-radius:9px;border-bottom-right-radius:9px}
+      .legend .lg::after{content:"";position:absolute;top:6px;left:8px;width:5px;height:5px;border-radius:50%;background:var(--fg-soft);opacity:.7}
+      .legend .lg .lk{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.22em;margin-bottom:6px;color:var(--fg-soft);display:flex;align-items:center;gap:6px}
+      .legend .lg .lk::before{content:"";display:inline-block;width:6px;height:6px;border-radius:1px;background:currentColor;opacity:.85}
+      .legend .lg .ln{font-family:Oswald,sans-serif;font-size:13px;font-weight:600;color:var(--fg);margin-bottom:4px;letter-spacing:.02em}
+      .legend .lg .lb{font-size:11.5px;color:var(--fg-muted);line-height:1.5;margin-bottom:8px}
+      .legend .lg .lstripe{position:absolute;left:10px;right:10px;bottom:6px;height:2px;border-radius:1px;background:var(--fg-soft);opacity:.85}
+      .legend .lg-past .lk{color:var(--reg-past)} .legend .lg-past .lstripe{background:var(--reg-past)}
+      .legend .lg-future .lk{color:var(--reg-future)} .legend .lg-future .lstripe{background:var(--reg-future)}
+      .legend .lg-velocity .lk{color:var(--reg-velocity)} .legend .lg-velocity .lstripe{background:var(--reg-velocity)}
+      .legend .lg-hcp .lk{color:var(--reg-hcp)} .legend .lg-hcp .lstripe{background:var(--reg-hcp)}
+      .legend .lg-di .lk{color:var(--reg-di)} .legend .lg-di .lstripe{background:var(--reg-di)}
+      .legend .lg-ark .lk{color:var(--reg-ark)} .legend .lg-ark .lstripe{background:var(--reg-ark)}
+
+      .canon-note{max-width:1100px;margin:36px auto 0;padding:18px 20px;background:var(--bg-card);border:1px solid var(--border-soft);border-radius:6px;font-size:13px;color:var(--fg-muted);line-height:1.65}
+      .canon-note strong{color:var(--accent-soft);font-weight:600}
+
+      footer.foot{margin-top:48px;padding-top:22px;border-top:1px solid var(--border);font-size:12px;color:var(--fg-soft);font-family:var(--mono);line-height:1.6}
+      footer.foot a{color:var(--fg-muted)}
+
+      @media (max-width:1100px){
+        #chip-past, #chip-hcp{left:auto;right:0;top:auto;bottom:-110px}
+        #chip-future, #chip-di{right:auto;left:0;top:auto;bottom:-110px}
+        #chip-past, #chip-future, #chip-hcp, #chip-di{width:260px}
+      }
+      @media (max-width:760px){
+        .legend{grid-template-columns:1fr}
+        .stage{max-width:100%}
+        .chip{display:none}
+        .hits{display:none}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="top">
+        <div class="crest"><img src="./assets/eve-glyph-CLvHhd6w.jpg" alt="EVE digital stem cell glyph by Dany Theriault" /></div>
+        <div class="brand">
+          <h1>EVE Glyph — Geometry and Colour Register</h1>
+          <p class="tagline">The glyph is achromatic. Colour lives in the guidance system, never on the geometry.</p>
+        </div>
+        <a class="home-link" href="./" aria-label="Back to EVE Research home">← Home</a>
+      </header>
+
+      <p class="intro">
+        Hover any feature of the painted glyph to read its register meaning. The painted geometry stays grayscale —
+        colour is <strong>off-glyph guidance only</strong>, free to characterize enterprises, captures, or any other
+        domain without ever bleeding into the canonical glyph.
+      </p>
+
+      <div class="stage" id="stage" aria-label="EVE glyph with hover-only colour register">
+        <div class="painted">
+          <img src="./assets/eve-glyph-CLvHhd6w.jpg" alt="EVE digital stem cell glyph — achromatic" />
+        </div>
+
+        <!-- Hit-target overlay.
+             ViewBox is 1000x1000 to match the square stage. The painted image
+             inside the stage is itself ~94% wide (object-fit:contain centers
+             a square jpeg). Within that painted area:
+               - apex tip       at ~50% W, ~5%  H  → (500, 50)
+               - base-left      at ~21% W, ~80% H → (210, 800)
+               - base-right     at ~79% W, ~80% H → (790, 800)
+               - inner circle   center (500, 540), radius ~210
+               - half-circle vessel center (500, 800), radius ~285 (open up)
+               - chord (horizon) y=800
+             Hit-targets are placed precisely on each painted feature.
+             They are invisible (stroke transparent) but accept the pointer. -->
+        <svg class="hits" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="false">
+          <!-- PAST · the soil edge (lower-left side of the triangle, outside the inner circle) -->
+          <polygon class="hit" id="hit-past" points="210,800 350,520 350,800" data-chip="chip-past" tabindex="0" role="button" aria-label="Past · soil register"/>
+
+          <!-- FUTURE · the truth edge (upper-right vertex area, outside the inner circle) -->
+          <polygon class="hit" id="hit-future" points="500,50 650,520 500,300" data-chip="chip-future" tabindex="0" role="button" aria-label="Future · truth register"/>
+
+          <!-- VELOCITY · the past→future arc that sweeps across the upper triangle -->
+          <path class="hit" id="hit-velocity" d="M 250 540 Q 500 250, 760 540 L 760 580 Q 500 290, 250 580 Z" data-chip="chip-velocity" tabindex="0" role="button" aria-label="Velocity vector register"/>
+
+          <!-- HCP LATTICE · the three purple connection lines meeting at the centroid.
+               Three thin bands as one composite hit-target. -->
+          <path class="hit" id="hit-hcp"
+                d="M 290 760 L 510 545 L 730 760 L 500 90 L 500 545 Z"
+                data-chip="chip-hcp" tabindex="0" role="button" aria-label="HCP lattice register"/>
+
+          <!-- DECISION INTELLIGENCE · the centroid square at the heart of the inner circle -->
+          <rect class="hit" id="hit-di" x="470" y="515" width="60" height="60" data-chip="chip-di" tabindex="0" role="button" aria-label="Decision intelligence register"/>
+
+          <!-- ARK VESSEL · the half-circle below the chord -->
+          <path class="hit" id="hit-ark" d="M 215 800 A 285 285 0 0 0 785 800 Z" data-chip="chip-ark" tabindex="0" role="button" aria-label="ARK vessel register"/>
+
+          <!-- BIFURCATION · the chord itself (truth above / darkness below).
+               This is the OVERALL-EFFECT hover. -->
+          <rect class="hit" id="hit-bifurcation" x="180" y="790" width="640" height="22" data-chip="chip-bifurcation" tabindex="0" role="button" aria-label="Bifurcation chord — overall effect"/>
+        </svg>
+
+        <!-- Hover chips — one per register, plus the bifurcation overall-effect chip. -->
+        <div class="chip" id="chip-past" role="tooltip">
+          <span class="leads l"><span></span><span></span><span></span><span></span><span></span></span><span class="leads r"><span></span><span></span><span></span><span></span><span></span></span>
+          <div class="reg-label">EVE-IC · PAST-001</div>
+          <div class="reg-name">Soil · where we grew from</div>
+          <div class="reg-body">The left edge of the triangle. The substrate the work is rooted in — public-domain corpus, prior art, the geometry that predates the microchip. <em>Carried, not owned.</em></div>
+          <div class="stripe"></div>
+        </div>
+
+        <div class="chip" id="chip-future" role="tooltip">
+          <span class="leads l"><span></span><span></span><span></span><span></span><span></span></span><span class="leads r"><span></span><span></span><span></span><span></span><span></span></span>
+          <div class="reg-label">EVE-IC · FUT-002</div>
+          <div class="reg-name">Truth · where the velocity points</div>
+          <div class="reg-body">The right edge of the triangle. The destination the work travels toward — verified, watermarked, under the umbrella. <em>Not predicted. Specified, with consent.</em></div>
+          <div class="stripe"></div>
+        </div>
+
+        <div class="chip" id="chip-velocity" role="tooltip">
+          <span class="leads l"><span></span><span></span><span></span><span></span><span></span><span></span></span><span class="leads r"><span></span><span></span><span></span><span></span><span></span><span></span></span>
+          <div class="reg-label">EVE-IC · VEL-003</div>
+          <div class="reg-name">Past → future · the moving arrow</div>
+          <div class="reg-body">The sweep across the upper triangle. Past becomes future by passing through the present. The arrow carries the design forward; the chord keeps it accountable to where it came from.</div>
+          <div class="stripe"></div>
+        </div>
+
+        <div class="chip" id="chip-hcp" role="tooltip">
+          <span class="leads l"><span></span><span></span><span></span><span></span><span></span></span><span class="leads r"><span></span><span></span><span></span><span></span><span></span></span>
+          <div class="reg-label">EVE-IC · HCP-004</div>
+          <div class="reg-name">Three human control points</div>
+          <div class="reg-body">The purple lines connecting the three triangle vertices through the centroid. Apex (utility operator), base-left (individual), base-right (enterprise). Each seat holds the umbrella from its own corner. <em>Two-of-three is the quorum.</em></div>
+          <div class="stripe"></div>
+        </div>
+
+        <div class="chip" id="chip-di" role="tooltip">
+          <span class="leads l"><span></span><span></span><span></span><span></span><span></span></span><span class="leads r"><span></span><span></span><span></span><span></span><span></span></span>
+          <div class="reg-label">EVE-IC · DI-005</div>
+          <div class="reg-name">Merged human + machine · no wires</div>
+          <div class="reg-body">The centroid of the inner circle. Where the three HCP seats converge and where human judgment merges with machine inference. The geometry connects them — no wires required, no vendor mediation. <em>The lattice is the protocol.</em></div>
+          <div class="stripe"></div>
+        </div>
+
+        <div class="chip" id="chip-ark" role="tooltip">
+          <span class="leads l"><span></span><span></span><span></span><span></span><span></span><span></span></span><span class="leads r"><span></span><span></span><span></span><span></span><span></span><span></span></span>
+          <div class="reg-label">EVE-IC · ARK-006</div>
+          <div class="reg-name">EVE Glyph design protocol standard · patent pending</div>
+          <div class="reg-body">The half-circle below the chord. The vessel that carries the design under the copyright umbrella. Article I §8 cl. 8 — the same constitutional umbrella as the US military. <em>The vessel is two-way: it pours back as freely as it fills.</em></div>
+          <div class="stripe"></div>
+        </div>
+
+        <div class="chip" id="chip-bifurcation" role="tooltip">
+          <span class="leads l"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span><span class="leads r"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+          <div class="reg-label">EVE-IC · UMB-000 · OVERALL EFFECT</div>
+          <div class="reg-name">The umbrella composed — truth above, darkness below</div>
+          <div class="reg-body">
+            The chord is the horizon. Above it: the triangle holds the velocity (past → future), the HCP lattice keeps the three seats accountable, and the centroid merges human + machine into decision intelligence. Below it: the ARK vessel carries everything the umbrella has covered — tokenized, time-stamped, reversible. <em>The whole register, composed, is the umbrella: open, durable, honest, free.</em>
+          </div>
+          <div class="stripe"></div>
+        </div>
+      </div>
+
+      <div class="legend" aria-label="Colour register reference">
+        <div class="lg lg-past"><div class="lk">EVE-IC · PAST-001</div><div class="ln">Where we grew from</div><div class="lb">Public-domain substrate. The corpus the work is rooted in.</div><div class="lstripe"></div></div>
+        <div class="lg lg-future"><div class="lk">EVE-IC · FUT-002</div><div class="ln">Where velocity points</div><div class="lb">Verified, watermarked destination under the umbrella.</div><div class="lstripe"></div></div>
+        <div class="lg lg-velocity"><div class="lk">EVE-IC · VEL-003</div><div class="ln">Past → future</div><div class="lb">The sweep that carries the design forward, accountable to its origin.</div><div class="lstripe"></div></div>
+        <div class="lg lg-hcp"><div class="lk">EVE-IC · HCP-004</div><div class="ln">Three human seats</div><div class="lb">Apex (utility), base-left (individual), base-right (enterprise). Two-of-three quorum.</div><div class="lstripe"></div></div>
+        <div class="lg lg-di"><div class="lk">EVE-IC · DI-005</div><div class="ln">Human + machine · no wires</div><div class="lb">The centroid where judgment and inference merge through geometry alone.</div><div class="lstripe"></div></div>
+        <div class="lg lg-ark"><div class="lk">EVE-IC · ARK-006</div><div class="ln">Protocol standard · patent pending</div><div class="lb">Half-circle below the chord. Two-way vessel under the copyright umbrella.</div><div class="lstripe"></div></div>
+      </div>
+
+      <div class="canon-note">
+        <strong>Canon discipline.</strong> The painted glyph is achromatic. The colour register lives in the guidance
+        system only — surfaced on hover, in chips that float off-glyph. This separation keeps the geometry pure as
+        a connector across substrates, and leaves the colour palette free to characterize enterprises, captures,
+        partner ecosystems, or any other domain without ever bleeding into the canonical glyph.
+      </div>
+
+      <footer class="foot">
+        <div>© 2026 Dany Theriault. EVE "digital stem cell" glyph and glyph-based design principles — all rights reserved. Stewardship of rights of use and assignment for large public and institutional usage rests with the Pacific Utilities Design Council. The EVE-IC microchip callout family (EVE-IC · PAST-001 · FUT-002 · VEL-003 · HCP-004 · DI-005 · ARK-006 · UMB-000) is part of the protected guidance system and travels under the same umbrella as the glyph. Published as a time-stamped record of authorship and intent.</div>
+        <div style="margin-top:8px;font-style:italic;font-family:var(--serif);color:var(--fg-muted)">Pour le bien-être du peuple.</div>
+      </footer>
+    </div>
+
+    <script>
+      // Hover/focus → show paired chip. Pointer leaves → hide. Keyboard
+      // focusable for accessibility. Only one chip at a time.
+      (function(){
+        var hits = document.querySelectorAll('.hits .hit');
+        var chips = document.querySelectorAll('.chip');
+        function hideAll(){ chips.forEach(function(c){ c.classList.remove('show'); }); }
+        hits.forEach(function(h){
+          var chipId = h.getAttribute('data-chip');
+          var chip = document.getElementById(chipId);
+          if (!chip) return;
+          function show(){ hideAll(); chip.classList.add('show'); }
+          function hide(){ chip.classList.remove('show'); }
+          h.addEventListener('mouseenter', show);
+          h.addEventListener('mouseleave', hide);
+          h.addEventListener('focus', show);
+          h.addEventListener('blur', hide);
+          // Touch fallback: tap toggles
+          h.addEventListener('click', function(e){ e.preventDefault(); chip.classList.toggle('show'); });
+        });
+        // Click outside the stage clears any sticky chip
+        document.addEventListener('click', function(e){
+          if (!e.target.closest('.stage')) hideAll();
+        });
+      })();
+    </script>
+  </body>
+</html>

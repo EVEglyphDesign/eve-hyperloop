@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EVE Glyph — Individual Onboarding · Learn · Test · Configure</title>
+    <meta name="description" content="Individual user route into a digital twin: a short intro education, a skill test, then a guided digital-twin configuration menu. Test pass-through with your team." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      /* === EVE Glyph · Individual Onboarding ================================
+         Three stages, one page so the team can walk it end-to-end:
+           1. LEARN     — short, glyph-honest intro to the canon
+           2. TEST      — six-question skill test gated against the register
+           3. CONFIGURE — guided digital-twin configuration menu
+
+         Canon discipline carried from /glyph.html:
+           · the painted glyph stays achromatic
+           · colour lives only in the GUIDANCE SYSTEM (microchip callouts,
+             silk-screen stripes), never on the geometry
+           · every callout is shaped as an EVE-IC microchip (notch, pin-1 dot,
+             pin-leads, mono part-number, silk-screen accent stripe)
+         ====================================================================== */
+      :root{
+        --bg:#0b0d10; --bg-elev:#13161b; --bg-card:#161a20;
+        --fg:#e6ebf5; --fg-muted:#9aa3b2; --fg-soft:#6c7587;
+        --border:#262b34; --border-soft:#1c2027;
+        --accent:#d97e2f; --accent-soft:#e8a468;
+        --ok:#3fb27f; --bad:#d7464b;
+
+        /* Register colours — silk-screen guidance only */
+        --reg-past:#3a7bd5;       /* navy · past / soil */
+        --reg-future:#d7464b;     /* red · future / truth */
+        --reg-velocity:#ee8b3c;   /* orange · velocity */
+        --reg-hcp:#7c5ce0;        /* purple · HCP lattice */
+        --reg-di:#3fb27f;         /* green · decision intelligence */
+        --reg-ark:#7fc4e8;        /* baby blue · ARK vessel */
+
+        --serif:Georgia,"Times New Roman",serif;
+        --sans:Inter,system-ui,-apple-system,sans-serif;
+        --mono:"JetBrains Mono",ui-monospace,monospace;
+      }
+      *{box-sizing:border-box}
+      html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
+      a{color:var(--accent-soft);text-decoration:none;border-bottom:1px solid rgba(232,164,104,.3)}
+      a:hover{border-bottom-color:var(--accent-soft)}
+      .wrap{max-width:1100px;margin:0 auto;padding:32px 24px 80px}
+
+      /* Header ------------------------------------------------------------ */
+      header.top{display:flex;gap:20px;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--border);margin-bottom:28px;flex-wrap:wrap}
+      .crest{width:56px;height:56px;flex-shrink:0;border-radius:6px;overflow:hidden;background:#0a0c10;border:1px solid var(--border-soft);filter:grayscale(1)}
+      .crest img{width:100%;height:100%;object-fit:cover;display:block}
+      .brand h1{font-family:Oswald,sans-serif;font-weight:700;font-size:22px;letter-spacing:.02em;line-height:1.1;margin:0 0 5px 0;color:var(--fg)}
+      .brand .tagline{font-family:var(--serif);font-style:italic;font-size:13.5px;color:var(--fg-muted);margin:0}
+      .home-link{margin-left:auto;font-family:Oswald,sans-serif;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-muted);padding:7px 12px;border:1px solid var(--border);border-radius:4px}
+      .home-link:hover{color:var(--accent-soft);border-color:var(--accent)}
+
+      /* Stage rail — three stages along a horizontal lattice */
+      .rail{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
+      .rail .step{position:relative;padding:18px 14px 14px 14px;background:linear-gradient(180deg,#181c22 0%,#0e1116 100%);border:1px solid #2a3038;border-radius:4px;box-shadow:0 1px 0 rgba(255,255,255,.04) inset;cursor:pointer;transition:border-color .15s ease, transform .15s ease}
+      .rail .step:hover{border-color:#3a414d;transform:translateY(-1px)}
+      .rail .step.active{border-color:var(--accent)}
+      .rail .step::before{content:"";position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:18px;height:7px;background:#0b0d10;border:1px solid #2a3038;border-top:none;border-bottom-left-radius:9px;border-bottom-right-radius:9px}
+      .rail .step::after{content:"";position:absolute;top:6px;left:8px;width:5px;height:5px;border-radius:50%;background:var(--fg-soft);opacity:.7}
+      .rail .step.active::after{background:var(--accent-soft);opacity:1}
+      .rail .lk{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.22em;color:var(--fg-soft);display:flex;align-items:center;gap:6px;margin-bottom:6px}
+      .rail .lk::before{content:"";display:inline-block;width:6px;height:6px;border-radius:1px;background:currentColor;opacity:.85}
+      .rail .ln{font-family:Oswald,sans-serif;font-size:14px;font-weight:600;color:var(--fg);letter-spacing:.02em;margin-bottom:4px}
+      .rail .lb{font-size:11.5px;color:var(--fg-muted);line-height:1.5}
+      .rail .stripe{position:absolute;left:10px;right:10px;bottom:6px;height:2px;border-radius:1px;background:var(--fg-soft);opacity:.85}
+      .rail .step-learn .lk{color:var(--reg-past)} .rail .step-learn .stripe{background:var(--reg-past)}
+      .rail .step-test  .lk{color:var(--reg-velocity)} .rail .step-test  .stripe{background:var(--reg-velocity)}
+      .rail .step-conf  .lk{color:var(--reg-di)} .rail .step-conf  .stripe{background:var(--reg-di)}
+      .rail .step .badge{position:absolute;top:8px;right:10px;font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--fg-soft);text-transform:uppercase}
+      .rail .step.done .badge{color:var(--ok)}
+      .rail .step.locked{opacity:.55;cursor:not-allowed}
+      .rail .step.locked .badge::before{content:"🔒 ";letter-spacing:0}
+
+      /* Stage panel ------------------------------------------------------- */
+      .panel{display:none;background:var(--bg-card);border:1px solid var(--border-soft);border-radius:6px;padding:26px 28px 28px 28px}
+      .panel.show{display:block}
+      .panel h2{font-family:Oswald,sans-serif;font-size:20px;font-weight:700;letter-spacing:.02em;margin:0 0 6px 0}
+      .panel .sub{font-family:var(--serif);font-style:italic;color:var(--fg-muted);margin:0 0 22px 0}
+
+      /* Register cards (Learn) — six microchip lessons */
+      .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:6px}
+      .cards .card{position:relative;padding:18px 14px 14px 14px;background:linear-gradient(180deg,#181c22 0%,#0e1116 100%);border:1px solid #2a3038;border-radius:4px;box-shadow:0 1px 0 rgba(255,255,255,.04) inset}
+      .cards .card::before{content:"";position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:18px;height:7px;background:#0b0d10;border:1px solid #2a3038;border-top:none;border-bottom-left-radius:9px;border-bottom-right-radius:9px}
+      .cards .card::after{content:"";position:absolute;top:6px;left:8px;width:5px;height:5px;border-radius:50%;background:var(--fg-soft);opacity:.7}
+      .cards .card .lk{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.22em;margin-bottom:6px;display:flex;align-items:center;gap:6px;color:var(--fg-soft)}
+      .cards .card .lk::before{content:"";display:inline-block;width:6px;height:6px;border-radius:1px;background:currentColor;opacity:.85}
+      .cards .card .ln{font-family:Oswald,sans-serif;font-size:13px;font-weight:600;margin-bottom:5px}
+      .cards .card .lb{font-size:12px;color:var(--fg-muted);line-height:1.55;margin-bottom:8px}
+      .cards .card .stripe{position:absolute;left:10px;right:10px;bottom:6px;height:2px;border-radius:1px;opacity:.9}
+      .c-past .lk{color:var(--reg-past)} .c-past .stripe{background:var(--reg-past)}
+      .c-future .lk{color:var(--reg-future)} .c-future .stripe{background:var(--reg-future)}
+      .c-velocity .lk{color:var(--reg-velocity)} .c-velocity .stripe{background:var(--reg-velocity)}
+      .c-hcp .lk{color:var(--reg-hcp)} .c-hcp .stripe{background:var(--reg-hcp)}
+      .c-di .lk{color:var(--reg-di)} .c-di .stripe{background:var(--reg-di)}
+      .c-ark .lk{color:var(--reg-ark)} .c-ark .stripe{background:var(--reg-ark)}
+
+      .principle{margin-top:22px;padding:18px 20px;background:#11141a;border-left:3px solid var(--accent);border-radius:4px}
+      .principle h3{font-family:Oswald,sans-serif;font-size:13.5px;margin:0 0 6px 0;color:var(--accent-soft);letter-spacing:.02em}
+      .principle p{margin:6px 0 0 0;font-size:13px;color:var(--fg-muted);line-height:1.6}
+
+      /* Test ------------------------------------------------------------- */
+      .q{padding:18px 18px 16px 18px;background:#11141a;border:1px solid var(--border-soft);border-radius:5px;margin-bottom:14px}
+      .q .qlabel{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.18em;color:var(--fg-soft);margin-bottom:6px}
+      .q .qtext{font-family:Oswald,sans-serif;font-size:14.5px;color:var(--fg);margin-bottom:12px;letter-spacing:.01em}
+      .q .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+      .q .opts label{display:flex;align-items:flex-start;gap:9px;padding:9px 11px;background:#0d1015;border:1px solid var(--border-soft);border-radius:4px;font-size:12.5px;color:var(--fg-muted);cursor:pointer;line-height:1.45;transition:border-color .12s ease, background .12s ease}
+      .q .opts label:hover{border-color:#3a414d;background:#11161d}
+      .q .opts input{accent-color:var(--accent);margin-top:2px}
+      .q .opts label.right{border-color:var(--ok);background:rgba(63,178,127,.07);color:var(--fg)}
+      .q .opts label.wrong{border-color:var(--bad);background:rgba(215,70,75,.07);color:var(--fg)}
+      .q .explain{margin-top:10px;font-size:12px;color:var(--fg-muted);font-style:italic;display:none;line-height:1.55}
+      .q.answered .explain{display:block}
+
+      .actions{display:flex;gap:12px;align-items:center;margin-top:18px;flex-wrap:wrap}
+      .btn{font-family:Oswald,sans-serif;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:10px 16px;border-radius:4px;border:1px solid var(--border);background:#11141a;color:var(--fg);cursor:pointer;transition:border-color .12s ease, color .12s ease}
+      .btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent-soft)}
+      .btn.primary{background:#1a1410;border-color:var(--accent);color:var(--accent-soft)}
+      .btn.primary:hover:not(:disabled){background:#22180f}
+      .btn:disabled{opacity:.4;cursor:not-allowed}
+      .score{font-family:var(--mono);font-size:12px;color:var(--fg-muted);letter-spacing:.04em}
+      .score strong{color:var(--fg)}
+      .score.pass strong{color:var(--ok)}
+      .score.fail strong{color:var(--bad)}
+
+      /* Configure -------------------------------------------------------- */
+      .form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+      .form .field{padding:14px 14px 12px 14px;background:#11141a;border:1px solid var(--border-soft);border-radius:5px}
+      .form .field.full{grid-column:1 / -1}
+      .form .field label{display:block;font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.18em;color:var(--fg-soft);margin-bottom:6px}
+      .form .field .hint{font-size:11.5px;color:var(--fg-soft);font-family:var(--serif);font-style:italic;margin-top:5px;line-height:1.5}
+      .form .field input[type=text],
+      .form .field select,
+      .form .field textarea{width:100%;background:#0d1015;border:1px solid var(--border-soft);border-radius:4px;padding:9px 11px;color:var(--fg);font-family:var(--sans);font-size:13px;line-height:1.4;outline:none}
+      .form .field input[type=text]:focus,
+      .form .field select:focus,
+      .form .field textarea:focus{border-color:var(--accent)}
+      .form .field textarea{resize:vertical;min-height:64px}
+      .form .checks{display:flex;flex-wrap:wrap;gap:8px}
+      .form .checks label{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;background:#0d1015;border:1px solid var(--border-soft);border-radius:14px;font-size:12px;color:var(--fg-muted);cursor:pointer}
+      .form .checks input{accent-color:var(--accent)}
+      .form .checks label:has(input:checked){border-color:var(--accent);color:var(--fg)}
+
+      .preview{margin-top:22px;padding:18px 20px;background:#0d1015;border:1px solid var(--border-soft);border-radius:5px;font-family:var(--mono);font-size:12px;color:var(--fg-muted);line-height:1.6;white-space:pre-wrap;word-break:break-word}
+      .preview strong{color:var(--accent-soft)}
+
+      .canon-note{margin-top:32px;padding:18px 20px;background:#11141a;border:1px solid var(--border-soft);border-radius:5px;font-size:13px;color:var(--fg-muted);line-height:1.65}
+      .canon-note strong{color:var(--accent-soft);font-weight:600}
+
+      footer.foot{margin-top:42px;padding-top:22px;border-top:1px solid var(--border);font-size:12px;color:var(--fg-soft);font-family:var(--mono);line-height:1.6}
+      footer.foot .ital{margin-top:8px;font-style:italic;font-family:var(--serif);color:var(--fg-muted)}
+
+      @media (max-width:860px){
+        .cards{grid-template-columns:1fr}
+        .form{grid-template-columns:1fr}
+        .q .opts{grid-template-columns:1fr}
+        .rail{grid-template-columns:1fr}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="top">
+        <div class="crest"><img src="./assets/eve-glyph-CLvHhd6w.jpg" alt="EVE digital stem cell glyph" /></div>
+        <div class="brand">
+          <h1>Individual Route · Learn → Test → Configure</h1>
+          <p class="tagline">Short intro education, a six-question skill test, then a guided digital-twin configuration menu.</p>
+        </div>
+        <a class="home-link" href="./" aria-label="Back to EVE Research home">← Home</a>
+      </header>
+
+      <!-- Three-stage rail. Each stage is a microchip card; click to switch. -->
+      <nav class="rail" aria-label="Onboarding stages">
+        <div class="step step-learn active" data-stage="learn" tabindex="0" role="button" aria-label="Stage 1 · Learn">
+          <span class="badge" id="badge-learn">01</span>
+          <div class="lk">EVE-IC · LRN-001</div>
+          <div class="ln">Learn the register</div>
+          <div class="lb">Six-card primer on the canon. Two minutes.</div>
+          <div class="stripe"></div>
+        </div>
+        <div class="step step-test locked" data-stage="test" tabindex="0" role="button" aria-label="Stage 2 · Test">
+          <span class="badge" id="badge-test">02</span>
+          <div class="lk">EVE-IC · TST-002</div>
+          <div class="ln">Skill test</div>
+          <div class="lb">Six questions, one per register. 5/6 to pass.</div>
+          <div class="stripe"></div>
+        </div>
+        <div class="step step-conf locked" data-stage="conf" tabindex="0" role="button" aria-label="Stage 3 · Configure">
+          <span class="badge" id="badge-conf">03</span>
+          <div class="lk">EVE-IC · CFG-003</div>
+          <div class="ln">Configure your digital twin</div>
+          <div class="lb">Guided menu. HCP seat, consent surface, register weights.</div>
+          <div class="stripe"></div>
+        </div>
+      </nav>
+
+      <!-- ===== STAGE 1 · LEARN ============================================ -->
+      <section class="panel show" id="panel-learn">
+        <h2>Learn the register</h2>
+        <p class="sub">Six microchip cards. Each one carries a single colour, off-glyph, as silk-screen only. The painted glyph stays grayscale.</p>
+
+        <div class="cards">
+          <div class="card c-past">
+            <div class="lk">EVE-IC · PAST-001</div>
+            <div class="ln">Past · soil</div>
+            <div class="lb">Where you grew from. Public-domain corpus, prior art, the geometry that predates the microchip. Carried, not owned.</div>
+            <div class="stripe"></div>
+          </div>
+          <div class="card c-future">
+            <div class="lk">EVE-IC · FUT-002</div>
+            <div class="ln">Future · truth</div>
+            <div class="lb">Where the velocity points. Verified, watermarked, under the umbrella. Not predicted — specified, with consent.</div>
+            <div class="stripe"></div>
+          </div>
+          <div class="card c-velocity">
+            <div class="lk">EVE-IC · VEL-003</div>
+            <div class="ln">Velocity vector</div>
+            <div class="lb">Past → future. The sweep that carries the design forward, accountable to where it came from.</div>
+            <div class="stripe"></div>
+          </div>
+          <div class="card c-hcp">
+            <div class="lk">EVE-IC · HCP-004</div>
+            <div class="ln">HCP lattice</div>
+            <div class="lb">Three Human Control Points: apex (utility operator), base-left (individual — that's you), base-right (enterprise). Two-of-three quorum.</div>
+            <div class="stripe"></div>
+          </div>
+          <div class="card c-di">
+            <div class="lk">EVE-IC · DI-005</div>
+            <div class="ln">Decision intelligence</div>
+            <div class="lb">Centroid of the inner circle. Where human judgment merges with machine inference. No wires required, no vendor mediation. The lattice is the protocol.</div>
+            <div class="stripe"></div>
+          </div>
+          <div class="card c-ark">
+            <div class="lk">EVE-IC · ARK-006</div>
+            <div class="ln">ARK vessel</div>
+            <div class="lb">Half-circle below the chord. Two-way vessel — pours back as freely as it fills. Protocol standard, patent pending.</div>
+            <div class="stripe"></div>
+          </div>
+        </div>
+
+        <div class="principle">
+          <h3>Principle · Reverse history (Golden Rule)</h3>
+          <p>You can always spin backwards and forwards. No lock-ins. No decision tree that traps you. Every state of your twin is archived; any version can be restored. Lose the archive of a service, lose the canon.</p>
+        </div>
+        <div class="principle">
+          <h3>Principle · Harm Clause</h3>
+          <p>Frustration is the darkness. An agent that violates canon harms a human by pushing them away from technology, toward the dark. Honour the geometry, honour the operator.</p>
+        </div>
+        <div class="principle">
+          <h3>Principle · Welfare</h3>
+          <p><em>Pour le bien-être du peuple.</em> If a build does not serve the people's well-being, it is non-canonical.</p>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" id="go-test">Continue to skill test →</button>
+          <a class="btn" href="./glyph.html">Open the live glyph register</a>
+        </div>
+      </section>
+
+      <!-- ===== STAGE 2 · TEST ============================================= -->
+      <section class="panel" id="panel-test">
+        <h2>Skill test · six questions</h2>
+        <p class="sub">One per register. Pick the right answer; explanation appears immediately. 5 out of 6 unlocks twin configuration.</p>
+
+        <!-- Q1 PAST -->
+        <div class="q" data-correct="b">
+          <div class="qlabel">EVE-IC · PAST-001</div>
+          <div class="qtext">In the EVE register, the colour <strong>navy / dark blue</strong> represents:</div>
+          <div class="opts">
+            <label><input type="radio" name="q1" value="a"><span>The vessel under the umbrella</span></label>
+            <label><input type="radio" name="q1" value="b"><span>Past · soil · the substrate the work grew from</span></label>
+            <label><input type="radio" name="q1" value="c"><span>The future destination the velocity points toward</span></label>
+            <label><input type="radio" name="q1" value="d"><span>The colour of the painted glyph itself</span></label>
+          </div>
+          <div class="explain"><strong>Correct.</strong> Navy is past · soil. It is the public-domain corpus the geometry is rooted in — carried, never owned.</div>
+        </div>
+
+        <!-- Q2 FUTURE -->
+        <div class="q" data-correct="c">
+          <div class="qlabel">EVE-IC · FUT-002</div>
+          <div class="qtext">Where does the velocity vector <em>point</em>?</div>
+          <div class="opts">
+            <label><input type="radio" name="q2" value="a"><span>Back into the past</span></label>
+            <label><input type="radio" name="q2" value="b"><span>Sideways, into a vendor lock-in</span></label>
+            <label><input type="radio" name="q2" value="c"><span>Toward the future · truth · verified and watermarked</span></label>
+            <label><input type="radio" name="q2" value="d"><span>Nowhere — the design is static</span></label>
+          </div>
+          <div class="explain"><strong>Correct.</strong> The arrow goes past → future. Future is red · truth: specified with consent, not predicted.</div>
+        </div>
+
+        <!-- Q3 VELOCITY -->
+        <div class="q" data-correct="a">
+          <div class="qlabel">EVE-IC · VEL-003</div>
+          <div class="qtext">The orange arc across the upper triangle is the velocity vector. Which property is it required to preserve?</div>
+          <div class="opts">
+            <label><input type="radio" name="q3" value="a"><span>Reversibility — you can always spin backwards and forwards</span></label>
+            <label><input type="radio" name="q3" value="b"><span>Speed at all costs</span></label>
+            <label><input type="radio" name="q3" value="c"><span>Vendor lock-in once committed</span></label>
+            <label><input type="radio" name="q3" value="d"><span>Opacity to the operator</span></label>
+          </div>
+          <div class="explain"><strong>Correct.</strong> Reverse-history is canon. No decision the twin makes is final; every state is archived, every version restorable.</div>
+        </div>
+
+        <!-- Q4 HCP -->
+        <div class="q" data-correct="b">
+          <div class="qlabel">EVE-IC · HCP-004</div>
+          <div class="qtext">The three Human Control Points are:</div>
+          <div class="opts">
+            <label><input type="radio" name="q4" value="a"><span>Vendor · regulator · platform</span></label>
+            <label><input type="radio" name="q4" value="b"><span>Utility operator · individual · enterprise (two-of-three quorum)</span></label>
+            <label><input type="radio" name="q4" value="c"><span>Past · present · future</span></label>
+            <label><input type="radio" name="q4" value="d"><span>One single super-admin</span></label>
+          </div>
+          <div class="explain"><strong>Correct.</strong> Apex = utility operator. Base-left = individual (you). Base-right = enterprise. Any two-of-three forms quorum; no single seat dominates.</div>
+        </div>
+
+        <!-- Q5 DI -->
+        <div class="q" data-correct="d">
+          <div class="qlabel">EVE-IC · DI-005</div>
+          <div class="qtext">"Decision intelligence" in the EVE register means:</div>
+          <div class="opts">
+            <label><input type="radio" name="q5" value="a"><span>Machine decides; human signs off afterwards</span></label>
+            <label><input type="radio" name="q5" value="b"><span>Human decides; machine is decorative</span></label>
+            <label><input type="radio" name="q5" value="c"><span>Wires between vendor models</span></label>
+            <label><input type="radio" name="q5" value="d"><span>Human judgment merged with machine inference — geometry connects them, no wires required</span></label>
+          </div>
+          <div class="explain"><strong>Correct.</strong> The centroid merges judgment + inference through the lattice. No wires, no vendor mediation. The lattice is the protocol.</div>
+        </div>
+
+        <!-- Q6 ARK -->
+        <div class="q" data-correct="c">
+          <div class="qlabel">EVE-IC · ARK-006</div>
+          <div class="qtext">The ARK vessel (half-circle below the chord) is:</div>
+          <div class="opts">
+            <label><input type="radio" name="q6" value="a"><span>One-way — fills only, never pours back</span></label>
+            <label><input type="radio" name="q6" value="b"><span>A vendor-owned silo</span></label>
+            <label><input type="radio" name="q6" value="c"><span>A two-way vessel under the copyright umbrella — pours back as freely as it fills</span></label>
+            <label><input type="radio" name="q6" value="d"><span>Optional and skippable</span></label>
+          </div>
+          <div class="explain"><strong>Correct.</strong> The vessel is two-way by canon. Article I §8 cl. 8 covers it. Lose the archive of a service = canon violation.</div>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" id="grade-test">Grade my answers</button>
+          <button class="btn" id="reset-test">Reset</button>
+          <span class="score" id="score">unscored</span>
+          <button class="btn primary" id="go-conf" disabled>Continue to configuration →</button>
+        </div>
+      </section>
+
+      <!-- ===== STAGE 3 · CONFIGURE ======================================== -->
+      <section class="panel" id="panel-conf">
+        <h2>Configure your digital twin</h2>
+        <p class="sub">Guided menu. Every field is reversible; every save is archived. You can spin backwards from any state.</p>
+
+        <div class="form">
+          <div class="field">
+            <label>EVE-IC · CFG-NAME</label>
+            <input type="text" id="f-name" placeholder="e.g. Dany Theriault" />
+            <div class="hint">The name the twin answers to. Carried, not owned.</div>
+          </div>
+          <div class="field">
+            <label>EVE-IC · CFG-SEAT · HCP</label>
+            <select id="f-seat">
+              <option value="individual">Base-left · Individual (default for this route)</option>
+              <option value="utility">Apex · Utility operator</option>
+              <option value="enterprise">Base-right · Enterprise</option>
+            </select>
+            <div class="hint">Which HCP seat do you occupy at quorum time?</div>
+          </div>
+
+          <div class="field full">
+            <label>EVE-IC · CFG-INTENT</label>
+            <textarea id="f-intent" placeholder="In one sentence: what is this twin supposed to do for you?"></textarea>
+            <div class="hint">Specified with consent — not predicted.</div>
+          </div>
+
+          <div class="field">
+            <label>EVE-IC · CFG-PAST · soil</label>
+            <textarea id="f-past" placeholder="What corpus / prior art are you grounding the twin in?"></textarea>
+            <div class="hint">Public-domain substrate the twin can root in.</div>
+          </div>
+          <div class="field">
+            <label>EVE-IC · CFG-FUTURE · truth</label>
+            <textarea id="f-future" placeholder="What verified destination is the velocity pointed at?"></textarea>
+            <div class="hint">Watermarked, under the umbrella.</div>
+          </div>
+
+          <div class="field full">
+            <label>EVE-IC · CFG-REGISTER · weighting</label>
+            <div class="checks" id="f-weights">
+              <label><input type="checkbox" value="past"      checked> Past · soil</label>
+              <label><input type="checkbox" value="future"    checked> Future · truth</label>
+              <label><input type="checkbox" value="velocity"  checked> Velocity</label>
+              <label><input type="checkbox" value="hcp"       checked> HCP lattice</label>
+              <label><input type="checkbox" value="di"        checked> Decision intelligence</label>
+              <label><input type="checkbox" value="ark"       checked> ARK vessel</label>
+            </div>
+            <div class="hint">Untick any register you do not want this twin to emphasise. The geometry stays whole; only weighting changes.</div>
+          </div>
+
+          <div class="field">
+            <label>EVE-IC · CFG-CONSENT · surface</label>
+            <select id="f-consent">
+              <option value="whatsapp">WhatsApp (CallMeBot inbound switch)</option>
+              <option value="email">Email confirmation</option>
+              <option value="in-app">In-app prompt only</option>
+            </select>
+            <div class="hint">Where the twin asks before it acts on your behalf.</div>
+          </div>
+          <div class="field">
+            <label>EVE-IC · CFG-REVERSE · default</label>
+            <select id="f-reverse">
+              <option value="instant">Instant — every state archived, one-tap revert</option>
+              <option value="staged">Staged — preview URL first, promote after review</option>
+            </select>
+            <div class="hint">Per canon: reverse history is a Golden Rule. Choose how it surfaces.</div>
+          </div>
+        </div>
+
+        <div class="preview" id="preview-out">Configuration preview will appear here as you fill the form.</div>
+
+        <div class="actions">
+          <button class="btn primary" id="save-cfg">Save configuration (local · reversible)</button>
+          <button class="btn" id="reset-cfg">Reset form</button>
+          <span class="score" id="save-status"></span>
+        </div>
+      </section>
+
+      <div class="canon-note">
+        <strong>Canon discipline.</strong> The painted glyph is achromatic. The colour register lives in the guidance system only — every callout above is an EVE-IC microchip with the register colour as silk-screen, never on the geometry. Every save here is local and reversible: you can spin backwards from any prior state, per the Golden Rule.
+      </div>
+
+      <footer class="foot">
+        <div>© 2026 Dany Theriault. EVE "digital stem cell" glyph and glyph-based design principles — all rights reserved. Stewardship of rights of use and assignment for large public and institutional usage rests with the Pacific Utilities Design Council. The EVE-IC microchip callout family (EVE-IC · PAST-001 · FUT-002 · VEL-003 · HCP-004 · DI-005 · ARK-006 · UMB-000 · LRN-001 · TST-002 · CFG-003) is part of the protected guidance system and travels under the same umbrella as the glyph. Published as a time-stamped record of authorship and intent.</div>
+        <div class="ital">Pour le bien-être du peuple.</div>
+      </footer>
+    </div>
+
+    <script>
+      // ===== Stage navigation =============================================
+      // Three stages: learn → test → configure. Test must be passed
+      // (>= 5/6) before configure unlocks. Stages are addressable by URL
+      // hash so a tester can deep-link.
+      (function(){
+        var stages = ['learn','test','conf'];
+        var passed = false;
+
+        function show(stage){
+          stages.forEach(function(s){
+            var p = document.getElementById('panel-'+s);
+            var step = document.querySelector('.step[data-stage="'+s+'"]');
+            if (p) p.classList.toggle('show', s===stage);
+            if (step) step.classList.toggle('active', s===stage);
+          });
+          if (history.replaceState) history.replaceState(null,'','#'+stage);
+        }
+        document.querySelectorAll('.rail .step').forEach(function(step){
+          step.addEventListener('click', function(){
+            var s = step.getAttribute('data-stage');
+            if (step.classList.contains('locked')) return;
+            show(s);
+          });
+          step.addEventListener('keydown', function(e){
+            if (e.key==='Enter'||e.key===' '){ e.preventDefault(); step.click(); }
+          });
+        });
+        // Deep-link
+        var hash = (location.hash||'').replace('#','');
+        if (stages.indexOf(hash) > -1) show(hash);
+
+        // ===== Stage 1 → 2 ================================================
+        document.getElementById('go-test').addEventListener('click', function(){
+          unlock('test'); show('test');
+        });
+
+        function unlock(stage){
+          var step = document.querySelector('.step[data-stage="'+stage+'"]');
+          if (step) step.classList.remove('locked');
+        }
+        function markDone(stage){
+          var step = document.querySelector('.step[data-stage="'+stage+'"]');
+          if (step) step.classList.add('done');
+          var badge = document.getElementById('badge-'+stage);
+          if (badge) badge.textContent = '✓';
+        }
+
+        // ===== Stage 2 · grading ==========================================
+        var grade = document.getElementById('grade-test');
+        var reset = document.getElementById('reset-test');
+        var score = document.getElementById('score');
+        var goConf = document.getElementById('go-conf');
+
+        grade.addEventListener('click', function(){
+          var qs = document.querySelectorAll('.panel#panel-test .q');
+          var right = 0;
+          qs.forEach(function(q){
+            q.classList.add('answered');
+            var correct = q.getAttribute('data-correct');
+            var picked = q.querySelector('input[type=radio]:checked');
+            q.querySelectorAll('.opts label').forEach(function(l){ l.classList.remove('right','wrong'); });
+            if (!picked) return;
+            var pickedLabel = picked.closest('label');
+            if (picked.value === correct){
+              right++;
+              if (pickedLabel) pickedLabel.classList.add('right');
+            } else {
+              if (pickedLabel) pickedLabel.classList.add('wrong');
+              var rightInput = q.querySelector('input[value="'+correct+'"]');
+              if (rightInput) rightInput.closest('label').classList.add('right');
+            }
+          });
+          score.innerHTML = 'score · <strong>' + right + ' / ' + qs.length + '</strong>';
+          score.classList.remove('pass','fail');
+          if (right >= 5){
+            score.classList.add('pass');
+            score.innerHTML += ' — twin configuration unlocked';
+            passed = true;
+            unlock('conf');
+            markDone('test');
+            goConf.disabled = false;
+          } else {
+            score.classList.add('fail');
+            score.innerHTML += ' — need 5 of 6; review the cards on stage 1';
+            passed = false;
+            goConf.disabled = true;
+          }
+        });
+
+        reset.addEventListener('click', function(){
+          document.querySelectorAll('.panel#panel-test .q').forEach(function(q){
+            q.classList.remove('answered');
+            q.querySelectorAll('input[type=radio]').forEach(function(i){ i.checked=false; });
+            q.querySelectorAll('.opts label').forEach(function(l){ l.classList.remove('right','wrong'); });
+          });
+          score.textContent = 'unscored';
+          score.classList.remove('pass','fail');
+          goConf.disabled = true;
+        });
+
+        goConf.addEventListener('click', function(){ show('conf'); });
+
+        // ===== Stage 3 · configuration preview ============================
+        var preview = document.getElementById('preview-out');
+        function renderPreview(){
+          var name    = document.getElementById('f-name').value.trim() || '(unnamed twin)';
+          var seat    = document.getElementById('f-seat').value;
+          var intent  = document.getElementById('f-intent').value.trim() || '(intent not yet specified)';
+          var past    = document.getElementById('f-past').value.trim() || '(soil not yet declared)';
+          var future  = document.getElementById('f-future').value.trim() || '(truth not yet declared)';
+          var consent = document.getElementById('f-consent').value;
+          var reverse = document.getElementById('f-reverse').value;
+          var weights = Array.from(document.querySelectorAll('#f-weights input:checked')).map(function(i){return i.value;});
+
+          var lines = [
+            'EVE-IC · CFG-003 · twin configuration draft',
+            '',
+            'name        : ' + name,
+            'seat        : ' + seat,
+            'intent      : ' + intent,
+            'past · soil : ' + past,
+            'future · t  : ' + future,
+            'register    : ' + (weights.length ? weights.join(' · ') : '(none)'),
+            'consent     : ' + consent,
+            'reverse     : ' + reverse,
+            '',
+            '— glyph stays achromatic. colours live only here, in this guidance.',
+            '— every save is archived. you can spin backwards anytime.',
+            'pour le bien-être du peuple.'
+          ];
+          preview.innerHTML = '';
+          var s = document.createElement('strong'); s.textContent = lines[0]; preview.appendChild(s);
+          preview.appendChild(document.createTextNode('\n' + lines.slice(1).join('\n')));
+        }
+        document.querySelectorAll('#panel-conf input, #panel-conf select, #panel-conf textarea').forEach(function(el){
+          el.addEventListener('input', renderPreview);
+          el.addEventListener('change', renderPreview);
+        });
+        renderPreview();
+
+        // Save (local-only, reversible) ----------------------------------
+        var saveStatus = document.getElementById('save-status');
+        document.getElementById('save-cfg').addEventListener('click', function(){
+          var payload = {
+            name:    document.getElementById('f-name').value,
+            seat:    document.getElementById('f-seat').value,
+            intent:  document.getElementById('f-intent').value,
+            past:    document.getElementById('f-past').value,
+            future:  document.getElementById('f-future').value,
+            consent: document.getElementById('f-consent').value,
+            reverse: document.getElementById('f-reverse').value,
+            weights: Array.from(document.querySelectorAll('#f-weights input:checked')).map(function(i){return i.value;}),
+            saved_at:new Date().toISOString()
+          };
+          try {
+            var key = 'eve-twin-cfg';
+            var prior = JSON.parse(localStorage.getItem(key+'.history') || '[]');
+            prior.push(payload);
+            localStorage.setItem(key, JSON.stringify(payload));
+            localStorage.setItem(key+'.history', JSON.stringify(prior.slice(-50))); // keep last 50 states, reversible
+            saveStatus.classList.remove('fail'); saveStatus.classList.add('pass');
+            saveStatus.innerHTML = 'saved · <strong>v' + prior.length + '</strong> · reversible';
+            markDone('conf');
+          } catch(e){
+            saveStatus.classList.remove('pass'); saveStatus.classList.add('fail');
+            saveStatus.innerHTML = 'save failed · <strong>' + (e && e.message || 'unknown') + '</strong>';
+          }
+        });
+        document.getElementById('reset-cfg').addEventListener('click', function(){
+          document.querySelectorAll('#panel-conf input[type=text], #panel-conf textarea').forEach(function(el){ el.value=''; });
+          document.getElementById('f-seat').value = 'individual';
+          document.getElementById('f-consent').value = 'whatsapp';
+          document.getElementById('f-reverse').value = 'instant';
+          document.querySelectorAll('#f-weights input').forEach(function(i){ i.checked=true; });
+          renderPreview();
+          saveStatus.textContent='';
+        });
+      })();
+    </script>
+  </body>
+</html>
