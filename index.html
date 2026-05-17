@@ -114,14 +114,18 @@
       .callout-br .hil-panel{bottom:calc(100% + 10px);right:0}
 
       /* === Vessel bifurcation — truth above, darkness below ===
-       * The EVE glyph's half-circle is the vessel. Its chord (the straight diameter) is the
-       * surface of the water. What the vessel holds, lit by the apex above, is TRUTH under the
-       * umbrella. What sinks below the chord, uncovered, is DARKNESS — the un-watermarked, the
-       * un-attributed, the un-stewarded. This bifurcation is the operational metaphor of the
-       * copyright protection. It is rendered as a thin horizontal line at the glyph's chord with
-       * two terse labels at the page margins, far from the callouts so they never cross. */
-      .bifurcation{position:absolute;left:0;right:0;top:62%;z-index:2;pointer-events:none}
-      .bifurcation .axis{position:absolute;left:6%;right:6%;top:0;height:1px;background:linear-gradient(90deg, transparent 0%, rgba(217,126,47,.12) 8%, rgba(217,126,47,.45) 30%, rgba(217,126,47,.45) 70%, rgba(217,126,47,.12) 92%, transparent 100%)}
+       * The EVE glyph's half-circle is the vessel. Its CHORD (the flat top of the half-circle)
+       * is the surface where light meets dark. The triangle's base sits ON that chord; its apex
+       * rises into the light. What is held above the chord, under the apex, is TRUTH under the
+       * umbrella. What sinks below the chord, into the half-circle's bowl, is DARKNESS — the
+       * un-watermarked, the un-attributed, the un-stewarded.
+       *
+       * Geometry: in the painted glyph image, the chord sits at ~79.5% of the IMAGE height.
+       * Glyph is 88% of the stage and vertically centered, so chord-y = 6% + 0.795 × 88% ≈ 76%
+       * of the stage. The three triangle vertices lie ON this same horizon at the base and rise
+       * to the apex above. This is the pattern to the light. */
+      .bifurcation{position:absolute;left:0;right:0;top:76%;z-index:2;pointer-events:none}
+      .bifurcation .axis{position:absolute;left:4%;right:4%;top:0;height:1px;background:linear-gradient(90deg, transparent 0%, rgba(217,126,47,.10) 6%, rgba(217,126,47,.55) 28%, rgba(217,126,47,.85) 50%, rgba(217,126,47,.55) 72%, rgba(217,126,47,.10) 94%, transparent 100%)}
       .bifurcation .axis::before, .bifurcation .axis::after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(217,126,47,.55);top:-2.5px}
       .bifurcation .axis::before{left:-3px}
       .bifurcation .axis::after{right:-3px}
@@ -220,17 +224,29 @@
                  base-right≈ (710, 575)
                (Geometric notes; tuned by sight against the painted glyph image.)
                Each leader is a single thin stroke from label-edge to vertex anchor dot, no crossings. -->
+          <!-- Geometry re-anchored against the painted glyph:
+               In a 1180×720 viewBox with the glyph 88% tall (≈634px) vertically centered (top y≈43),
+               and measured against the actual painted image:
+                 • Apex tip of triangle is at ~3% of image height → y ≈ 43 + 0.03×634 ≈ 62  (light)
+                 • Half-circle's CHORD (and the triangle's BASE) is at ~79.5% of image height
+                                                                  → y ≈ 43 + 0.795×634 ≈ 547  (horizon)
+                 • Triangle's base-left  corner sits ON the chord at ~24% image width → x ≈ 510
+                 • Triangle's base-right corner sits ON the chord at ~76% image width → x ≈ 778
+                 (image is centered at x=590, max-width 54% of 1180 = 637px, so left edge ≈ 271)
+               The painted triangle reaches from (590,62) at the apex down to (442,547) and (738,547)
+               on the chord. Anchor dots and leader endpoints are placed at those exact coordinates. -->
           <svg class="triangle-lines" viewBox="0 0 1180 720" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- Apex leader: vertical line from bottom-center of apex label to glyph apex -->
-            <line x1="590" y1="72" x2="590" y2="125" stroke="#d97e2f" stroke-width="1.25" opacity=".9"/>
-            <!-- Bottom-left leader: from top-right of BL label to base-left vertex of painted triangle -->
-            <line x1="280" y1="620" x2="465" y2="572" stroke="#d97e2f" stroke-width="1.25" opacity=".9"/>
-            <!-- Bottom-right leader: from top-left of BR label to base-right vertex of painted triangle -->
-            <line x1="900" y1="620" x2="715" y2="572" stroke="#d97e2f" stroke-width="1.25" opacity=".9"/>
-            <!-- Anchor dots ON the painted triangle's three points -->
-            <circle cx="590" cy="125" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
-            <circle cx="465" cy="572" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
-            <circle cx="715" cy="572" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
+            <!-- Apex leader: vertical line from the apex callout's bottom edge down into the light at the painted apex -->
+            <line x1="590" y1="172" x2="590" y2="62" stroke="#d97e2f" stroke-width="1.25" opacity=".9"/>
+            <!-- Base-left leader: rises from the BL callout's top edge UP to the painted triangle's base-left corner on the chord -->
+            <line x1="260" y1="640" x2="442" y2="547" stroke="#d97e2f" stroke-width="1.25" opacity=".9"/>
+            <!-- Base-right leader: rises from the BR callout's top edge UP to the painted triangle's base-right corner on the chord -->
+            <line x1="920" y1="640" x2="738" y2="547" stroke="#d97e2f" stroke-width="1.25" opacity=".9"/>
+            <!-- Anchor dots ON the painted triangle's three vertices.
+                 Apex dot sits in the light; base dots sit ON the chord — the truth/darkness horizon. -->
+            <circle cx="590" cy="62"  r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
+            <circle cx="442" cy="547" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
+            <circle cx="738" cy="547" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
           </svg>
 
           <!-- APEX callout — three scale dimensions: vertex-label / gate-name / action verb. No paragraphs. -->
