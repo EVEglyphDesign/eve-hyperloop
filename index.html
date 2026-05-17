@@ -78,9 +78,10 @@
          Band B: 18 – 82%  the painted glyph (height 64%, vertically centered)
          Band C: 84 – 100% BL/BR callouts and base HCP marker chips
          All callouts and HCP markers live OUTSIDE the painted glyph. */
-      .triangle-stage .callout-apex{top:0;left:50%;transform:translateX(-50%)}
-      .triangle-stage .callout-bl{bottom:0;left:0}
-      .triangle-stage .callout-br{bottom:0;right:0}
+      .triangle-stage .callout-apex{top:0;left:50%;transform:translateX(-50%);max-width:300px;text-align:center}
+      .triangle-stage .callout-apex .vertex-label,.triangle-stage .callout-apex h3,.triangle-stage .callout-apex .qualify,.triangle-stage .callout-apex .cta-mini{text-align:left}
+      .triangle-stage .callout-bl{bottom:0;left:0;max-width:230px}
+      .triangle-stage .callout-br{bottom:0;right:0;max-width:230px}
 
       /* Three scale dimensions inside each callout, applied consistently:
          — Vertex-label (scale 1, smallest, mono):  9.5pt, uppercase, soft
@@ -123,15 +124,17 @@
        * Glyph is 88% of the stage and vertically centered, so chord-y = 6% + 0.795 × 88% ≈ 76%
        * of the stage. The three triangle vertices lie ON this same horizon at the base and rise
        * to the apex above. This is the pattern to the light. */
-      .bifurcation{position:absolute;left:0;right:0;top:82%;z-index:2;pointer-events:none}
+      /* Bifurcation chord sits AT the painted glyph's chord (~78% of stage) — above the base
+         callouts. Chips ride along the glyph's outer flanks, not over the base callouts. */
+      .bifurcation{position:absolute;left:0;right:0;top:78%;z-index:2;pointer-events:none}
       .bifurcation .axis{position:absolute;left:4%;right:4%;top:0;height:1px;background:linear-gradient(90deg, transparent 0%, rgba(217,126,47,.10) 6%, rgba(217,126,47,.55) 28%, rgba(217,126,47,.85) 50%, rgba(217,126,47,.55) 72%, rgba(217,126,47,.10) 94%, transparent 100%)}
       .bifurcation .axis::before, .bifurcation .axis::after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(217,126,47,.55);top:-2.5px}
       .bifurcation .axis::before{left:-3px}
       .bifurcation .axis::after{right:-3px}
       .bifurcation .lbl{position:absolute;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-soft);background:rgba(11,13,16,.85);padding:3px 7px;border-radius:3px}
-      .bifurcation .lbl-truth{left:1%;top:-22px;color:var(--accent-soft);border:1px solid rgba(217,126,47,.4)}
+      .bifurcation .lbl-truth{left:18%;top:-22px;color:var(--accent-soft);border:1px solid rgba(217,126,47,.4)}
       .bifurcation .lbl-truth::before{content:"↑ ";letter-spacing:0}
-      .bifurcation .lbl-dark{right:1%;top:6px;color:#6c7587;border:1px solid var(--border)}
+      .bifurcation .lbl-dark{right:18%;top:6px;color:#6c7587;border:1px solid var(--border)}
       .bifurcation .lbl-dark::before{content:"↓ ";letter-spacing:0}
       @media (max-width:900px){.bifurcation{display:none}}
 
@@ -153,9 +156,13 @@
       .hcp-marker{position:absolute;z-index:4;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:3px}
       .hcp-marker svg{width:30px;height:30px;display:block;filter:drop-shadow(0 2px 6px rgba(0,0,0,.75))}
       .hcp-marker .hcp-tag{font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-soft);background:rgba(11,13,16,.92);padding:2px 6px;border-radius:2px;border:1px solid rgba(217,126,47,.4);white-space:nowrap;line-height:1}
-      .hcp-marker.hcp-apex{top:15.5%;left:50%;transform:translateX(-50%)}
-      .hcp-marker.hcp-bl{top:83.5%;left:24%}
-      .hcp-marker.hcp-br{top:83.5%;right:24%}
+      /* Apex HCP marker sits in the narrow band between the apex callout (top:0..16%) and
+         the painted glyph (starts at 18%). Markers at top: 16.5% give a 2-3px breath gap. */
+      .hcp-marker.hcp-apex{top:16.4%;left:50%;transform:translateX(-50%)}
+      /* Base HCP markers sit in the band between the painted glyph (ends ~82%) and the base
+         callouts (start at bottom:0 → top ≈ 89%). Markers at 82.5% give a 4-5px gap each side. */
+      .hcp-marker.hcp-bl{top:82.5%;left:26%}
+      .hcp-marker.hcp-br{top:82.5%;right:26%}
       /* Velocity vector — dashed arrow from past (below the chord) into the apex's light. */
       .velocity-vector{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;opacity:.55}
       /* Welfare-register stamp — placed in the upper-right of the stage, outside the glyph */
