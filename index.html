@@ -9,6 +9,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
     <style>
+      /* === EVE Glyph Design · ARK Protocol Standard · patent pending ===
+         Semantic colour register. Every glyph element carries a single, named meaning.
+         No element may borrow a colour outside its register.
+           · blue       = past / soil           (where we grew from)
+           · red        = future / truth         (where the velocity points)
+           · orange     = velocity vector        (past → future, the arrow itself)
+           · green      = decision intelligence  (merged human + machine, NO WIRES)
+           · baby blue  = ARK · EVE Glyph Design protocol standard, patent pending
+                          (the vessel that carries the design under the umbrella)
+         The accent ochre remains the brand chrome (chips, leaders, callout borders). */
       :root{
         --bg:#0b0d10;
         --bg-elev:#13161b;
@@ -20,6 +30,18 @@
         --border-soft:#1c2027;
         --accent:#d97e2f;
         --accent-soft:#e8a468;
+        /* Semantic register — ARK protocol */
+        --past:#3a7bd5;            /* blue · soil / past */
+        --past-soft:#6fa3e5;
+        --future:#d7464b;          /* red · future / truth */
+        --future-soft:#e87a7e;
+        --velocity:#ee8b3c;        /* orange · velocity vector */
+        --velocity-soft:#f4ad6e;
+        --di:#3fb27f;              /* green · decision intelligence (merged, no wires) */
+        --di-soft:#7ecfa6;
+        --ark:#7fc4e8;             /* baby blue · ARK protocol standard, patent pending */
+        --ark-soft:#a8d8ef;
+        /* Legacy aliases kept for unrelated UI chips */
         --green:#5f9e6e;
         --amber:#caa14b;
         --red:#c46a5b;
@@ -307,22 +329,77 @@
               <!-- Outer-right edge, drawn from apex (high) to base-right (low) so text reads downward. -->
               <path id="edge-future" d="M 607,168 L 764,572" fill="none"/>
             </defs>
-            <text font-family="Oswald, sans-serif" font-size="14" font-weight="600" letter-spacing="4" fill="#e8a468" opacity=".85">
+            <!-- SOIL·PAST in blue (ARK protocol register) -->
+            <text font-family="Oswald, sans-serif" font-size="14" font-weight="700" letter-spacing="4" fill="#6fa3e5" opacity=".95" style="paint-order:stroke;stroke:rgba(11,13,16,.7);stroke-width:3px">
               <textPath xlink:href="#edge-soil" startOffset="30%">SOIL · PAST</textPath>
             </text>
-            <text font-family="Oswald, sans-serif" font-size="14" font-weight="600" letter-spacing="4" fill="#e8a468" opacity=".85">
+            <!-- FUTURE·TRUTH in red (ARK protocol register) -->
+            <text font-family="Oswald, sans-serif" font-size="14" font-weight="700" letter-spacing="4" fill="#e87a7e" opacity=".95" style="paint-order:stroke;stroke:rgba(11,13,16,.7);stroke-width:3px">
               <textPath xlink:href="#edge-future" startOffset="30%">FUTURE · TRUTH</textPath>
             </text>
           </svg>
 
-          <!-- Velocity vector — dashed arrow from past (below the chord) up into the apex's light. -->
+          <!-- Velocity vector — orange arrow sweeping from PAST (blue, soil-side) to FUTURE (red, truth-side).
+               Runs horizontally across the upper triangle, above the inner circle, so the eye reads the
+               arc of time at a glance: blue tail → orange shaft → red head. ARK protocol register. -->
           <svg class="velocity-vector" viewBox="0 0 1180 820" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <defs>
-              <marker id="arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-                <path d="M0,0 L10,5 L0,10 z" fill="#5f9e6e"/>
+              <marker id="arr-future" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="#d7464b"/>
               </marker>
+              <linearGradient id="velocity-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%"  stop-color="#3a7bd5"/>
+                <stop offset="45%" stop-color="#ee8b3c"/>
+                <stop offset="100%" stop-color="#d7464b"/>
+              </linearGradient>
             </defs>
-            <line x1="590" y1="650" x2="590" y2="200" stroke="#5f9e6e" stroke-width="1.3" stroke-dasharray="3 4" opacity=".55" marker-end="url(#arr)"/>
+            <!-- Past tail (soil) -->
+            <circle cx="395" cy="305" r="4" fill="#3a7bd5" opacity=".95"/>
+            <!-- Sweep: past (left, blue) → velocity (mid, orange) → future (right, red) -->
+            <path d="M 400,305 C 520,255 740,255 820,305"
+                  fill="none" stroke="url(#velocity-grad)" stroke-width="3" stroke-linecap="round"
+                  opacity=".9" marker-end="url(#arr-future)"/>
+            <!-- Tag chips: PAST (blue) and FUTURE (red), tiny, riding the arc -->
+            <g font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1.5" font-weight="600">
+              <text x="390" y="288" text-anchor="end" fill="#6fa3e5">PAST</text>
+              <text x="830" y="288" fill="#e87a7e">FUTURE</text>
+            </g>
+          </svg>
+
+          <!-- Decision Intelligence node — green, centered on the painted triangle's centroid (no wires).
+               The merger of human + machine is implied by GEOMETRY, not by lines:
+               the three HCPs already sit at the vertices; the DI node sits at the centroid;
+               viewer's eye completes the figure without us drawing the connection. -->
+          <svg class="di-node" viewBox="0 0 1180 820" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none">
+            <!-- Centroid of (590,165),(432,568),(747,568) = (589.7, 433.7) — sits inside the inner circle -->
+            <g transform="translate(590,434)">
+              <!-- Outer halo — the merger field -->
+              <circle r="22" fill="#3fb27f" opacity=".12"/>
+              <circle r="15" fill="#3fb27f" opacity=".22"/>
+              <!-- Core node -->
+              <rect x="-8" y="-8" width="16" height="16" rx="3" fill="#3fb27f" stroke="#0b0d10" stroke-width="1.5"/>
+            </g>
+            <!-- DI emergence arrow — small green chevron exiting the triangle to the right,
+                 indicating output WITHOUT a wire back to the node (geometry implies it). -->
+            <g transform="translate(870,434)">
+              <path d="M 0,-8 L 12,0 L 0,8" fill="none" stroke="#3fb27f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+            </g>
+            <text x="885" y="438" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.5" font-weight="600" fill="#7ecfa6">DI</text>
+          </svg>
+
+          <!-- ARK ribbon — baby blue vessel-shape riding inside the half-circle (the vessel under the chord).
+               The ARK is the EVE Glyph Design protocol standard itself, patent pending: a hull that
+               carries the design under the umbrella. Drawn as a thin baby-blue arc + waterline. -->
+          <svg class="ark-ribbon" viewBox="0 0 1180 820" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none">
+            <!-- Hull — shallow arc inside the half-circle bowl -->
+            <path d="M 470,640 Q 590,690 710,640" fill="none" stroke="#7fc4e8" stroke-width="2.4" stroke-linecap="round" opacity=".85"/>
+            <!-- Deck — the chord of the hull -->
+            <line x1="472" y1="640" x2="708" y2="640" stroke="#a8d8ef" stroke-width="1.4" opacity=".75"/>
+            <!-- Tag — ARK mark, baby blue, patent-pending -->
+            <g transform="translate(590,672)">
+              <text text-anchor="middle" font-family="Oswald, sans-serif" font-size="11" font-weight="700" letter-spacing="3" fill="#a8d8ef" style="paint-order:stroke;stroke:rgba(11,13,16,.75);stroke-width:3px">ARK — PROTOCOL STANDARD</text>
+              <text text-anchor="middle" y="12" font-family="JetBrains Mono, monospace" font-size="8.5" letter-spacing="2" fill="#7fc4e8" opacity=".85" style="paint-order:stroke;stroke:rgba(11,13,16,.75);stroke-width:3px">PATENT PENDING</text>
+            </g>
           </svg>
 
           <!-- Three HCPs (Human Control Points), each depicted as a miniature EVE glyph.
