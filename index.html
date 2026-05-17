@@ -58,11 +58,12 @@
        *      spacing rhythm (4px micro / 12px small / 80px+ canvas).
        *   4. Leader lines are thin, single-stroke, and never cross.
        */
-      .triangle-stage{position:relative;width:100%;max-width:1180px;margin:0 auto 24px;aspect-ratio:1180/720;min-height:560px}
+      .triangle-stage{position:relative;width:100%;max-width:1180px;margin:0 auto 24px;aspect-ratio:1180/820;min-height:720px}
 
-      /* Layer 1 (z=1) — the EVE glyph as the geometric anchor. Larger than before so the three
-         vertices are clearly visible and the painted triangle reads at a glance. */
-      .triangle-stage .glyph-hero{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);height:88%;max-width:54%;z-index:1;display:flex;align-items:center;justify-content:center}
+      /* Layer 1 (z=1) — the EVE glyph as the geometric anchor. Sized to 64% of the stage height
+         so there is a clear band ABOVE (for apex callout + HCP marker) and BELOW (for base
+         callouts + HCP markers) without ever overlapping the painted glyph. */
+      .triangle-stage .glyph-hero{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);height:64%;max-width:46%;z-index:1;display:flex;align-items:center;justify-content:center}
       .triangle-stage .glyph-hero img{height:100%;width:auto;object-fit:contain;display:block;border-radius:4px;box-shadow:0 0 80px rgba(0,0,0,.55)}
 
       /* Layer 2 (z=2) — leader lines and vertex anchor dots. Thin, single-stroke, never crossing. */
@@ -72,15 +73,13 @@
          Each label is sized to the minimum that holds its three text scales. */
       .triangle-stage .callout{position:absolute;z-index:3;background:rgba(19,22,27,.96);border:1px solid var(--border);border-radius:6px;padding:10px 14px;display:flex;flex-direction:column;box-shadow:0 8px 28px rgba(0,0,0,.7);width:auto;max-width:260px}
 
-      /* APEX label — attaches above the glyph's top vertex. The painted apex sits at about y=14%
-         of the stage (glyph is 88% tall, vertically centered). Leader runs from the label's bottom
-         edge down to (50%, 14%). */
+      /* Stage layout in three vertical bands (no overlap with the painted glyph):
+         Band A: 0 – 16%   APEX callout (and a separate HCP marker chip below it at ~14%)
+         Band B: 18 – 82%  the painted glyph (height 64%, vertically centered)
+         Band C: 84 – 100% BL/BR callouts and base HCP marker chips
+         All callouts and HCP markers live OUTSIDE the painted glyph. */
       .triangle-stage .callout-apex{top:0;left:50%;transform:translateX(-50%)}
-      /* BOTTOM-LEFT label — attaches at the painted triangle's base-left corner (about 23% x, 86% y).
-         Label sits to the lower-left of that corner; leader runs from label's top-right into the corner. */
       .triangle-stage .callout-bl{bottom:0;left:0}
-      /* BOTTOM-RIGHT label — attaches at the painted triangle's base-right corner (about 77% x, 86% y).
-         Label sits to the lower-right; leader runs from label's top-left into the corner. */
       .triangle-stage .callout-br{bottom:0;right:0}
 
       /* Three scale dimensions inside each callout, applied consistently:
@@ -124,7 +123,7 @@
        * Glyph is 88% of the stage and vertically centered, so chord-y = 6% + 0.795 × 88% ≈ 76%
        * of the stage. The three triangle vertices lie ON this same horizon at the base and rise
        * to the apex above. This is the pattern to the light. */
-      .bifurcation{position:absolute;left:0;right:0;top:83%;z-index:2;pointer-events:none}
+      .bifurcation{position:absolute;left:0;right:0;top:82%;z-index:2;pointer-events:none}
       .bifurcation .axis{position:absolute;left:4%;right:4%;top:0;height:1px;background:linear-gradient(90deg, transparent 0%, rgba(217,126,47,.10) 6%, rgba(217,126,47,.55) 28%, rgba(217,126,47,.85) 50%, rgba(217,126,47,.55) 72%, rgba(217,126,47,.10) 94%, transparent 100%)}
       .bifurcation .axis::before, .bifurcation .axis::after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(217,126,47,.55);top:-2.5px}
       .bifurcation .axis::before{left:-3px}
@@ -147,15 +146,16 @@
        * "Pour le bien-être du peuple" is stamped as the welfare register, visible on the surface. */
       .glyph-anno{position:absolute;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:var(--fg-muted);z-index:2;pointer-events:none;line-height:1}
       /* HCP markers — each HCP is depicted as a miniature of the EVE glyph itself.
-         The glyph IS the HCP icon. Each marker shows the triangle + inner circle + half-circle
-         vessel in accent orange, with a thin label "HCP" + vertex name below.
-         Sized at 36px square so they read clearly without overpowering the painted glyph. */
+         The glyph IS the HCP icon. Each marker is a small triangle + inner circle + half-circle.
+         Markers are placed in clear space, NEVER overlapping the painted glyph or a callout.
+         — apex marker  sits between the apex callout (above) and the painted glyph (below)
+         — base markers sit between the painted glyph (above) and the base callouts (below) */
       .hcp-marker{position:absolute;z-index:4;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:3px}
-      .hcp-marker svg{width:36px;height:36px;display:block;filter:drop-shadow(0 2px 6px rgba(0,0,0,.75))}
+      .hcp-marker svg{width:30px;height:30px;display:block;filter:drop-shadow(0 2px 6px rgba(0,0,0,.75))}
       .hcp-marker .hcp-tag{font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-soft);background:rgba(11,13,16,.92);padding:2px 6px;border-radius:2px;border:1px solid rgba(217,126,47,.4);white-space:nowrap;line-height:1}
-      .hcp-marker.hcp-apex{top:0;left:50%;transform:translateX(-50%)}
-      .hcp-marker.hcp-bl{top:90%;left:21%}
-      .hcp-marker.hcp-br{top:90%;right:21%}
+      .hcp-marker.hcp-apex{top:15.5%;left:50%;transform:translateX(-50%)}
+      .hcp-marker.hcp-bl{top:83.5%;left:24%}
+      .hcp-marker.hcp-br{top:83.5%;right:24%}
       /* Velocity vector — dashed arrow from past (below the chord) into the apex's light. */
       .velocity-vector{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;opacity:.55}
       /* Welfare-register stamp — placed in the upper-right of the stage, outside the glyph */
@@ -263,59 +263,59 @@
                  (image is centered at x=590, max-width 54% of 1180 = 637px, so left edge ≈ 271)
                The painted triangle reaches from (590,62) at the apex down to (442,547) and (738,547)
                on the chord. Anchor dots and leader endpoints are placed at those exact coordinates. -->
-          <!-- Geometry measured against the actual rendered glyph at 1400px viewport.
-               The stage is 1180×720 in viewBox units. The painted glyph fills the central column.
-               Measured directly from the live screenshot:
-                 • painted apex tip       ≈ (590,  60)   — the light
-                 • painted base-left      ≈ (425, 600)   — on the chord
-                 • painted base-right     ≈ (755, 600)   — on the chord
-                 • chord (horizon line)   ≈ y=600       — the truth/darkness bifurcation
-               The triangle's base coincides with the chord; the apex rises into the light.
-               This is the geometric ground of the pattern to the light. -->
-          <svg class="triangle-lines" viewBox="0 0 1180 720" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- Apex leader: rises from the apex callout into the light -->
-            <line x1="590" y1="172" x2="590" y2="60" stroke="#d97e2f" stroke-width="1.25" opacity=".9"/>
-            <!-- Base-left leader: from BL callout up to base-left corner on the chord -->
-            <line x1="260" y1="680" x2="425" y2="600" stroke="#d97e2f" stroke-width="1.25" opacity=".9"/>
-            <!-- Base-right leader: from BR callout up to base-right corner on the chord -->
-            <line x1="920" y1="680" x2="755" y2="600" stroke="#d97e2f" stroke-width="1.25" opacity=".9"/>
-            <!-- Anchor dots: apex in the light; base dots ON the chord (the horizon) -->
-            <circle cx="590" cy="60"  r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
-            <circle cx="425" cy="600" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
-            <circle cx="755" cy="600" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
+          <!-- Geometry re-measured against the new stage layout (1180×820 viewBox, glyph at 64%):
+             Stage = 1180 wide × 820 tall in viewBox units.
+             Glyph image is 64% tall (≈ 525), vertically centered → image top y ≈ 148, bottom y ≈ 673.
+             Image is 46% wide (≈ 543), horizontally centered → image left x ≈ 318, right x ≈ 862.
+             Within the painted image itself:
+               • triangle apex tip    at ≈50% W, ≈3%  H  → (590, 165)
+               • base-left corner     at ≈21% W, ≈80% H → (432, 568)
+               • base-right corner   at ≈79% W, ≈80% H → (747, 568)
+               • chord (horizon)     at y≈568 — the truth/darkness line
+             These are the truth anchors for every leader and label. -->
+          <svg class="triangle-lines" viewBox="0 0 1180 820" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Apex leader: from below the HCP-apex marker chip down to the painted apex -->
+            <line x1="590" y1="152" x2="590" y2="165" stroke="#d97e2f" stroke-width="1.25" opacity=".9"/>
+            <!-- Base-left leader: from above the BL callout up to the painted base-left corner -->
+            <line x1="260" y1="720" x2="432" y2="568" stroke="#d97e2f" stroke-width="1.25" opacity=".9"/>
+            <!-- Base-right leader: from above the BR callout up to the painted base-right corner -->
+            <line x1="920" y1="720" x2="747" y2="568" stroke="#d97e2f" stroke-width="1.25" opacity=".9"/>
+            <!-- Anchor dots ON the painted triangle's three vertices -->
+            <circle cx="590" cy="165" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
+            <circle cx="432" cy="568" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
+            <circle cx="747" cy="568" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
           </svg>
 
-          <!-- Side labels for the three sides of the triangle, rendered as SVG text along the
-               painted edges so orientation is guaranteed regardless of CSS rotation quirks.
-               Soil  = left edge   (apex 590,60 → base-left 425,600)
-               Future·Truth = right edge (apex 590,60 → base-right 755,600)
-               Vessel·EVE  = chord/base (425,600 → 755,600), already labeled by the bifurcation. -->
-          <svg class="side-labels" viewBox="0 0 1180 720" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none">
+          <!-- Side labels ride OUTSIDE the painted triangle so they never curl through the inner
+               circle. The label path is offset 14 viewBox-units outward from each painted edge,
+               using a perpendicular offset from the edge vector. Soil reads bottom-to-top along
+               the outer-left edge; Future·Truth reads top-to-bottom along the outer-right edge. -->
+          <svg class="side-labels" viewBox="0 0 1180 820" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none">
             <defs>
-              <!-- Path along the LEFT edge, starting from the base-left corner so text reads bottom-up -->
-              <path id="edge-soil" d="M 425,600 L 590,60" fill="none"/>
-              <!-- Path along the RIGHT edge, starting from the apex so text reads top-down toward the base -->
-              <path id="edge-future" d="M 590,60 L 755,600" fill="none"/>
+              <!-- Outer-left edge, drawn from base-left (low) to apex (high) so text reads upward.
+                   Original edge: (432,568) → (590,165). Perpendicular outward (to the left) is
+                   the unit vector (-cosα, -sinα) of the edge normal. We shift each endpoint by
+                   ~18 viewBox units outward to clear the painted triangle. -->
+              <path id="edge-soil" d="M 415,572 L 573,168" fill="none"/>
+              <!-- Outer-right edge, drawn from apex (high) to base-right (low) so text reads downward. -->
+              <path id="edge-future" d="M 607,168 L 764,572" fill="none"/>
             </defs>
-            <text font-family="Oswald, sans-serif" font-size="15" font-weight="600" letter-spacing="4" fill="#e8a468" opacity=".85">
+            <text font-family="Oswald, sans-serif" font-size="14" font-weight="600" letter-spacing="4" fill="#e8a468" opacity=".85">
               <textPath xlink:href="#edge-soil" startOffset="30%">SOIL · PAST</textPath>
             </text>
-            <text font-family="Oswald, sans-serif" font-size="15" font-weight="600" letter-spacing="4" fill="#e8a468" opacity=".85">
+            <text font-family="Oswald, sans-serif" font-size="14" font-weight="600" letter-spacing="4" fill="#e8a468" opacity=".85">
               <textPath xlink:href="#edge-future" startOffset="30%">FUTURE · TRUTH</textPath>
             </text>
           </svg>
 
-          <!-- Velocity vector — dashed arrow from past (below the chord) into the apex's light.
-               This is the direction of the work: carrying the present forward across the vessel. -->
-          <svg class="velocity-vector" viewBox="0 0 1180 720" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Velocity vector — dashed arrow from past (below the chord) up into the apex's light. -->
+          <svg class="velocity-vector" viewBox="0 0 1180 820" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <defs>
               <marker id="arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto">
                 <path d="M0,0 L10,5 L0,10 z" fill="#5f9e6e"/>
               </marker>
             </defs>
-            <line x1="590" y1="660" x2="590" y2="110" stroke="#5f9e6e" stroke-width="1.3" stroke-dasharray="3 4" opacity=".75" marker-end="url(#arr)"/>
-            <!-- velocity label, offset to the right so it doesn't fight the inner circle -->
-            <text x="610" y="380" font-family="Georgia, serif" font-style="italic" font-size="12" fill="#5f9e6e" opacity=".85">velocity</text>
+            <line x1="590" y1="650" x2="590" y2="200" stroke="#5f9e6e" stroke-width="1.3" stroke-dasharray="3 4" opacity=".55" marker-end="url(#arr)"/>
           </svg>
 
           <!-- Three HCPs (Human Control Points), each depicted as a miniature EVE glyph.
