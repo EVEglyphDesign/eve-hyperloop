@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EVE — Post-Sapphire Sample Summary</title>
-    <meta name="description" content="EVE Glyph applied to the integration of nuclear human safety protocols into a sovereign-AI decision-intelligence model. Sample summary published as a time-stamped record of authorship and intent." />
+    <title>EVE Research — Sovereign-AI Decision Intelligence</title>
+    <meta name="description" content="EVE Glyph Design applied to sovereign-AI decision intelligence: a research observatory on vendor-lock-in dynamics, governance posture, and the integration of nuclear human-safety protocols. Access the worked-example monitor by request or reach Dany Theriault directly." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
@@ -22,6 +22,7 @@
         --accent-soft:#e8a468;
         --green:#5f9e6e;
         --amber:#caa14b;
+        --red:#c46a5b;
         --serif:Georgia,"Times New Roman",serif;
         --sans:Inter,system-ui,-apple-system,sans-serif;
         --mono:"JetBrains Mono",ui-monospace,monospace;
@@ -30,7 +31,7 @@
       html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
       a{color:var(--accent-soft);text-decoration:none;border-bottom:1px solid rgba(232,164,104,.3)}
       a:hover{border-bottom-color:var(--accent-soft)}
-      .wrap{max-width:880px;margin:0 auto;padding:40px 24px 80px}
+      .wrap{max-width:980px;margin:0 auto;padding:40px 24px 80px}
       header.top{display:flex;gap:20px;align-items:center;padding-bottom:28px;border-bottom:1px solid var(--border);margin-bottom:36px}
       .glyph{width:64px;height:64px;flex-shrink:0;border-radius:6px;overflow:hidden;background:#0a0c10;border:1px solid var(--border-soft)}
       .glyph img{width:100%;height:100%;object-fit:cover;display:block}
@@ -44,18 +45,51 @@
       p{margin:0 0 14px 0;font-size:15.5px;color:var(--fg)}
       p.lede{font-size:17px;color:var(--fg);line-height:1.6}
       .muted{color:var(--fg-muted)}
-      .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0 8px 0}
-      @media (max-width:640px){.grid{grid-template-columns:1fr} header.top{flex-wrap:wrap} .stamp{margin-left:0;text-align:left;width:100%}}
-      .cap{background:var(--bg-card);border:1px solid var(--border-soft);border-left:3px solid var(--accent);border-radius:6px;padding:14px 16px}
-      .cap-title{font-family:Oswald,sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:6px}
-      .cap-body{font-size:14px;color:var(--fg);line-height:1.5}
-      .sample-band{background:linear-gradient(180deg,rgba(217,126,47,.06),rgba(217,126,47,.0));border:1px solid var(--border);border-radius:8px;padding:22px 22px;margin:8px 0 16px 0}
-      .sample-band .kicker{font-family:Oswald,sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:8px}
-      .sample-band h3{margin-top:0}
-      .cta{display:inline-block;background:var(--accent);color:#11151a;font-weight:600;font-family:Oswald,sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:10px 16px;border-radius:5px;border-bottom:none;margin-top:8px}
-      .cta:hover{background:var(--accent-soft);border-bottom:none}
+      @media (max-width:760px){header.top{flex-wrap:wrap} .stamp{margin-left:0;text-align:left;width:100%}}
       ul.tight{margin:0 0 14px 18px;padding:0}
       ul.tight li{font-size:15px;color:var(--fg);margin-bottom:6px}
+
+      /* Two-path access section */
+      .paths{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:6px 0 8px 0}
+      @media (max-width:760px){.paths{grid-template-columns:1fr}}
+      .path-card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:22px 22px;display:flex;flex-direction:column}
+      .path-card .kicker{font-family:Oswald,sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:8px}
+      .path-card h3{margin:0 0 10px 0;font-size:18px}
+      .path-card p{font-size:14.5px;color:var(--fg-muted);line-height:1.55;margin-bottom:16px}
+      .path-card .cta{margin-top:auto}
+      .cta{display:inline-block;background:var(--accent);color:#11151a;font-weight:600;font-family:Oswald,sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border-radius:5px;border-bottom:none}
+      .cta:hover{background:var(--accent-soft);border-bottom:none}
+      .cta.secondary{background:transparent;color:var(--accent-soft);border:1px solid var(--accent);}
+      .cta.secondary:hover{background:rgba(217,126,47,.08)}
+
+      /* Form */
+      .form-block{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;padding:24px 22px;margin-top:18px;display:none}
+      .form-block.open{display:block}
+      .form-block label{display:block;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--fg-muted);margin:14px 0 6px 0}
+      .form-block input, .form-block textarea{width:100%;padding:10px 12px;background:#0a0c10;border:1px solid var(--border);border-radius:4px;color:var(--fg);font-family:var(--sans);font-size:14.5px;outline:none}
+      .form-block input:focus, .form-block textarea:focus{border-color:var(--accent)}
+      .form-block textarea{min-height:80px;resize:vertical;font-family:var(--sans)}
+      .form-block .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+      .form-actions{display:flex;gap:12px;align-items:center;margin-top:18px;flex-wrap:wrap}
+      .form-actions button{background:var(--accent);color:#11151a;font-weight:600;font-family:Oswald,sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:11px 22px;border-radius:5px;border:none;cursor:pointer}
+      .form-actions button:hover{background:var(--accent-soft)}
+      .form-actions button[disabled]{opacity:.5;cursor:not-allowed}
+      .form-status{font-family:var(--mono);font-size:12px;color:var(--fg-muted);min-height:18px}
+      .form-status.ok{color:var(--green)}
+      .form-status.err{color:var(--red)}
+
+      /* Blurred preview */
+      .preview-wrap{position:relative;margin-top:18px;border-radius:8px;overflow:hidden;border:1px solid var(--border)}
+      .preview-img{display:block;width:100%;height:auto;filter:blur(8px) saturate(0.85) brightness(0.65);transition:filter .8s ease;pointer-events:none;user-select:none}
+      .preview-wrap.unlocked .preview-img{filter:none}
+      .preview-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(11,13,16,.55);transition:opacity .6s ease}
+      .preview-wrap.unlocked .preview-overlay{opacity:0;pointer-events:none}
+      .preview-overlay .label{font-family:Oswald,sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-muted);padding:8px 16px;background:rgba(11,13,16,.85);border:1px solid var(--border);border-radius:5px}
+      .preview-svg{display:block;width:100%;height:auto;background:#0a0c10}
+
+      .unlocked-cta{display:none;margin-top:16px}
+      .unlocked-cta.show{display:block}
+
       footer.foot{margin-top:60px;padding-top:24px;border-top:1px solid var(--border);font-size:12.5px;color:var(--fg-soft);font-family:var(--mono);line-height:1.6}
       footer.foot a{color:var(--fg-muted)}
       .links-row{display:flex;flex-wrap:wrap;gap:18px;margin-top:10px}
@@ -68,7 +102,7 @@
       <header class="top">
         <div class="glyph"><img src="./assets/eve-glyph-CLvHhd6w.jpg" alt="EVE digital stem cell glyph by Dany Theriault" /></div>
         <div class="brand">
-          <h1>EVE — Post-Sapphire Sample Summary</h1>
+          <h1>EVE Research — Sovereign-AI Decision Intelligence</h1>
           <p class="tagline">Pour le bien-être du peuple.</p>
         </div>
         <div class="stamp">
@@ -78,56 +112,129 @@
       </header>
 
       <section>
-        <p class="lede">This page is a sample summary of the EVE glyph applied for the purpose of <strong>integrating nuclear human safety protocols into our decision-intelligence model</strong>. It is published as a time-stamped record of authorship and intent, following the SAP Sapphire 2026 conference. The dashboard at the foot of the page is the worked example.</p>
-        <p>EVE is a research project on classification-led decision intelligence. Its operating premise is that the durable asset in any human-supervised AI deployment is the <em>classified base</em> the institution owns, not the model that operates on it. The framework's role is to keep that asset on the institution's side of the perimeter — capitalisable, regulator-defensible, and protected by an operator-side non-retention guarantee — while the model layer modernises over time on the operator's side.</p>
-        <p>Applied to nuclear-adjacent governance, the same architecture produces a dashboard-shaped consumption surface that fits inside existing control-system protocols. The governing body inspects, the institution owns, the operator carries the labour. No new genre. No new oversight regime. The pattern slides into the seat the regulator already knows how to sit in.</p>
+        <h2>About the Research</h2>
+        <p class="lede">EVE is a research project on how a governing body keeps confidence in itself while it adopts sovereign-AI decision intelligence — a class of systems that interprets, classifies, and prioritizes evidence faster than any committee can.</p>
+        <p>The research observatory studies vendor-lock-in dynamics, hyperscaler commoditization, and the integration of nuclear-grade human-safety protocols into the operating practice of governing bodies. It is dashboard-shaped: each instance preserves the governing body's own confidence properties — independent inspection, probability-gated escalation, evidence-backed readings, audit trails, and full institutional ownership of the classified base accrued under its remit.</p>
+        <p class="muted">The first worked example, the EVE Hyperloop Monitor, applies the pattern today to SAP vendor-lock-in dynamics in the sovereign-AI era. The same dashboard, with classification rules adjusted, wraps any watched system the governing body chooses to extend its confidence to.</p>
       </section>
 
       <section>
-        <h2>Capability Outline</h2>
-        <div class="grid">
-          <div class="cap">
-            <div class="cap-title">Classification Membrane</div>
-            <div class="cap-body">A structured layer that captures streams from the watched system — telemetry, recurring meetings, incident records, supplier exchanges — and classifies them inside a perimeter the institution owns. The classified base is the asset; the membrane is how it accrues.</div>
+        <h2>Two Ways to Engage</h2>
+        <p class="muted" style="margin-bottom:18px">Read a deeper look at the research, or talk to me directly.</p>
+
+        <div class="paths">
+
+          <!-- PATH A: Direct LinkedIn -->
+          <div class="path-card">
+            <div class="kicker">Path A · Direct</div>
+            <h3>Reach Dany directly on LinkedIn</h3>
+            <p>If you have a question, an objection, a project that touches the same problem, or you just want to talk — connect with me on LinkedIn. No gate, no form. Ask whatever you want, freeform.</p>
+            <a class="cta secondary" href="https://www.linkedin.com/in/danytheriault/" target="_blank" rel="noopener">Open LinkedIn →</a>
           </div>
-          <div class="cap">
-            <div class="cap-title">Probability-Gated Escalation</div>
-            <div class="cap-body">Readings are reported as levels with explicit ignition probability. Escalation across thresholds requires both contextual signal and market or operational confirmation. No single-source alerting. No emergency framing absent corroborating evidence.</div>
+
+          <!-- PATH B: Gated monitor access -->
+          <div class="path-card">
+            <div class="kicker">Path B · Worked example</div>
+            <h3>Request access to the live monitor</h3>
+            <p>The EVE Hyperloop Monitor is the SAP vendor-lock-in worked example. Share four details and you get instant access — the dashboard unblurs on this page and a fresh link to the live monitor opens.</p>
+            <a class="cta" href="#request" id="open-form-btn">Request access →</a>
           </div>
-          <div class="cap">
-            <div class="cap-title">Industry-Agnostic Dashboard</div>
-            <div class="cap-body">The dashboard pattern is substrate-independent. Today's worked example watches SAP vendor-lock-in dynamics in the sovereign-AI era. The same pattern wraps reactor margin, grid stability, AI deployment density in critical infrastructure, or any other watched system the governing body chooses to point it at.</div>
+
+        </div>
+
+        <!-- Gated form -->
+        <div class="form-block" id="form-block">
+          <div class="kicker" style="font-family:Oswald,sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:6px">Contact intake · routed to Dany via WhatsApp</div>
+          <p style="font-size:14px;color:var(--fg-muted);margin-bottom:0">Four fields. A WhatsApp pings me with your details and the dashboard unlocks for you. You will not receive marketing email — this is direct human-to-human routing.</p>
+
+          <form id="gate-form" novalidate>
+            <label for="email">Work email</label>
+            <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@company.example" />
+
+            <label for="whatsapp">WhatsApp or phone (with country code)</label>
+            <input type="tel" id="whatsapp" name="whatsapp" required autocomplete="tel" placeholder="+1 555 123 4567" />
+
+            <label for="company_role">Company and role</label>
+            <input type="text" id="company_role" name="company_role" required placeholder="e.g. Avalara · VP Channel Strategy" />
+
+            <label for="linkedin">LinkedIn profile URL</label>
+            <input type="url" id="linkedin" name="linkedin" required placeholder="https://www.linkedin.com/in/..." />
+
+            <label for="message">Anything else (optional)</label>
+            <textarea id="message" name="message" placeholder="What brings you here? What would you want to look at first?"></textarea>
+
+            <!-- honeypot -->
+            <input type="text" class="hp" tabindex="-1" autocomplete="off" name="website" />
+
+            <div class="form-actions">
+              <button type="submit" id="submit-btn">Send & unlock monitor</button>
+              <span class="form-status" id="form-status"></span>
+            </div>
+          </form>
+        </div>
+
+        <!-- Blurred preview + unlock CTA -->
+        <div class="preview-wrap" id="preview-wrap">
+          <svg class="preview-svg" viewBox="0 0 980 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#13161b"/>
+                <stop offset="1" stop-color="#0b0d10"/>
+              </linearGradient>
+            </defs>
+            <rect width="980" height="320" fill="url(#bg)"/>
+            <!-- Header band -->
+            <rect x="24" y="24" width="600" height="24" rx="3" fill="#d97e2f" opacity=".18"/>
+            <rect x="24" y="56" width="380" height="14" rx="2" fill="#9aa3b2" opacity=".25"/>
+            <rect x="800" y="24" width="156" height="46" rx="4" fill="#d97e2f" opacity=".35"/>
+            <!-- Big number -->
+            <text x="850" y="60" font-family="Oswald" font-size="32" font-weight="700" fill="#d97e2f" text-anchor="middle" opacity=".9">LEVEL 1</text>
+            <!-- Probability bar -->
+            <rect x="24" y="100" width="932" height="58" rx="5" fill="#161a20" stroke="#262b34"/>
+            <rect x="40" y="132" width="180" height="10" rx="2" fill="#d97e2f"/>
+            <rect x="220" y="132" width="736" height="10" rx="2" fill="#262b34"/>
+            <text x="940" y="124" font-family="Oswald" font-size="22" font-weight="700" fill="#d97e2f" text-anchor="end">15%</text>
+            <!-- 3 area cards -->
+            <rect x="24" y="180" width="220" height="120" rx="5" fill="#161a20" stroke="#262b34"/>
+            <rect x="40" y="200" width="80" height="10" rx="2" fill="#d97e2f" opacity=".7"/>
+            <rect x="40" y="220" width="160" height="14" rx="2" fill="#9aa3b2" opacity=".4"/>
+            <text x="40" y="270" font-family="Oswald" font-size="20" font-weight="600" fill="#e6ebf5">4.0</text>
+            <rect x="252" y="180" width="220" height="120" rx="5" fill="#161a20" stroke="#262b34"/>
+            <rect x="268" y="200" width="80" height="10" rx="2" fill="#9aa3b2" opacity=".4"/>
+            <rect x="268" y="220" width="160" height="14" rx="2" fill="#9aa3b2" opacity=".4"/>
+            <text x="268" y="270" font-family="Oswald" font-size="20" font-weight="600" fill="#e6ebf5">3.3</text>
+            <rect x="480" y="180" width="220" height="120" rx="5" fill="#161a20" stroke="#262b34"/>
+            <rect x="496" y="200" width="80" height="10" rx="2" fill="#9aa3b2" opacity=".4"/>
+            <rect x="496" y="220" width="160" height="14" rx="2" fill="#9aa3b2" opacity=".4"/>
+            <text x="496" y="270" font-family="Oswald" font-size="20" font-weight="600" fill="#e6ebf5">2.3</text>
+            <!-- Contributors table -->
+            <rect x="708" y="180" width="248" height="120" rx="5" fill="#161a20" stroke="#262b34"/>
+            <rect x="724" y="200" width="100" height="8" rx="2" fill="#9aa3b2" opacity=".4"/>
+            <rect x="724" y="220" width="180" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
+            <rect x="724" y="234" width="160" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
+            <rect x="724" y="248" width="170" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
+            <rect x="724" y="262" width="150" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
+            <rect x="724" y="276" width="140" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
+          </svg>
+          <div class="preview-overlay">
+            <div class="label">Live monitor · access by request</div>
           </div>
-          <div class="cap">
-            <div class="cap-title">Cellular-Disarming Deployment</div>
-            <div class="cap-body">Each deployed instance is detachable from the operator without functional loss to the institution. No phone-home. No licensing leash. No retained rights on the classified base. The institution holds the off-switch — at year ten of asset life, not just at signing.</div>
-          </div>
+        </div>
+
+        <div class="unlocked-cta" id="unlocked-cta">
+          <a class="cta" href="./monitor.html" id="open-monitor-btn">Open the live monitor →</a>
+          <span class="muted" style="margin-left:14px;font-size:13.5px">Access valid for 1 hour. Send again any time.</span>
         </div>
       </section>
 
       <section>
-        <h2>Integrating Nuclear Human Safety Protocols</h2>
-        <p>Nuclear governance is the modern template that has successfully kept a dual-use technology operating under public-interest constraints over multi-decade horizons. Its operating elements — independent regulator with statutory authority, peer-reviewed evidence, cautious approval rather than market enablement, dashboard-shaped consumption surfaces in control rooms, and audit trails that survive personnel turnover — are precisely the elements a sovereign-AI oversight regime needs.</p>
-        <p>EVE does not propose a new governance body. It proposes that the dashboard pattern shown below is the consumption surface a nuclear-style governing body can use to extend its existing confidence across industries that today have no equivalent oversight. The governing body's confidence is the asset; the dashboard pattern is the carrier.</p>
-        <blockquote class="attest">The dashboard pattern is the seat the regulator already knows how to sit in. The institution owns the base. The operator carries the labour. The confidence properties survive the migration from one industry to the next.</blockquote>
-        <h3>What this means in practice</h3>
+        <h2>What's inside the monitor</h2>
         <ul class="tight">
-          <li>Human safety protocols from nuclear governance are inherited as classification rules inside the membrane, not bolted on as policy</li>
-          <li>Escalation logic mirrors control-room conventions — probability-gated, evidence-backed, audit-trailed, conservative by default</li>
-          <li>The governing body retains all rights of use over the classified base accrued under its remit</li>
-          <li>Operator-side non-retention is structural, not contractual — see <a href="./terms.html">Terms of Use</a> §3.5</li>
+          <li>Live probability-gated reading on SAP vendor-lock-in dynamics — Watch (L1) through Imminent (L5)</li>
+          <li>Three assessment areas: Competitive Landscape, Vendor Posture &amp; Market, Independent Safeguards</li>
+          <li>Top weighted contributors with evidence trail (source links, dates, severity)</li>
+          <li>Audit posture: every reading is reproducible from the evidence stack</li>
         </ul>
-      </section>
-
-      <section>
-        <h2>Worked Example</h2>
-        <div class="sample-band">
-          <div class="kicker">Sample dashboard · live instance</div>
-          <h3>EVE Hyperloop Monitor — SAP Vendor-Lock-In Dynamics</h3>
-          <p>The dashboard below is one instance of the pattern, applied today to SAP vendor-lock-in dynamics in the sovereign-AI era. It is the worked example referenced throughout this page. The same dashboard, with classification rules adjusted, wraps any watched system the governing body chooses to extend its confidence to.</p>
-          <p class="muted" style="margin-bottom:14px">Read it as a draft of what a governing body's own dashboard could look like, not as a product pitch.</p>
-          <a class="cta" href="./monitor.html">Open the worked example →</a>
-        </div>
       </section>
 
       <section>
@@ -139,7 +246,6 @@
       <section>
         <h2>Related Material</h2>
         <ul class="tight">
-          <li><a href="./monitor.html">EVE Hyperloop Monitor</a> — sample dashboard, SAP vendor-lock-in worked example</li>
           <li><a href="./projection.html">DI Framework Projection</a> — the pyramid as a projection of the underlying decision-intelligence framework</li>
           <li><a href="./terms.html">Terms of Use</a> — rights of use, assignment, operator-side non-retention</li>
           <li><a href="./council.html">Council Charter</a> — Council Triangle, two-of-three voting, succession to Chief Betterment Officer, EVE Star Academy, Human Safety Protocol Certification, fork rights, ocean-focused R&amp;D in Vallarta</li>
@@ -149,12 +255,100 @@
       <footer class="foot">
         <div>© 2026 Dany Theriault. EVE "digital stem cell" glyph and glyph-based design principles — all rights reserved. Stewardship of rights of use and assignment for large public and institutional usage rests with the Pacific Utilities Design Council. Published as a time-stamped record of authorship and intent.</div>
         <div class="links-row">
-          <a href="./monitor.html">Worked example</a>
+          <a href="https://www.linkedin.com/in/danytheriault/" target="_blank" rel="noopener">LinkedIn · Dany Theriault</a>
           <a href="./projection.html">DI framework projection</a>
           <a href="./terms.html">Terms of use</a>
           <a href="./council.html">Council Charter</a>
         </div>
       </footer>
     </div>
+
+    <script>
+      (function(){
+        var WORKER = 'https://eve-gate.eveglyphdesign.workers.dev';
+        var TOKEN_KEY = 'eve_gate_token_v1';
+
+        var formBlock = document.getElementById('form-block');
+        var openBtn = document.getElementById('open-form-btn');
+        var form = document.getElementById('gate-form');
+        var submitBtn = document.getElementById('submit-btn');
+        var status = document.getElementById('form-status');
+        var previewWrap = document.getElementById('preview-wrap');
+        var unlockedCta = document.getElementById('unlocked-cta');
+
+        function unlock() {
+          previewWrap.classList.add('unlocked');
+          unlockedCta.classList.add('show');
+        }
+
+        // If we already have a valid token, unlock immediately
+        async function checkExistingToken() {
+          var t = localStorage.getItem(TOKEN_KEY);
+          if (!t) return;
+          try {
+            var res = await fetch(WORKER + '/verify', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ token: t })
+            });
+            var data = await res.json();
+            if (data.valid) unlock();
+            else localStorage.removeItem(TOKEN_KEY);
+          } catch (e) { /* network error — silent */ }
+        }
+        checkExistingToken();
+
+        openBtn.addEventListener('click', function(e){
+          e.preventDefault();
+          formBlock.classList.add('open');
+          setTimeout(function(){ document.getElementById('email').focus(); }, 80);
+          history.replaceState(null, '', '#request');
+        });
+        if (location.hash === '#request') formBlock.classList.add('open');
+
+        form.addEventListener('submit', async function(e){
+          e.preventDefault();
+          status.className = 'form-status';
+          status.textContent = 'Sending…';
+          submitBtn.disabled = true;
+
+          var payload = {
+            email: form.email.value.trim(),
+            whatsapp: form.whatsapp.value.trim(),
+            company_role: form.company_role.value.trim(),
+            linkedin: form.linkedin.value.trim(),
+            message: form.message.value.trim(),
+            website: form.website.value /* honeypot */
+          };
+
+          try {
+            var res = await fetch(WORKER + '/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+            var data = await res.json();
+            if (!res.ok || !data.ok) {
+              status.className = 'form-status err';
+              status.textContent = data.error
+                ? ('Could not send: ' + data.error + (data.field ? ' (' + data.field + ')' : ''))
+                : 'Could not send. Please try LinkedIn instead.';
+              submitBtn.disabled = false;
+              return;
+            }
+            localStorage.setItem(TOKEN_KEY, data.token);
+            status.className = 'form-status ok';
+            status.textContent = 'Thank you. The monitor is now unlocked below.';
+            unlock();
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Sent ✓';
+          } catch (e) {
+            status.className = 'form-status err';
+            status.textContent = 'Network error. Try LinkedIn for a direct reply.';
+            submitBtn.disabled = false;
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
