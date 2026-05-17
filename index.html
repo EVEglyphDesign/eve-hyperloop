@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EVE Research — Sovereign-AI Decision Intelligence</title>
-    <meta name="description" content="EVE Glyph Design applied to sovereign-AI decision intelligence. Three gates: utility-operator apex, enterprise, and individual — each protected under the EVE Glyph Design copyright umbrella." />
+    <meta name="description" content="EVE Glyph Design applied to sovereign-AI decision intelligence: a research observatory on vendor-lock-in dynamics, governance posture, and the integration of nuclear human-safety protocols. Access the worked-example monitor by request or reach Dany Theriault directly." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
@@ -31,165 +31,43 @@
       html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
       a{color:var(--accent-soft);text-decoration:none;border-bottom:1px solid rgba(232,164,104,.3)}
       a:hover{border-bottom-color:var(--accent-soft)}
-      .wrap{max-width:1100px;margin:0 auto;padding:32px 24px 80px}
-      header.top{display:flex;gap:20px;align-items:center;padding-bottom:24px;border-bottom:1px solid var(--border);margin-bottom:36px;flex-wrap:wrap}
+      .wrap{max-width:980px;margin:0 auto;padding:40px 24px 80px}
+      header.top{display:flex;gap:20px;align-items:center;padding-bottom:28px;border-bottom:1px solid var(--border);margin-bottom:36px}
       .glyph{width:64px;height:64px;flex-shrink:0;border-radius:6px;overflow:hidden;background:#0a0c10;border:1px solid var(--border-soft)}
       .glyph img{width:100%;height:100%;object-fit:cover;display:block}
-      .brand h1{font-family:Oswald,sans-serif;font-weight:700;font-size:24px;letter-spacing:.02em;line-height:1.1;margin:0 0 6px 0;color:var(--fg)}
+      .brand h1{font-family:Oswald,sans-serif;font-weight:700;font-size:26px;letter-spacing:.02em;line-height:1.1;margin:0 0 6px 0;color:var(--fg)}
       .brand .tagline{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--fg-muted);margin:0}
-      .header-linkedin{margin-left:auto;font-family:Oswald,sans-serif;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-soft);padding:8px 14px;border:1px solid var(--accent);border-radius:5px;border-bottom:1px solid var(--accent)}
-      .header-linkedin:hover{background:rgba(217,126,47,.08);border-bottom:1px solid var(--accent)}
+      .stamp{margin-left:auto;text-align:right;font-family:var(--mono);font-size:11px;color:var(--fg-soft);line-height:1.5}
+      .stamp .stamp-label{display:block;text-transform:uppercase;letter-spacing:.08em;color:var(--fg-soft);font-size:10px;margin-bottom:2px}
       section{margin-bottom:44px}
       h2{font-family:Oswald,sans-serif;font-weight:600;font-size:18px;letter-spacing:.04em;text-transform:uppercase;color:var(--fg);margin:0 0 14px 0;padding-bottom:8px;border-bottom:1px solid var(--border-soft)}
       h3{font-family:var(--sans);font-weight:600;font-size:15px;color:var(--fg);margin:24px 0 8px 0}
       p{margin:0 0 14px 0;font-size:15.5px;color:var(--fg)}
       p.lede{font-size:17px;color:var(--fg);line-height:1.6}
       .muted{color:var(--fg-muted)}
+      @media (max-width:760px){header.top{flex-wrap:wrap} .stamp{margin-left:0;text-align:left;width:100%}}
       ul.tight{margin:0 0 14px 18px;padding:0}
       ul.tight li{font-size:15px;color:var(--fg);margin-bottom:6px}
 
-      /* === EVE glyph with callouts attached at the three triangle points ===
-       *
-       * Protocol standard:
-       *   1. The three callouts terminate AT the glyph's three triangle vertices (anchor dots).
-       *   2. Each callout label is terse — a name, not a paragraph. Apple HIG: "Lightning connector",
-       *      not three sentences.
-       *   3. Three scale dimensions: z-depth (glyph<leader<label), size hierarchy (kicker<name<verb),
-       *      spacing rhythm (4px micro / 12px small / 80px+ canvas).
-       *   4. Leader lines are thin, single-stroke, and never cross.
-       */
-      .triangle-stage{position:relative;width:100%;max-width:1180px;margin:0 auto 24px;aspect-ratio:1180/820;min-height:720px}
-
-      /* Layer 1 (z=1) — the EVE glyph as the geometric anchor. Sized to 64% of the stage height
-         so there is a clear band ABOVE (for apex callout + HCP marker) and BELOW (for base
-         callouts + HCP markers) without ever overlapping the painted glyph. */
-      .triangle-stage .glyph-hero{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);height:64%;max-width:46%;z-index:1;display:flex;align-items:center;justify-content:center}
-      .triangle-stage .glyph-hero img{height:100%;width:auto;object-fit:contain;display:block;border-radius:4px;box-shadow:0 0 80px rgba(0,0,0,.55)}
-
-      /* Layer 2 (z=2) — leader lines and vertex anchor dots. Thin, single-stroke, never crossing. */
-      .triangle-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
-
-      /* Layer 3 (z=3) — callout labels. Attached at the leader's terminal point opposite the vertex.
-         Each label is sized to the minimum that holds its three text scales. */
-      .triangle-stage .callout{position:absolute;z-index:3;background:rgba(19,22,27,.96);border:1px solid var(--border);border-radius:6px;padding:10px 14px;display:flex;flex-direction:column;box-shadow:0 8px 28px rgba(0,0,0,.7);width:auto;max-width:260px}
-
-      /* Stage layout in three vertical bands (no overlap with the painted glyph):
-         Band A: 0 – 16%   APEX callout (and a separate HCP marker chip below it at ~14%)
-         Band B: 18 – 82%  the painted glyph (height 64%, vertically centered)
-         Band C: 84 – 100% BL/BR callouts and base HCP marker chips
-         All callouts and HCP markers live OUTSIDE the painted glyph. */
-      .triangle-stage .callout-apex{top:0;left:50%;transform:translateX(-50%);max-width:300px;text-align:center}
-      .triangle-stage .callout-apex .vertex-label,.triangle-stage .callout-apex h3,.triangle-stage .callout-apex .qualify,.triangle-stage .callout-apex .cta-mini{text-align:left}
-      .triangle-stage .callout-bl{bottom:0;left:0;max-width:230px}
-      .triangle-stage .callout-br{bottom:0;right:0;max-width:230px}
-
-      /* Three scale dimensions inside each callout, applied consistently:
-         — Vertex-label (scale 1, smallest, mono):  9.5pt, uppercase, soft
-         — Gate name (scale 2, body):              13pt, sans, bright
-         — Action verb (scale 3, primary):         11pt, oswald, accent
-         The three steps create natural visual rhythm without paragraphs of body copy. */
-      .callout .vertex-label{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.16em;color:var(--fg-soft);margin-bottom:4px}
-      .callout h3{margin:0 0 8px 0;font-size:13px;line-height:1.25;color:var(--fg);font-weight:600;letter-spacing:.01em}
-      .callout .qualify{font-family:var(--serif);font-style:italic;font-size:11.5px;color:var(--fg);background:rgba(217,126,47,.08);border-left:2px solid var(--accent);padding:5px 9px;margin:-2px 0 8px 0;border-radius:0 3px 3px 0;line-height:1.3;max-width:240px}
-      .callout .cta-mini{display:inline-block;font-family:Oswald,sans-serif;font-size:11px;letter-spacing:.10em;text-transform:uppercase;color:var(--accent-soft);padding:5px 0 0 0;border:none;border-bottom:1px solid var(--accent);align-self:flex-start;background:transparent}
-      .callout .cta-mini:hover{color:var(--accent);border-bottom:1px solid var(--accent-soft)}
-
-      /* === Hover explainer — where the human-in-the-loop control sits at each gate ===
-       * Apple HIG: "Use tooltips to reveal supplementary information on demand without crowding the surface."
-       * The callout itself stays terse (vertex-label / gate-name / verb). The hover panel
-       * reveals which human seat owns the decisions at this vertex. Critical for copyright protection:
-       * the umbrella is enforced by humans, not by software. The hover names the seat. */
-      .callout{cursor:help;transition:border-color .2s ease, box-shadow .2s ease}
-      .callout:hover{border-color:var(--accent);box-shadow:0 10px 36px rgba(217,126,47,.18)}
-      .callout .hil-panel{position:absolute;z-index:5;background:#0a0c10;border:1px solid var(--accent);border-radius:6px;padding:12px 14px 14px 14px;width:280px;font-family:var(--sans);font-size:12px;line-height:1.45;color:var(--fg);box-shadow:0 14px 40px rgba(0,0,0,.75);opacity:0;pointer-events:none;transform:translateY(-4px);transition:opacity .18s ease, transform .18s ease}
-      .callout:hover .hil-panel, .callout:focus-within .hil-panel{opacity:1;pointer-events:auto;transform:translateY(0)}
-      .callout .hil-panel .hil-kicker{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.16em;color:var(--accent-soft);margin-bottom:5px}
-      .callout .hil-panel .hil-seat{font-family:Oswald,sans-serif;font-size:13.5px;font-weight:600;color:var(--fg);margin-bottom:6px;letter-spacing:.02em}
-      .callout .hil-panel .hil-body{color:var(--fg-muted);font-size:11.5px;line-height:1.5}
-      .callout .hil-panel .hil-body em{font-family:var(--serif);font-style:italic;color:var(--accent-soft)}
-      /* Panel placement per vertex — each panel sits OUTSIDE the triangle so it never covers the glyph */
-      .callout-apex .hil-panel{top:calc(100% + 10px);left:50%;transform:translate(-50%,-4px)}
-      .callout-apex:hover .hil-panel{transform:translate(-50%,0)}
-      .callout-bl .hil-panel{bottom:calc(100% + 10px);left:0}
-      .callout-br .hil-panel{bottom:calc(100% + 10px);right:0}
-
-      /* === Vessel bifurcation — truth above, darkness below ===
-       * The EVE glyph's half-circle is the vessel. Its CHORD (the flat top of the half-circle)
-       * is the surface where light meets dark. The triangle's base sits ON that chord; its apex
-       * rises into the light. What is held above the chord, under the apex, is TRUTH under the
-       * umbrella. What sinks below the chord, into the half-circle's bowl, is DARKNESS — the
-       * un-watermarked, the un-attributed, the un-stewarded.
-       *
-       * Geometry: in the painted glyph image, the chord sits at ~79.5% of the IMAGE height.
-       * Glyph is 88% of the stage and vertically centered, so chord-y = 6% + 0.795 × 88% ≈ 76%
-       * of the stage. The three triangle vertices lie ON this same horizon at the base and rise
-       * to the apex above. This is the pattern to the light. */
-      /* Bifurcation chord sits AT the painted glyph's chord (~78% of stage) — above the base
-         callouts. Chips ride along the glyph's outer flanks, not over the base callouts. */
-      .bifurcation{position:absolute;left:0;right:0;top:78%;z-index:2;pointer-events:none}
-      .bifurcation .axis{position:absolute;left:4%;right:4%;top:0;height:1px;background:linear-gradient(90deg, transparent 0%, rgba(217,126,47,.10) 6%, rgba(217,126,47,.55) 28%, rgba(217,126,47,.85) 50%, rgba(217,126,47,.55) 72%, rgba(217,126,47,.10) 94%, transparent 100%)}
-      .bifurcation .axis::before, .bifurcation .axis::after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(217,126,47,.55);top:-2.5px}
-      .bifurcation .axis::before{left:-3px}
-      .bifurcation .axis::after{right:-3px}
-      .bifurcation .lbl{position:absolute;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-soft);background:rgba(11,13,16,.85);padding:3px 7px;border-radius:3px}
-      .bifurcation .lbl-truth{left:18%;top:-22px;color:var(--accent-soft);border:1px solid rgba(217,126,47,.4)}
-      .bifurcation .lbl-truth::before{content:"↑ ";letter-spacing:0}
-      .bifurcation .lbl-dark{right:18%;top:6px;color:#6c7587;border:1px solid var(--border)}
-      .bifurcation .lbl-dark::before{content:"↓ ";letter-spacing:0}
-      @media (max-width:900px){.bifurcation{display:none}}
-
-      /* === Annotation layer (Operator's reading of the glyph) ===
-       * The three sides of the painted triangle carry meaning:
-       *   • left side  = SOIL          (where we grow from)
-       *   • right side = FUTURE / TRUTH (where the velocity vector points)
-       *   • chord/base = the VESSEL    (EVE — inheritor — carries the present)
-       * The three vertices are explicitly named "Human control points."
-       * Velocity rises from past (below the chord) through present (inside the circle)
-       * into future (above the chord, into the apex's light).
-       * "Pour le bien-être du peuple" is stamped as the welfare register, visible on the surface. */
-      .glyph-anno{position:absolute;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:var(--fg-muted);z-index:2;pointer-events:none;line-height:1}
-      /* HCP markers — each HCP is depicted as a miniature of the EVE glyph itself.
-         The glyph IS the HCP icon. Each marker is a small triangle + inner circle + half-circle.
-         Markers are placed in clear space, NEVER overlapping the painted glyph or a callout.
-         — apex marker  sits between the apex callout (above) and the painted glyph (below)
-         — base markers sit between the painted glyph (above) and the base callouts (below) */
-      .hcp-marker{position:absolute;z-index:4;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:3px}
-      .hcp-marker svg{width:30px;height:30px;display:block;filter:drop-shadow(0 2px 6px rgba(0,0,0,.75))}
-      .hcp-marker .hcp-tag{font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-soft);background:rgba(11,13,16,.92);padding:2px 6px;border-radius:2px;border:1px solid rgba(217,126,47,.4);white-space:nowrap;line-height:1}
-      /* Apex HCP marker sits in the narrow band between the apex callout (top:0..16%) and
-         the painted glyph (starts at 18%). Markers at top: 16.5% give a 2-3px breath gap. */
-      .hcp-marker.hcp-apex{top:16.4%;left:50%;transform:translateX(-50%)}
-      /* Base HCP markers sit in the band between the painted glyph (ends ~82%) and the base
-         callouts (start at bottom:0 → top ≈ 89%). Markers at 82.5% give a 4-5px gap each side. */
-      .hcp-marker.hcp-bl{top:82.5%;left:26%}
-      .hcp-marker.hcp-br{top:82.5%;right:26%}
-      /* Velocity vector — dashed arrow from past (below the chord) into the apex's light. */
-      .velocity-vector{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;opacity:.55}
-      /* Welfare-register stamp — placed in the upper-right of the stage, outside the glyph */
-      .welfare-stamp{position:absolute;top:2%;right:0.5%;font-family:var(--serif);font-style:italic;font-size:12px;color:var(--accent-soft);background:rgba(11,13,16,.92);border:1px solid var(--accent);border-radius:50% / 38%;padding:9px 16px;letter-spacing:.02em;line-height:1.2;text-align:center;z-index:3;max-width:150px;box-shadow:0 6px 22px rgba(217,126,47,.20)}
-      .welfare-stamp::after{content:"✓";display:block;font-family:Oswald,sans-serif;font-style:normal;font-size:13px;color:var(--accent);margin-top:3px}
-      @media (max-width:1100px){.welfare-stamp{font-size:10.5px;padding:7px 11px;max-width:120px}}
-      @media (max-width:900px){.glyph-anno, .velocity-vector, .welfare-stamp, .side-labels, .hcp-marker{display:none}}
-
-      /* Legend below the glyph stage — carries the inheritance lines that used to clutter the callouts. */
-      .glyph-legend{max-width:1180px;margin:0 auto 40px;padding:0 8px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;font-family:var(--mono);font-size:11px;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.08em;line-height:1.5}
-      .glyph-legend .legend-item{padding-left:14px;border-left:1px solid var(--border)}
-      .glyph-legend .legend-item strong{color:var(--accent-soft);font-weight:600;display:block;margin-bottom:4px;letter-spacing:.12em}
-      @media (max-width:900px){.glyph-legend{grid-template-columns:1fr}}
+      /* Two-path access section */
+      .paths{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:6px 0 8px 0}
+      @media (max-width:760px){.paths{grid-template-columns:1fr}}
+      .path-card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:22px 22px;display:flex;flex-direction:column}
+      .path-card .kicker{font-family:Oswald,sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:8px}
+      .path-card h3{margin:0 0 10px 0;font-size:18px}
+      .path-card p{font-size:14.5px;color:var(--fg-muted);line-height:1.55;margin-bottom:16px}
+      .path-card .cta{margin-top:auto}
       .cta{display:inline-block;background:var(--accent);color:#11151a;font-weight:600;font-family:Oswald,sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border-radius:5px;border-bottom:none}
       .cta:hover{background:var(--accent-soft);border-bottom:none}
-      .cta.secondary{background:transparent;color:var(--accent-soft);border:1px solid var(--accent)}
+      .cta.secondary{background:transparent;color:var(--accent-soft);border:1px solid var(--accent);}
       .cta.secondary:hover{background:rgba(217,126,47,.08)}
-      .cta.draft{background:#262b34;color:var(--fg-muted);cursor:not-allowed}
-      .cta.draft:hover{background:#262b34;color:var(--fg-muted)}
 
       /* Form */
       .form-block{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;padding:24px 22px;margin-top:18px;display:none}
       .form-block.open{display:block}
-      .form-block .form-title{font-family:Oswald,sans-serif;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:8px}
       .form-block label{display:block;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--fg-muted);margin:14px 0 6px 0}
-      .form-block input, .form-block textarea, .form-block select{width:100%;padding:10px 12px;background:#0a0c10;border:1px solid var(--border);border-radius:4px;color:var(--fg);font-family:var(--sans);font-size:14.5px;outline:none}
-      .form-block input:focus, .form-block textarea:focus, .form-block select:focus{border-color:var(--accent)}
+      .form-block input, .form-block textarea{width:100%;padding:10px 12px;background:#0a0c10;border:1px solid var(--border);border-radius:4px;color:var(--fg);font-family:var(--sans);font-size:14.5px;outline:none}
+      .form-block input:focus, .form-block textarea:focus{border-color:var(--accent)}
       .form-block textarea{min-height:80px;resize:vertical;font-family:var(--sans)}
       .form-block .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
       .form-actions{display:flex;gap:12px;align-items:center;margin-top:18px;flex-wrap:wrap}
@@ -202,32 +80,21 @@
 
       /* Blurred preview */
       .preview-wrap{position:relative;margin-top:18px;border-radius:8px;overflow:hidden;border:1px solid var(--border)}
-      .preview-svg{display:block;width:100%;height:auto;background:#0a0c10;filter:blur(8px) saturate(0.85) brightness(0.65);transition:filter .8s ease;pointer-events:none;user-select:none}
-      .preview-wrap.unlocked .preview-svg{filter:none}
+      .preview-img{display:block;width:100%;height:auto;filter:blur(8px) saturate(0.85) brightness(0.65);transition:filter .8s ease;pointer-events:none;user-select:none}
+      .preview-wrap.unlocked .preview-img{filter:none}
       .preview-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(11,13,16,.55);transition:opacity .6s ease}
       .preview-wrap.unlocked .preview-overlay{opacity:0;pointer-events:none}
       .preview-overlay .label{font-family:Oswald,sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-muted);padding:8px 16px;background:rgba(11,13,16,.85);border:1px solid var(--border);border-radius:5px}
+      .preview-svg{display:block;width:100%;height:auto;background:#0a0c10}
+
       .unlocked-cta{display:none;margin-top:16px}
       .unlocked-cta.show{display:block}
-
-      @media (max-width:900px){
-        /* Below tablet, abandon the absolute geometry: glyph on top, vertex labels in a column below */
-        .triangle-stage{aspect-ratio:auto;min-height:0;display:flex;flex-direction:column;align-items:center;gap:12px;padding:0}
-        .triangle-stage .glyph-hero{position:relative;top:auto;left:auto;transform:none;height:auto;width:80%;max-width:320px;margin:0 auto}
-        .triangle-stage .glyph-hero img{height:auto;width:100%}
-        .triangle-stage .callout{position:relative;width:100%;max-width:none;top:auto;left:auto;right:auto;bottom:auto;transform:none}
-        .triangle-stage .callout .hil-panel{position:relative;opacity:1;pointer-events:auto;transform:none;top:auto;left:auto;right:auto;bottom:auto;width:100%;margin-top:8px}
-        .triangle-lines{display:none}
-      }
-      @media (max-width:760px){
-        header.top{flex-wrap:wrap}
-        .header-linkedin{margin-left:0;margin-top:8px}
-      }
 
       footer.foot{margin-top:60px;padding-top:24px;border-top:1px solid var(--border);font-size:12.5px;color:var(--fg-soft);font-family:var(--mono);line-height:1.6}
       footer.foot a{color:var(--fg-muted)}
       .links-row{display:flex;flex-wrap:wrap;gap:18px;margin-top:10px}
       .links-row a{color:var(--accent-soft)}
+      blockquote.attest{margin:18px 0;padding:14px 18px;border-left:2px solid var(--accent);background:rgba(217,126,47,.04);font-family:var(--serif);font-style:italic;color:var(--fg);font-size:15.5px}
     </style>
   </head>
   <body>
@@ -238,279 +105,151 @@
           <h1>EVE Research — Sovereign-AI Decision Intelligence</h1>
           <p class="tagline">Pour le bien-être du peuple.</p>
         </div>
-        <a class="header-linkedin" href="https://www.linkedin.com/in/danytheriault/" target="_blank" rel="noopener">Reach Dany on LinkedIn →</a>
+        <div class="stamp">
+          <span class="stamp-label">Published</span>
+          14 May 2026<br />Time-stamped record
+        </div>
       </header>
 
       <section>
-        <p class="muted" style="margin:0 0 22px 0;font-size:13.5px;text-align:center;letter-spacing:.04em;text-transform:uppercase;font-family:var(--mono)">Three HCPs. One glyph. Choose the position that matches the operator you are.</p>
-
-        <div class="triangle-stage" aria-label="EVE glyph with three gate callouts attached at the triangle's three points">
-          <!-- Glyph hero — the visual centerpiece of the page -->
-          <div class="glyph-hero">
-            <img src="./assets/eve-glyph-CLvHhd6w.jpg" alt="EVE digital stem cell glyph by Dany Theriault" />
-          </div>
-
-          <!-- Leader lines and anchor dots. ViewBox 1180x720. Glyph is 88% tall, centered:
-               its top edge sits at y≈43, bottom at y≈677. Within the glyph image itself, the painted
-               triangle's apex is at about 50% width, 14% height of the IMAGE, base corners at ~21%/79%.
-               In viewBox coords, after accounting for image height 88% of 720 = ~633 and centering:
-                 apex      ≈ (590, 132)
-                 base-left ≈ (470, 575)
-                 base-right≈ (710, 575)
-               (Geometric notes; tuned by sight against the painted glyph image.)
-               Each leader is a single thin stroke from label-edge to vertex anchor dot, no crossings. -->
-          <!-- Geometry re-anchored against the painted glyph:
-               In a 1180×720 viewBox with the glyph 88% tall (≈634px) vertically centered (top y≈43),
-               and measured against the actual painted image:
-                 • Apex tip of triangle is at ~3% of image height → y ≈ 43 + 0.03×634 ≈ 62  (light)
-                 • Half-circle's CHORD (and the triangle's BASE) is at ~79.5% of image height
-                                                                  → y ≈ 43 + 0.795×634 ≈ 547  (horizon)
-                 • Triangle's base-left  corner sits ON the chord at ~24% image width → x ≈ 510
-                 • Triangle's base-right corner sits ON the chord at ~76% image width → x ≈ 778
-                 (image is centered at x=590, max-width 54% of 1180 = 637px, so left edge ≈ 271)
-               The painted triangle reaches from (590,62) at the apex down to (442,547) and (738,547)
-               on the chord. Anchor dots and leader endpoints are placed at those exact coordinates. -->
-          <!-- Geometry re-measured against the new stage layout (1180×820 viewBox, glyph at 64%):
-             Stage = 1180 wide × 820 tall in viewBox units.
-             Glyph image is 64% tall (≈ 525), vertically centered → image top y ≈ 148, bottom y ≈ 673.
-             Image is 46% wide (≈ 543), horizontally centered → image left x ≈ 318, right x ≈ 862.
-             Within the painted image itself:
-               • triangle apex tip    at ≈50% W, ≈3%  H  → (590, 165)
-               • base-left corner     at ≈21% W, ≈80% H → (432, 568)
-               • base-right corner   at ≈79% W, ≈80% H → (747, 568)
-               • chord (horizon)     at y≈568 — the truth/darkness line
-             These are the truth anchors for every leader and label. -->
-          <svg class="triangle-lines" viewBox="0 0 1180 820" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- Apex leader: from below the HCP-apex marker chip down to the painted apex -->
-            <line x1="590" y1="152" x2="590" y2="165" stroke="#d97e2f" stroke-width="1.25" opacity=".9"/>
-            <!-- Base-left leader: from above the BL callout up to the painted base-left corner -->
-            <line x1="260" y1="720" x2="432" y2="568" stroke="#d97e2f" stroke-width="1.25" opacity=".9"/>
-            <!-- Base-right leader: from above the BR callout up to the painted base-right corner -->
-            <line x1="920" y1="720" x2="747" y2="568" stroke="#d97e2f" stroke-width="1.25" opacity=".9"/>
-            <!-- Anchor dots ON the painted triangle's three vertices -->
-            <circle cx="590" cy="165" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
-            <circle cx="432" cy="568" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
-            <circle cx="747" cy="568" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
-          </svg>
-
-          <!-- Side labels ride OUTSIDE the painted triangle so they never curl through the inner
-               circle. The label path is offset 14 viewBox-units outward from each painted edge,
-               using a perpendicular offset from the edge vector. Soil reads bottom-to-top along
-               the outer-left edge; Future·Truth reads top-to-bottom along the outer-right edge. -->
-          <svg class="side-labels" viewBox="0 0 1180 820" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none">
-            <defs>
-              <!-- Outer-left edge, drawn from base-left (low) to apex (high) so text reads upward.
-                   Original edge: (432,568) → (590,165). Perpendicular outward (to the left) is
-                   the unit vector (-cosα, -sinα) of the edge normal. We shift each endpoint by
-                   ~18 viewBox units outward to clear the painted triangle. -->
-              <path id="edge-soil" d="M 415,572 L 573,168" fill="none"/>
-              <!-- Outer-right edge, drawn from apex (high) to base-right (low) so text reads downward. -->
-              <path id="edge-future" d="M 607,168 L 764,572" fill="none"/>
-            </defs>
-            <text font-family="Oswald, sans-serif" font-size="14" font-weight="600" letter-spacing="4" fill="#e8a468" opacity=".85">
-              <textPath xlink:href="#edge-soil" startOffset="30%">SOIL · PAST</textPath>
-            </text>
-            <text font-family="Oswald, sans-serif" font-size="14" font-weight="600" letter-spacing="4" fill="#e8a468" opacity=".85">
-              <textPath xlink:href="#edge-future" startOffset="30%">FUTURE · TRUTH</textPath>
-            </text>
-          </svg>
-
-          <!-- Velocity vector — dashed arrow from past (below the chord) up into the apex's light. -->
-          <svg class="velocity-vector" viewBox="0 0 1180 820" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <marker id="arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-                <path d="M0,0 L10,5 L0,10 z" fill="#5f9e6e"/>
-              </marker>
-            </defs>
-            <line x1="590" y1="650" x2="590" y2="200" stroke="#5f9e6e" stroke-width="1.3" stroke-dasharray="3 4" opacity=".55" marker-end="url(#arr)"/>
-          </svg>
-
-          <!-- Three HCPs (Human Control Points), each depicted as a miniature EVE glyph.
-               The glyph IS the HCP icon — same geometric language at every vertex.
-               Inline SVG so it scales crisply and matches the accent palette exactly. -->
-          <div class="hcp-marker hcp-apex">
-            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="EVE glyph HCP marker · apex">
-              <!-- Triangle (apex up) -->
-              <polygon points="24,5 5,40 43,40" fill="none" stroke="#d97e2f" stroke-width="2.4" stroke-linejoin="round"/>
-              <!-- Inner circle (the present) -->
-              <circle cx="24" cy="27" r="9" fill="none" stroke="#d97e2f" stroke-width="1.8"/>
-              <!-- Half-circle vessel (open downward, sitting on the chord at y=40) -->
-              <path d="M 9 40 A 15 15 0 0 0 39 40" fill="none" stroke="#d97e2f" stroke-width="1.8"/>
-            </svg>
-            <span class="hcp-tag">HCP · Apex</span>
-          </div>
-          <div class="hcp-marker hcp-bl">
-            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="EVE glyph HCP marker · base-left">
-              <polygon points="24,5 5,40 43,40" fill="none" stroke="#d97e2f" stroke-width="2.4" stroke-linejoin="round"/>
-              <circle cx="24" cy="27" r="9" fill="none" stroke="#d97e2f" stroke-width="1.8"/>
-              <path d="M 9 40 A 15 15 0 0 0 39 40" fill="none" stroke="#d97e2f" stroke-width="1.8"/>
-            </svg>
-            <span class="hcp-tag">HCP · Base-left</span>
-          </div>
-          <div class="hcp-marker hcp-br">
-            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="EVE glyph HCP marker · base-right">
-              <polygon points="24,5 5,40 43,40" fill="none" stroke="#d97e2f" stroke-width="2.4" stroke-linejoin="round"/>
-              <circle cx="24" cy="27" r="9" fill="none" stroke="#d97e2f" stroke-width="1.8"/>
-              <path d="M 9 40 A 15 15 0 0 0 39 40" fill="none" stroke="#d97e2f" stroke-width="1.8"/>
-            </svg>
-            <span class="hcp-tag">HCP · Base-right</span>
-          </div>
-          <!-- Welfare register stamp — surfaced on the geometry, outside the glyph -->
-          <div class="welfare-stamp">Pour le bien-être du peuple</div>
-
-          <!-- APEX callout — three scale dimensions: vertex-label / gate-name / action verb. No paragraphs. -->
-          <div class="callout callout-apex" tabindex="0" aria-describedby="hil-apex">
-            <div class="vertex-label">Apex point</div>
-            <h3>Utility operator gate</h3>
-            <div class="qualify">Have you ever worked for an electric utility?</div>
-            <a class="cta-mini" href="#apex-intake" id="apex-cta">Enter →</a>
-            <div class="hil-panel" id="hil-apex" role="tooltip">
-              <div class="hil-kicker">HCP · Apex</div>
-              <div class="hil-seat">Pacific Utilities Design Council</div>
-              <div class="hil-body">Two-of-three voting on rights of use and assignment. Confidence properties — inspection, escalation, audit — remain with the utility operator. Sovereign-AI never decides alone. <em>Above the vessel: truth held under the umbrella.</em></div>
-            </div>
-          </div>
-
-          <!-- BOTTOM-LEFT callout — Individual / Education -->
-          <div class="callout callout-bl" tabindex="0" aria-describedby="hil-bl">
-            <div class="vertex-label">Base-left point</div>
-            <h3>Individual · education</h3>
-            <a class="cta-mini" href="#individual-intake" id="individual-cta">Enter →</a>
-            <div class="hil-panel" id="hil-bl" role="tooltip">
-              <div class="hil-kicker">HCP · Base-left</div>
-              <div class="hil-seat">The operator herself · A-glyph inheritor</div>
-              <div class="hil-body">Personal Article I §8 Cl. 8 extension. The child or adult learner remains the only operator of her own A-glyph. EVE keeps no retention; the umbrella protects the design, not the data. <em>Above the vessel: the learner's own truth.</em></div>
-            </div>
-          </div>
-
-          <!-- BOTTOM-RIGHT callout — Enterprise -->
-          <div class="callout callout-br" tabindex="0" aria-describedby="hil-br">
-            <div class="vertex-label">Base-right point</div>
-            <h3>Enterprise · vendor-lock-in</h3>
-            <a class="cta-mini" href="#enterprise-intake" id="enterprise-cta">Enter →</a>
-            <div class="hil-panel" id="hil-br" role="tooltip">
-              <div class="hil-kicker">HCP · Base-right</div>
-              <div class="hil-seat">Enterprise assessor + Avalara channel reviewer</div>
-              <div class="hil-body">No-lock-in DI capital asset class. The enterprise's own staff signs every assessment; the channel partner audits the procedure, not the verdict. <em>Above the vessel: a finding the enterprise owns.</em></div>
-            </div>
-          </div>
-
-          <!-- Vessel bifurcation — truth (above the half-circle's chord) vs darkness (below).
-               Visible only on desktop; positioned at the glyph's chord line. -->
-          <div class="bifurcation" aria-hidden="true">
-            <div class="axis"></div>
-            <span class="lbl lbl-truth">Truth · under the umbrella</span>
-            <span class="lbl lbl-dark">Darkness · uncovered, unwatermarked</span>
-          </div>
-        </div>
-
-        <!-- Legend below the glyph — carries what used to be in the callouts so the glyph is uncluttered. -->
-        <div class="glyph-legend" aria-label="Inheritance legend for the three gates">
-          <div class="legend-item">
-            <strong>Apex · Utility</strong>
-            Inheritance: utility-operator sovereign-AI confidence properties
-          </div>
-          <div class="legend-item">
-            <strong>Base-left · Individual</strong>
-            Inheritance: personal Article I §8 Cl. 8 extension via A-glyph design
-          </div>
-          <div class="legend-item">
-            <strong>Base-right · Enterprise</strong>
-            Inheritance: no-lock-in DI capital asset class · first channel partner Avalara
-          </div>
-        </div>
+        <h2>About the Research</h2>
+        <p class="lede">EVE is a research project on how a governing body keeps confidence in itself while it adopts sovereign-AI decision intelligence — a class of systems that interprets, classifies, and prioritizes evidence faster than any committee can.</p>
+        <p>The research observatory studies vendor-lock-in dynamics, hyperscaler commoditization, and the integration of nuclear-grade human-safety protocols into the operating practice of governing bodies. It is dashboard-shaped: each instance preserves the governing body's own confidence properties — independent inspection, probability-gated escalation, evidence-backed readings, audit trails, and full institutional ownership of the classified base accrued under its remit.</p>
+        <p class="muted">The first worked example, the EVE Hyperloop Monitor, applies the pattern today to SAP vendor-lock-in dynamics in the sovereign-AI era. The same dashboard, with classification rules adjusted, wraps any watched system the governing body chooses to extend its confidence to.</p>
       </section>
 
       <section>
-        <h2>Provenance · EVE DI CoE</h2>
-        <p class="lede">EVE is the Decision-Intelligence Center of Excellence (DI CoE) for sovereign-AI work conducted under the EVE Glyph Design copyright umbrella — an extension of US copyright (Article I §8 Cl. 8). Each HCP routes its intake directly into the CoE.</p>
-        <p class="muted" style="font-size:13.5px">Author of record: Dany Theriault. First public timestamp of the glyph and the three-HCP arrangement: 2026. Stewardship of rights of use and assignment: Pacific Utilities Design Council.</p>
-      </section>
+        <h2>Two Ways to Engage</h2>
+        <p class="muted" style="margin-bottom:18px">Read a deeper look at the research, or talk to me directly.</p>
 
-      <section>
-        <h2>Intake</h2>
-        <!-- Gated form (shared infrastructure; vertex-specific intake to be split later) -->
+        <div class="paths">
+
+          <!-- PATH A: Direct LinkedIn -->
+          <div class="path-card">
+            <div class="kicker">Path A · Direct</div>
+            <h3>Reach Dany directly on LinkedIn</h3>
+            <p>If you have a question, an objection, a project that touches the same problem, or you just want to talk — connect with me on LinkedIn. No gate, no form. Ask whatever you want, freeform.</p>
+            <a class="cta secondary" href="https://www.linkedin.com/in/danytheriault/" target="_blank" rel="noopener">Open LinkedIn →</a>
+          </div>
+
+          <!-- PATH B: Gated monitor access -->
+          <div class="path-card">
+            <div class="kicker">Path B · Worked example</div>
+            <h3>Request access to the live monitor</h3>
+            <p>The EVE Hyperloop Monitor is the SAP vendor-lock-in worked example. Share four details and you get instant access — the dashboard unblurs on this page and a fresh link to the live monitor opens.</p>
+            <a class="cta" href="#request" id="open-form-btn">Request access →</a>
+          </div>
+
+        </div>
+
+        <!-- Gated form -->
         <div class="form-block" id="form-block">
-          <div class="form-title">Intake · routed to the EVE DI CoE</div>
-          <p style="font-size:14px;color:var(--fg-muted);margin-bottom:0">Automated intake. Your entry is routed to the CoE at the HCP position you choose. Direct human-to-human reply, no marketing list.</p>
+          <div class="kicker" style="font-family:Oswald,sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:6px">Contact intake · routed to Dany via WhatsApp</div>
+          <p style="font-size:14px;color:var(--fg-muted);margin-bottom:0">Four fields. A WhatsApp pings me with your details and the dashboard unlocks for you. You will not receive marketing email — this is direct human-to-human routing.</p>
 
           <form id="gate-form" novalidate>
-            <label for="vertex">Which HCP position are you entering through?</label>
-            <select id="vertex" name="vertex" required>
-              <option value="apex">HCP · Apex — utility operator</option>
-              <option value="enterprise">HCP · Base-right — enterprise vendor-lock-in</option>
-              <option value="individual">HCP · Base-left — individual / education</option>
-            </select>
-
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@example.com" />
+            <label for="email">Work email</label>
+            <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@company.example" />
 
             <label for="whatsapp">WhatsApp or phone (with country code)</label>
             <input type="tel" id="whatsapp" name="whatsapp" required autocomplete="tel" placeholder="+1 555 123 4567" />
 
-            <label for="company_role">Company and role (or N/A for individual)</label>
-            <input type="text" id="company_role" name="company_role" required placeholder="e.g. PG&E · Senior Engineer · Bay Area" />
+            <label for="company_role">Company and role</label>
+            <input type="text" id="company_role" name="company_role" required placeholder="e.g. Avalara · VP Channel Strategy" />
 
             <label for="linkedin">LinkedIn profile URL</label>
             <input type="url" id="linkedin" name="linkedin" required placeholder="https://www.linkedin.com/in/..." />
 
-            <label for="message">Context for this entry (optional)</label>
-            <textarea id="message" name="message" placeholder="Utility operator: where and how long. Enterprise: current vendor + the problem you want evaluated. Individual: what you want to design under the umbrella."></textarea>
+            <label for="message">Anything else (optional)</label>
+            <textarea id="message" name="message" placeholder="What brings you here? What would you want to look at first?"></textarea>
 
+            <!-- honeypot -->
             <input type="text" class="hp" tabindex="-1" autocomplete="off" name="website" />
 
             <div class="form-actions">
-              <button type="submit" id="submit-btn">Send intake</button>
+              <button type="submit" id="submit-btn">Send & unlock monitor</button>
               <span class="form-status" id="form-status"></span>
             </div>
           </form>
         </div>
 
-        <!-- Blurred monitor preview (enterprise visitors are routed to this after intake) -->
-        <div class="preview-wrap" id="preview-wrap" style="margin-top:24px">
-          <svg class="preview-svg" viewBox="0 0 980 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <!-- Blurred preview + unlock CTA -->
+        <div class="preview-wrap" id="preview-wrap">
+          <svg class="preview-svg" viewBox="0 0 980 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
             <defs>
               <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stop-color="#13161b"/>
                 <stop offset="1" stop-color="#0b0d10"/>
               </linearGradient>
             </defs>
-            <rect width="980" height="280" fill="url(#bg)"/>
-            <rect x="24" y="24" width="600" height="22" rx="3" fill="#d97e2f" opacity=".18"/>
-            <rect x="24" y="54" width="380" height="12" rx="2" fill="#9aa3b2" opacity=".25"/>
-            <rect x="800" y="24" width="156" height="42" rx="4" fill="#d97e2f" opacity=".35"/>
-            <text x="850" y="56" font-family="Oswald" font-size="28" font-weight="700" fill="#d97e2f" text-anchor="middle" opacity=".9">LEVEL 1</text>
-            <rect x="24" y="90" width="932" height="50" rx="5" fill="#161a20" stroke="#262b34"/>
-            <rect x="40" y="116" width="180" height="10" rx="2" fill="#d97e2f"/>
-            <rect x="220" y="116" width="736" height="10" rx="2" fill="#262b34"/>
-            <text x="940" y="110" font-family="Oswald" font-size="20" font-weight="700" fill="#d97e2f" text-anchor="end">15%</text>
-            <rect x="24" y="160" width="220" height="100" rx="5" fill="#161a20" stroke="#262b34"/>
-            <text x="40" y="230" font-family="Oswald" font-size="18" font-weight="600" fill="#e6ebf5">4.0</text>
-            <rect x="252" y="160" width="220" height="100" rx="5" fill="#161a20" stroke="#262b34"/>
-            <text x="268" y="230" font-family="Oswald" font-size="18" font-weight="600" fill="#e6ebf5">3.3</text>
-            <rect x="480" y="160" width="220" height="100" rx="5" fill="#161a20" stroke="#262b34"/>
-            <text x="496" y="230" font-family="Oswald" font-size="18" font-weight="600" fill="#e6ebf5">2.3</text>
-            <rect x="708" y="160" width="248" height="100" rx="5" fill="#161a20" stroke="#262b34"/>
-            <rect x="724" y="180" width="100" height="8" rx="2" fill="#9aa3b2" opacity=".4"/>
-            <rect x="724" y="200" width="180" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
-            <rect x="724" y="214" width="160" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
-            <rect x="724" y="228" width="170" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
-            <rect x="724" y="242" width="150" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
+            <rect width="980" height="320" fill="url(#bg)"/>
+            <!-- Header band -->
+            <rect x="24" y="24" width="600" height="24" rx="3" fill="#d97e2f" opacity=".18"/>
+            <rect x="24" y="56" width="380" height="14" rx="2" fill="#9aa3b2" opacity=".25"/>
+            <rect x="800" y="24" width="156" height="46" rx="4" fill="#d97e2f" opacity=".35"/>
+            <!-- Big number -->
+            <text x="850" y="60" font-family="Oswald" font-size="32" font-weight="700" fill="#d97e2f" text-anchor="middle" opacity=".9">LEVEL 1</text>
+            <!-- Probability bar -->
+            <rect x="24" y="100" width="932" height="58" rx="5" fill="#161a20" stroke="#262b34"/>
+            <rect x="40" y="132" width="180" height="10" rx="2" fill="#d97e2f"/>
+            <rect x="220" y="132" width="736" height="10" rx="2" fill="#262b34"/>
+            <text x="940" y="124" font-family="Oswald" font-size="22" font-weight="700" fill="#d97e2f" text-anchor="end">15%</text>
+            <!-- 3 area cards -->
+            <rect x="24" y="180" width="220" height="120" rx="5" fill="#161a20" stroke="#262b34"/>
+            <rect x="40" y="200" width="80" height="10" rx="2" fill="#d97e2f" opacity=".7"/>
+            <rect x="40" y="220" width="160" height="14" rx="2" fill="#9aa3b2" opacity=".4"/>
+            <text x="40" y="270" font-family="Oswald" font-size="20" font-weight="600" fill="#e6ebf5">4.0</text>
+            <rect x="252" y="180" width="220" height="120" rx="5" fill="#161a20" stroke="#262b34"/>
+            <rect x="268" y="200" width="80" height="10" rx="2" fill="#9aa3b2" opacity=".4"/>
+            <rect x="268" y="220" width="160" height="14" rx="2" fill="#9aa3b2" opacity=".4"/>
+            <text x="268" y="270" font-family="Oswald" font-size="20" font-weight="600" fill="#e6ebf5">3.3</text>
+            <rect x="480" y="180" width="220" height="120" rx="5" fill="#161a20" stroke="#262b34"/>
+            <rect x="496" y="200" width="80" height="10" rx="2" fill="#9aa3b2" opacity=".4"/>
+            <rect x="496" y="220" width="160" height="14" rx="2" fill="#9aa3b2" opacity=".4"/>
+            <text x="496" y="270" font-family="Oswald" font-size="20" font-weight="600" fill="#e6ebf5">2.3</text>
+            <!-- Contributors table -->
+            <rect x="708" y="180" width="248" height="120" rx="5" fill="#161a20" stroke="#262b34"/>
+            <rect x="724" y="200" width="100" height="8" rx="2" fill="#9aa3b2" opacity=".4"/>
+            <rect x="724" y="220" width="180" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
+            <rect x="724" y="234" width="160" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
+            <rect x="724" y="248" width="170" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
+            <rect x="724" y="262" width="150" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
+            <rect x="724" y="276" width="140" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
           </svg>
           <div class="preview-overlay">
-            <div class="label">Worked example · enterprise gate · access by intake</div>
+            <div class="label">Live monitor · access by request</div>
           </div>
         </div>
 
         <div class="unlocked-cta" id="unlocked-cta">
           <a class="cta" href="./monitor.html" id="open-monitor-btn">Open the live monitor →</a>
-          <span class="muted" style="margin-left:14px;font-size:13.5px">Access valid for 1 hour.</span>
+          <span class="muted" style="margin-left:14px;font-size:13.5px">Access valid for 1 hour. Send again any time.</span>
         </div>
       </section>
 
       <section>
-        <h2>Umbrella · Watermark</h2>
-        <p>Every page on this site carries the canonical copyright notice in the footer. Every document produced under EVE Glyph Design carries a cryptographic watermark signed by an EVE-owned key — a portable proof of authorship and timestamp, not a restriction on reading. Mechanism: <a href="./terms.html">Terms of Use</a>.</p>
+        <h2>What's inside the monitor</h2>
+        <ul class="tight">
+          <li>Live probability-gated reading on SAP vendor-lock-in dynamics — Watch (L1) through Imminent (L5)</li>
+          <li>Three assessment areas: Competitive Landscape, Vendor Posture &amp; Market, Independent Safeguards</li>
+          <li>Top weighted contributors with evidence trail (source links, dates, severity)</li>
+          <li>Audit posture: every reading is reproducible from the evidence stack</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Governance Posture</h2>
+        <p>The framework is dashboard-shaped, fits inside existing control-system consumption, and does not require the governing body to learn a new genre of oversight. Each instance preserves the governing body's confidence properties: independent inspection, probability-gated escalation, evidence-backed readings, audit trails, and full institutional ownership of the classified base accrued under its remit.</p>
+        <p>This pattern extends across industries. Confidence properties are preserved. The dashboard becomes the governing body's.</p>
+      </section>
+
+      <section>
+        <h2>Related Material</h2>
+        <ul class="tight">
+          <li><a href="./projection.html">DI Framework Projection</a> — the pyramid as a projection of the underlying decision-intelligence framework</li>
+          <li><a href="./terms.html">Terms of Use</a> — rights of use, assignment, operator-side non-retention</li>
+          <li><a href="./council.html">Council Charter</a> — Council Triangle, two-of-three voting, succession to Chief Betterment Officer, EVE Star Academy, Human Safety Protocol Certification, fork rights, ocean-focused R&amp;D in Vallarta</li>
+        </ul>
       </section>
 
       <footer class="foot">
@@ -528,83 +267,82 @@
       (function(){
         var WORKER = 'https://eve-gate.eveglyphdesign.workers.dev';
         var TOKEN_KEY = 'eve_gate_token_v1';
+
         var formBlock = document.getElementById('form-block');
+        var openBtn = document.getElementById('open-form-btn');
         var form = document.getElementById('gate-form');
-        var vertexSelect = document.getElementById('vertex');
         var submitBtn = document.getElementById('submit-btn');
         var status = document.getElementById('form-status');
         var previewWrap = document.getElementById('preview-wrap');
         var unlockedCta = document.getElementById('unlocked-cta');
 
-        function openForm(vertex){
-          formBlock.classList.add('open');
-          if (vertex) vertexSelect.value = vertex;
-          setTimeout(function(){ document.getElementById('email').focus(); }, 80);
-          history.replaceState(null, '', '#' + (vertex || 'intake'));
-          formBlock.scrollIntoView({ behavior:'smooth', block:'start' });
-        }
-
-        document.getElementById('apex-cta').addEventListener('click', function(e){ e.preventDefault(); openForm('apex'); });
-        document.getElementById('enterprise-cta').addEventListener('click', function(e){ e.preventDefault(); openForm('enterprise'); });
-        document.getElementById('individual-cta').addEventListener('click', function(e){ e.preventDefault(); openForm('individual'); });
-
-        if (location.hash.indexOf('apex') >= 0) openForm('apex');
-        else if (location.hash.indexOf('enterprise') >= 0) openForm('enterprise');
-        else if (location.hash.indexOf('individual') >= 0) openForm('individual');
-        else if (location.hash === '#request') openForm('enterprise');
-
-        function unlock(){
+        function unlock() {
           previewWrap.classList.add('unlocked');
           unlockedCta.classList.add('show');
         }
 
-        async function checkExistingToken(){
+        // If we already have a valid token, unlock immediately
+        async function checkExistingToken() {
           var t = localStorage.getItem(TOKEN_KEY);
           if (!t) return;
           try {
             var res = await fetch(WORKER + '/verify', {
-              method:'POST', headers:{ 'Content-Type':'application/json' },
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ token: t })
             });
             var data = await res.json();
             if (data.valid) unlock();
             else localStorage.removeItem(TOKEN_KEY);
-          } catch(e) {}
+          } catch (e) { /* network error — silent */ }
         }
         checkExistingToken();
+
+        openBtn.addEventListener('click', function(e){
+          e.preventDefault();
+          formBlock.classList.add('open');
+          setTimeout(function(){ document.getElementById('email').focus(); }, 80);
+          history.replaceState(null, '', '#request');
+        });
+        if (location.hash === '#request') formBlock.classList.add('open');
 
         form.addEventListener('submit', async function(e){
           e.preventDefault();
           status.className = 'form-status';
           status.textContent = 'Sending…';
           submitBtn.disabled = true;
+
           var payload = {
             email: form.email.value.trim(),
             whatsapp: form.whatsapp.value.trim(),
             company_role: form.company_role.value.trim(),
             linkedin: form.linkedin.value.trim(),
-            message: '[' + form.vertex.value.toUpperCase() + ' GATE] ' + form.message.value.trim(),
-            website: form.website.value
+            message: form.message.value.trim(),
+            website: form.website.value /* honeypot */
           };
+
           try {
             var res = await fetch(WORKER + '/submit', {
-              method:'POST', headers:{ 'Content-Type':'application/json' },
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(payload)
             });
             var data = await res.json();
             if (!res.ok || !data.ok) {
               status.className = 'form-status err';
-              status.textContent = data.error ? ('Could not send: ' + data.error + (data.field ? ' (' + data.field + ')' : '')) : 'Could not send. Try LinkedIn.';
+              status.textContent = data.error
+                ? ('Could not send: ' + data.error + (data.field ? ' (' + data.field + ')' : ''))
+                : 'Could not send. Please try LinkedIn instead.';
               submitBtn.disabled = false;
               return;
             }
             localStorage.setItem(TOKEN_KEY, data.token);
             status.className = 'form-status ok';
-            status.textContent = 'Thank you. Dany has been pinged. The monitor is unlocked below.';
+            status.textContent = 'Thank you. The monitor is now unlocked below.';
             unlock();
             submitBtn.disabled = false;
             submitBtn.textContent = 'Sent ✓';
-          } catch(e) {
+          } catch (e) {
             status.className = 'form-status err';
             status.textContent = 'Network error. Try LinkedIn for a direct reply.';
             submitBtn.disabled = false;
