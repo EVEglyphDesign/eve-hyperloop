@@ -9,16 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
     <style>
-      /* === EVE Glyph Design · ARK Protocol Standard · patent pending ===
-         Semantic colour register. Every glyph element carries a single, named meaning.
-         No element may borrow a colour outside its register.
-           · blue       = past / soil           (where we grew from)
-           · red        = future / truth         (where the velocity points)
-           · orange     = velocity vector        (past → future, the arrow itself)
-           · green      = decision intelligence  (merged human + machine, NO WIRES)
-           · baby blue  = ARK · EVE Glyph Design protocol standard, patent pending
-                          (the vessel that carries the design under the umbrella)
-         The accent ochre remains the brand chrome (chips, leaders, callout borders). */
       :root{
         --bg:#0b0d10;
         --bg-elev:#13161b;
@@ -30,18 +20,6 @@
         --border-soft:#1c2027;
         --accent:#d97e2f;
         --accent-soft:#e8a468;
-        /* Semantic register — ARK protocol */
-        --past:#3a7bd5;            /* blue · soil / past */
-        --past-soft:#6fa3e5;
-        --future:#d7464b;          /* red · future / truth */
-        --future-soft:#e87a7e;
-        --velocity:#ee8b3c;        /* orange · velocity vector */
-        --velocity-soft:#f4ad6e;
-        --di:#3fb27f;              /* green · decision intelligence (merged, no wires) */
-        --di-soft:#7ecfa6;
-        --ark:#7fc4e8;             /* baby blue · ARK protocol standard, patent pending */
-        --ark-soft:#a8d8ef;
-        /* Legacy aliases kept for unrelated UI chips */
         --green:#5f9e6e;
         --amber:#caa14b;
         --red:#c46a5b;
@@ -258,7 +236,7 @@
         <div class="glyph"><img src="./assets/eve-glyph-CLvHhd6w.jpg" alt="EVE digital stem cell glyph by Dany Theriault" /></div>
         <div class="brand">
           <h1>EVE Research — Sovereign-AI Decision Intelligence</h1>
-          <p class="tagline">We stay out of people's business. We support <em>le bien-être du peuple</em>.</p>
+          <p class="tagline">Pour le bien-être du peuple.</p>
         </div>
         <a class="header-linkedin" href="https://www.linkedin.com/in/danytheriault/" target="_blank" rel="noopener">Reach Dany on LinkedIn →</a>
       </header>
@@ -329,72 +307,22 @@
               <!-- Outer-right edge, drawn from apex (high) to base-right (low) so text reads downward. -->
               <path id="edge-future" d="M 607,168 L 764,572" fill="none"/>
             </defs>
-            <!-- ARK Protocol: NO COLOUR is ever painted on the glyph. Side labels are removed from
-                 the glyph surface. Past / Future are read from the off-glyph velocity chips below. -->
+            <text font-family="Oswald, sans-serif" font-size="14" font-weight="600" letter-spacing="4" fill="#e8a468" opacity=".85">
+              <textPath xlink:href="#edge-soil" startOffset="30%">SOIL · PAST</textPath>
+            </text>
+            <text font-family="Oswald, sans-serif" font-size="14" font-weight="600" letter-spacing="4" fill="#e8a468" opacity=".85">
+              <textPath xlink:href="#edge-future" startOffset="30%">FUTURE · TRUTH</textPath>
+            </text>
           </svg>
 
-          <!-- ARK Protocol Standard · patent pending · colour register lives OFF the glyph.
-               The painted glyph is achromatic, always. Semantic colour appears only in chips,
-               labels, and chrome positioned in the clear space around the glyph.
-                 · blue       = past (chip, soil-side, off-glyph)
-                 · red        = future (chip, truth-side, off-glyph)
-                 · orange     = velocity vector (off-glyph arc above the apex band)
-                 · green      = decision intelligence merged (off-glyph, no wires)
-                 · baby blue  = ARK mark (off-glyph caption below the half-circle)
-               No element below paints, overlays, or annotates the painted glyph itself. -->
-
-          <!-- Velocity arc — off-glyph, in the apex band ABOVE the painted glyph.
-               Sweeps blue (past) → orange (velocity) → red (future), left to right. -->
+          <!-- Velocity vector — dashed arrow from past (below the chord) up into the apex's light. -->
           <svg class="velocity-vector" viewBox="0 0 1180 820" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <defs>
-              <marker id="arr-future" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
-                <path d="M0,0 L10,5 L0,10 z" fill="#d7464b"/>
+              <marker id="arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="#5f9e6e"/>
               </marker>
-              <linearGradient id="velocity-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%"  stop-color="#3a7bd5"/>
-                <stop offset="45%" stop-color="#ee8b3c"/>
-                <stop offset="100%" stop-color="#d7464b"/>
-              </linearGradient>
             </defs>
-            <!-- Arc lives in the apex band (y ~ 50-110), well above the painted glyph top at y=148 -->
-            <circle cx="175" cy="95" r="4" fill="#3a7bd5" opacity=".95"/>
-            <path d="M 180,95 C 360,40 820,40 1000,95"
-                  fill="none" stroke="url(#velocity-grad)" stroke-width="3" stroke-linecap="round"
-                  opacity=".95" marker-end="url(#arr-future)"/>
-            <g font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2" font-weight="700">
-              <text x="170" y="78" text-anchor="end" fill="#6fa3e5">PAST</text>
-              <text x="1010" y="78" fill="#e87a7e">FUTURE</text>
-              <text x="590" y="38" text-anchor="middle" fill="#f4ad6e" font-size="9.5" letter-spacing="3">VELOCITY</text>
-            </g>
-          </svg>
-
-          <!-- Decision Intelligence node — OFF-glyph chip, right of the painted glyph in the clear band.
-               Green, merged human+machine, NO WIRES. The geometric connection is implied by position:
-               DI sits on the chord's extended line (y=568), opposite the soil-side past chip. -->
-          <svg class="di-node" viewBox="0 0 1180 820" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none">
-            <!-- DI node sits in the clear space right of the glyph, on the chord line y=568 -->
-            <g transform="translate(1020,568)">
-              <circle r="22" fill="#3fb27f" opacity=".12"/>
-              <circle r="15" fill="#3fb27f" opacity=".22"/>
-              <rect x="-8" y="-8" width="16" height="16" rx="3" fill="#3fb27f" stroke="#0b0d10" stroke-width="1.5"/>
-              <text y="-30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="2" font-weight="700" fill="#7ecfa6">DECISION</text>
-              <text y="-18" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="2" font-weight="700" fill="#7ecfa6">INTELLIGENCE</text>
-              <text y="34" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" letter-spacing="2" fill="#7ecfa6" opacity=".85">HUMAN + MACHINE</text>
-              <text y="46" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" letter-spacing="2" fill="#7ecfa6" opacity=".7">(geometry, no wires)</text>
-            </g>
-          </svg>
-
-          <!-- ARK mark — OFF-glyph caption in the band BELOW the painted glyph.
-               Baby blue. Patent pending. The ARK is the protocol standard itself.
-               Sits centred under the half-circle's apparent waterline, never touching the painted surface. -->
-          <svg class="ark-ribbon" viewBox="0 0 1180 820" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none">
-            <!-- Hull silhouette — small, in the band below the glyph (glyph ends ~y=673) -->
-            <g transform="translate(590,748)">
-              <path d="M -60,0 Q 0,22 60,0" fill="none" stroke="#7fc4e8" stroke-width="2.4" stroke-linecap="round" opacity=".95"/>
-              <line x1="-58" y1="0" x2="58" y2="0" stroke="#a8d8ef" stroke-width="1.4" opacity=".85"/>
-              <text text-anchor="middle" y="-12" font-family="Oswald, sans-serif" font-size="12" font-weight="700" letter-spacing="4" fill="#a8d8ef">ARK</text>
-              <text text-anchor="middle" y="38" font-family="JetBrains Mono, monospace" font-size="8.5" letter-spacing="2.5" fill="#7fc4e8" opacity=".9">PROTOCOL STANDARD · PATENT PENDING</text>
-            </g>
+            <line x1="590" y1="650" x2="590" y2="200" stroke="#5f9e6e" stroke-width="1.3" stroke-dasharray="3 4" opacity=".55" marker-end="url(#arr)"/>
           </svg>
 
           <!-- Three HCPs (Human Control Points), each depicted as a miniature EVE glyph.
