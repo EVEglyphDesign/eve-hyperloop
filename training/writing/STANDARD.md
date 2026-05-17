@@ -51,6 +51,25 @@ meaning, remove it. Then read it again.
 
 ---
 
+## Operating mode — Async IDOC
+
+The human–agent connection runs as **asynchronous IDOC processing**, not
+sequential dialogue. Full spec: `../protocols/ASYNC-IDOC.md`.
+
+Short form:
+
+- **Irritation = failed IDOC.** Spin the ball back, self-heal, re-try.
+- **Re-read canon before asking.** If it's in `/glyph.html`,
+  `/individual.html`, `/council.html`, or a transcript, it's not a
+  question for the user.
+- **Parallel by default.** Independent operations run together.
+- **Reversible canon additions proceed without confirmation.**
+  Irreversible actions still require `confirm_action`.
+- **The agent is the current bottleneck.** The agent catches up. The
+  user does not slow down.
+
+---
+
 ## Watermark
 
 This standard is committed to the public GitHub record. Every change
