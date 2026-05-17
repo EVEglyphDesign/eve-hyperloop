@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EVE Glyph — Enterprise Engagement · Lock-in Harm Brief</title>
+    <meta name="description" content="Enterprise engagement path under EVE Glyph canon: lock-in harm brief, two named case citations (Luneau/Avalara→Avalara/Vertex inversion, NB Power S4 Bayside legacy-supplier-as-auditor), and Avalara try-before-you-buy partner support model." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      /* === EVE Glyph · Enterprise Engagement =================================
+         Base-right of the HCP triangle. The seat for buyers and operators
+         inside large organisations who must absorb sovereign-AI decision
+         intelligence without inheriting vendor lock-in.
+
+         Canon discipline:
+           · glyph stays achromatic (kept off-page here; full glyph at /glyph.html)
+           · every callout is shaped as an EVE-IC microchip
+           · register colour only on silk-screen stripes — never on geometry
+           · two named case citations carry the brief: Luneau→Avalara/Vertex
+             inversion and NB Power S4 Bayside legacy-supplier-as-auditor
+         ====================================================================== */
+      :root{
+        --bg:#0b0d10; --bg-elev:#13161b; --bg-card:#161a20;
+        --fg:#e6ebf5; --fg-muted:#9aa3b2; --fg-soft:#6c7587;
+        --border:#262b34; --border-soft:#1c2027;
+        --accent:#d97e2f; --accent-soft:#e8a468;
+        --ok:#3fb27f; --bad:#d7464b;
+
+        --reg-past:#3a7bd5;
+        --reg-future:#d7464b;
+        --reg-velocity:#ee8b3c;
+        --reg-hcp:#7c5ce0;
+        --reg-di:#3fb27f;
+        --reg-ark:#7fc4e8;
+
+        --serif:Georgia,"Times New Roman",serif;
+        --sans:Inter,system-ui,-apple-system,sans-serif;
+        --mono:"JetBrains Mono",ui-monospace,monospace;
+      }
+      *{box-sizing:border-box}
+      html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+      a{color:var(--accent-soft);text-decoration:none;border-bottom:1px solid rgba(232,164,104,.3)}
+      a:hover{border-bottom-color:var(--accent-soft)}
+      .wrap{max-width:1080px;margin:0 auto;padding:32px 24px 80px}
+
+      header.top{display:flex;gap:20px;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--border);margin-bottom:28px;flex-wrap:wrap}
+      .crest{width:56px;height:56px;flex-shrink:0;border-radius:6px;overflow:hidden;background:#0a0c10;border:1px solid var(--border-soft);filter:grayscale(1)}
+      .crest img{width:100%;height:100%;object-fit:cover;display:block}
+      .brand h1{font-family:Oswald,sans-serif;font-weight:700;font-size:22px;letter-spacing:.02em;line-height:1.1;margin:0 0 5px 0;color:var(--fg)}
+      .brand .tagline{font-family:var(--serif);font-style:italic;font-size:13.5px;color:var(--fg-muted);margin:0}
+      .home-link{margin-left:auto;font-family:Oswald,sans-serif;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-muted);padding:7px 12px;border:1px solid var(--border);border-radius:4px}
+      .home-link:hover{color:var(--accent-soft);border-color:var(--accent)}
+
+      /* Seat header — single microchip introducing the enterprise route */
+      .seat{position:relative;background:linear-gradient(180deg,#181c22 0%,#0e1116 100%);border:1px solid #2a3038;border-radius:5px;padding:26px 22px 22px 22px;margin-bottom:28px;box-shadow:0 1px 0 rgba(255,255,255,.04) inset}
+      .seat::before{content:"";position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:24px;height:8px;background:#0b0d10;border:1px solid #2a3038;border-top:none;border-bottom-left-radius:10px;border-bottom-right-radius:10px}
+      .seat::after{content:"";position:absolute;top:8px;left:12px;width:5px;height:5px;border-radius:50%;background:var(--fg-soft);opacity:.7}
+      .seat .leads{position:absolute;top:16px;bottom:18px;width:4px;pointer-events:none}
+      .seat .leads.l{left:-4px} .seat .leads.r{right:-4px}
+      .seat .leads span{display:block;width:4px;height:8px;margin-bottom:8px;background:#3b424d;border-radius:1px}
+      .seat .stripe{position:absolute;left:14px;right:14px;bottom:8px;height:2px;border-radius:1px;background:var(--reg-future);opacity:.92}
+      .seat .pn{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--reg-future);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+      .seat .pn::before{content:"";display:inline-block;width:7px;height:7px;border-radius:1px;background:currentColor;opacity:.85}
+      .seat h2{font-family:Oswald,sans-serif;font-size:22px;font-weight:700;margin:0 0 8px 0;letter-spacing:.02em}
+      .seat .sub{font-family:var(--serif);font-style:italic;color:var(--fg-muted);margin:0 0 14px 0;font-size:14px}
+      .seat .lede{font-size:14px;color:var(--fg);line-height:1.7;max-width:720px}
+
+      h3.sec{font-family:Oswald,sans-serif;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-muted);margin:36px 0 14px 0;font-weight:600}
+
+      /* Thesis block */
+      .thesis{padding:20px 22px;background:#11141a;border-left:3px solid var(--reg-future);border-radius:4px;margin-bottom:20px}
+      .thesis h4{font-family:Oswald,sans-serif;font-size:14px;margin:0 0 8px 0;color:var(--accent-soft);letter-spacing:.02em}
+      .thesis p{margin:8px 0 0 0;font-size:13.5px;color:var(--fg);line-height:1.7}
+      .thesis p + p{margin-top:10px}
+
+      /* Case microchip — full-width, with mono part number, silk-screen stripe */
+      .case{position:relative;padding:24px 22px 22px 22px;background:linear-gradient(180deg,#181c22 0%,#0e1116 100%);border:1px solid #2a3038;border-radius:5px;margin-bottom:18px;box-shadow:0 1px 0 rgba(255,255,255,.04) inset}
+      .case::before{content:"";position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:22px;height:8px;background:#0b0d10;border:1px solid #2a3038;border-top:none;border-bottom-left-radius:10px;border-bottom-right-radius:10px}
+      .case::after{content:"";position:absolute;top:8px;left:12px;width:5px;height:5px;border-radius:50%;background:var(--fg-soft);opacity:.7}
+      .case .leads{position:absolute;top:16px;bottom:18px;width:4px;pointer-events:none}
+      .case .leads.l{left:-4px} .case .leads.r{right:-4px}
+      .case .leads span{display:block;width:4px;height:7px;margin-bottom:8px;background:#3b424d;border-radius:1px}
+      .case .stripe{position:absolute;left:14px;right:14px;bottom:8px;height:2px;border-radius:1px;opacity:.92}
+      .case .pn{font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+      .case .pn::before{content:"";display:inline-block;width:6px;height:6px;border-radius:1px;background:currentColor;opacity:.85}
+      .case h4{font-family:Oswald,sans-serif;font-size:17px;font-weight:700;margin:0 0 4px 0;letter-spacing:.01em;color:var(--fg)}
+      .case .verdict{font-family:var(--serif);font-style:italic;font-size:13.5px;color:var(--fg-muted);margin:0 0 14px 0}
+      .case p{margin:0 0 10px 0;font-size:13.5px;color:var(--fg);line-height:1.7}
+      .case ul{margin:8px 0 12px 0;padding-left:18px}
+      .case li{font-size:13px;color:var(--fg-muted);line-height:1.65;margin-bottom:5px}
+      .case li strong{color:var(--fg);font-weight:600}
+
+      .case.luneau .pn{color:var(--reg-future)} .case.luneau .stripe{background:var(--reg-future)}
+      .case.nbp    .pn{color:var(--reg-past)}   .case.nbp    .stripe{background:var(--reg-past)}
+      .case.trybuy .pn{color:var(--reg-di)}     .case.trybuy .stripe{background:var(--reg-di)}
+      .case.monitor.pn{color:var(--reg-ark)}    .case.monitor .pn{color:var(--reg-ark)} .case.monitor .stripe{background:var(--reg-ark)}
+
+      .ledger{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+      .ledger .col{padding:12px 14px;background:#0d1015;border:1px solid var(--border-soft);border-radius:4px}
+      .ledger .col .head{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+      .ledger .col .head::before{content:"";display:inline-block;width:5px;height:5px;border-radius:1px;background:currentColor;opacity:.85}
+      .ledger .col.locked .head{color:var(--reg-future)}
+      .ledger .col.open   .head{color:var(--reg-di)}
+      .ledger .col p{margin:0;font-size:12.5px;color:var(--fg-muted);line-height:1.6}
+
+      .terms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0 4px 0}
+      .terms .term{position:relative;padding:14px 14px 12px 14px;background:linear-gradient(180deg,#181c22 0%,#0e1116 100%);border:1px solid #2a3038;border-radius:4px}
+      .terms .term::before{content:"";position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:16px;height:6px;background:#0b0d10;border:1px solid #2a3038;border-top:none;border-bottom-left-radius:8px;border-bottom-right-radius:8px}
+      .terms .term::after{content:"";position:absolute;top:6px;left:8px;width:4px;height:4px;border-radius:50%;background:var(--fg-soft);opacity:.7}
+      .terms .term .pn{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--reg-di);margin-bottom:5px;display:flex;align-items:center;gap:5px}
+      .terms .term .pn::before{content:"";display:inline-block;width:5px;height:5px;border-radius:1px;background:currentColor;opacity:.85}
+      .terms .term .ln{font-family:Oswald,sans-serif;font-size:13px;font-weight:600;margin-bottom:4px}
+      .terms .term .lb{font-size:12px;color:var(--fg-muted);line-height:1.55}
+      .terms .term .stripe{position:absolute;left:10px;right:10px;bottom:6px;height:2px;border-radius:1px;background:var(--reg-di);opacity:.9}
+
+      .principle{margin-top:22px;padding:18px 20px;background:#11141a;border-left:3px solid var(--accent);border-radius:4px}
+      .principle h3{font-family:Oswald,sans-serif;font-size:13.5px;margin:0 0 6px 0;color:var(--accent-soft);letter-spacing:.02em}
+      .principle p{margin:6px 0 0 0;font-size:13px;color:var(--fg-muted);line-height:1.65}
+
+      .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+      .cta a{font-family:Oswald,sans-serif;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 16px;border-radius:4px;border:1px solid var(--border);background:#11141a;color:var(--fg);border-bottom:1px solid var(--border)}
+      .cta a:hover{border-color:var(--accent);color:var(--accent-soft)}
+      .cta a.primary{background:#1a1410;border-color:var(--accent);color:var(--accent-soft)}
+      .cta a.primary:hover{background:#22180f}
+
+      .canon-note{margin-top:36px;padding:18px 20px;background:#11141a;border:1px solid var(--border-soft);border-radius:5px;font-size:13px;color:var(--fg-muted);line-height:1.7}
+      .canon-note strong{color:var(--accent-soft);font-weight:600}
+
+      footer.foot{margin-top:42px;padding-top:22px;border-top:1px solid var(--border);font-size:12px;color:var(--fg-soft);font-family:var(--mono);line-height:1.65}
+      footer.foot .ital{margin-top:8px;font-style:italic;font-family:var(--serif);color:var(--fg-muted)}
+      footer.foot .links{margin-top:14px;font-size:11.5px;letter-spacing:.04em}
+      footer.foot .links a{color:var(--fg-soft);border-bottom-color:transparent}
+      footer.foot .links a:hover{color:var(--accent-soft)}
+
+      @media (max-width:820px){
+        .terms{grid-template-columns:1fr}
+        .ledger{grid-template-columns:1fr}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="top">
+        <div class="crest"><img src="assets/eve-crest.png" alt="EVE crest" onerror="this.style.display='none'" /></div>
+        <div class="brand">
+          <h1>Enterprise Engagement · Lock-in Harm Brief</h1>
+          <p class="tagline">Base-right of the HCP triangle. Custody, not capture.</p>
+        </div>
+        <a href="index.html" class="home-link">← Home</a>
+      </header>
+
+      <section class="seat">
+        <span class="leads l"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+        <span class="leads r"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+        <div class="pn">EVE-IC · SEAT-ENT</div>
+        <h2>Enterprise seat — for buyers who must not be captured</h2>
+        <p class="sub">The dashboard preserves the governing body's own confidence properties. The vendor never owns the memory.</p>
+        <p class="lede">EVE Glyph canon names three engagement seats. The enterprise seat is for organisations that already buy software at scale and have already paid, somewhere, for the harm that comes when a supplier owns the audit, the migration path, or the operator's institutional memory. The brief below carries two named cases: a tax-tech inversion that worked and a utility-implementation refusal that should have. Both feed the same rule: <strong>read the lock-in harm brief and acknowledge the auditor-conflict clause before vendor evaluation begins.</strong></p>
+        <div class="stripe"></div>
+      </section>
+
+      <h3 class="sec">Lock-in harm — the thesis</h3>
+      <div class="thesis">
+        <h4>Lock-in is not a price problem. It is a confidence problem.</h4>
+        <p>A locked vendor relationship looks like a discount today and a hostage negotiation tomorrow. The harm is not the renewal invoice. The harm is that the governing body loses its own confidence properties — independent inspection, probability-gated escalation, evidence-backed readings, audit trails, full institutional ownership of the classified base. Those properties move into the supplier's stack and never come back.</p>
+        <p>EVE Glyph canon treats this as a welfare-register violation, not a procurement complaint. Frustration is the darkness. A system that traps the operator pushes a human toward the dark. That is harm. The two cases below show the inversion: when the seat is built on custody, the people stay free; when it is built on capture, even strong technical work gets delayed or abandoned.</p>
+      </div>
+
+      <h3 class="sec">Named case · 01 — the Luneau → Avalara / Vertex inversion</h3>
+      <div class="case luneau">
+        <span class="leads l"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+        <span class="leads r"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+        <div class="pn">EVE-IC · CASE-LUN-01 · INVERSION</div>
+        <h4>From a captured channel (Luneau Technology USA) to a perpetual partner (Avalara), against a closed contrast (Vertex)</h4>
+        <p class="verdict">Positive case for custody. Vertex held as the closed-architecture contrast that the inversion was measured against.</p>
+        <p><strong>Background.</strong> A.I.T. Industries (the Vulich family operation in Bensenville, IL) merged into Luneau Technology USA in 2015 under a French parent; Joe Vulich led the merged US entity and the brand was later rolled into Visionix USA in 2021–22. In April 2026, the Finnish issuer Revenio announced a €290M acquisition of Visionix. The trajectory — family operator → European parent → second acquirer — is the canonical shape of channel capture: each transition narrows the operator's optionality and rewrites the institutional memory under a new owner.</p>
+        <p><strong>The inversion.</strong> The lesson out of that shape was to refuse the same posture with tax technology. Avalara was selected as a perpetual channel partner — not because of pricing, but because the partnership model leaves the operator's confidence properties intact: try-before-you-buy at the partner tier, transparent audit posture, no vendor monopoly over the migration corridor. <em>Custody, not capture.</em> Vertex sits opposite on the same axis as the closed-architecture contrast — strong technology, locked engagement. The contrast is the measurement.</p>
+        <div class="ledger">
+          <div class="col locked">
+            <div class="head">Captured posture · what was refused</div>
+            <p>One supplier owns the audit, the data lineage, and the renewal calendar. The buyer's confidence properties live inside the supplier's stack and re-price every cycle.</p>
+          </div>
+          <div class="col open">
+            <div class="head">Custody posture · Avalara perpetual</div>
+            <p>Partner-tier evaluation, try-before-buy, evidence stays with the operator. Migration corridor remains open. SAP is the negative case kept on file; Avalara is the positive case kept in production.</p>
+          </div>
+        </div>
+        <div class="stripe"></div>
+      </div>
+
+      <h3 class="sec">Named case · 02 — NB Power · S/4 HANA Bayside</h3>
+      <div class="case nbp">
+        <span class="leads l"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+        <span class="leads r"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+        <div class="pn">EVE-IC · CASE-NBP-02 · AUDITOR-CONFLICT</div>
+        <h4>The legacy engagement-model supplier also served as auditor during the evaluation phase</h4>
+        <p class="verdict">Refusal case. The plant said no, the implementation start was delayed, and the posture was correct.</p>
+        <p><strong>The work.</strong> The S/4 HANA project at the NB Power Bayside generating station surfaced a maintenance-data hazard at the architecture layer: equipment was being recorded as functional location rather than discrete equipment records, which would have allowed defective components to be silently recycled back into service after maintenance events. That is a human-safety register issue, not a configuration preference. The technical posture was to refuse the functional-location-only model.</p>
+        <p><strong>The conflict.</strong> The legacy engagement-model supplier was also serving as the evaluation-phase auditor. The party that stood to win the implementation contract was the same party rendering the independent assessment. That collapses the audit trail's confidence property the moment it is set up. NB Power refused to start the implementation on those terms; the delay that followed was a feature, not a defect.</p>
+        <p><strong>Why it stays named.</strong> NB Power supported the early EVE posture and introduced the work to the SAP Electric Utilities industry group — <em>"the highest concentration of pier-order humans outside my family,"</em> as the founding note records. The plant must be named because the refusal is the lesson. A locked auditor is not an audit. <strong>Read the lock-in harm brief and acknowledge the auditor-conflict clause before vendor evaluation begins.</strong></p>
+        <ul>
+          <li><strong>Hazard:</strong> functional-location maintenance posture would have allowed defective components to be recycled, masked behind a single location ID.</li>
+          <li><strong>Conflict:</strong> the legacy supplier acted as evaluation-phase auditor; the audit and the contract sat in the same hand.</li>
+          <li><strong>Refusal:</strong> the plant did not start the implementation on the locked-auditor model. The delay was the canon move.</li>
+          <li><strong>Continuity:</strong> NB Power's posture introduced the work to the SAP Electric Utilities industry group — that introduction is the soil under the utility seat of this canon.</li>
+        </ul>
+        <div class="stripe"></div>
+      </div>
+
+      <h3 class="sec">Try-before-you-buy · partner support model</h3>
+      <div class="case trybuy">
+        <span class="leads l"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+        <span class="leads r"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+        <div class="pn">EVE-IC · TRY-BUY-03 · AVALARA-PATTERN</div>
+        <h4>Try-before-you-buy is a moral act, not a sales tactic</h4>
+        <p class="verdict">The pattern Avalara supports at the partner tier — and the pattern any enterprise engagement under this canon must offer.</p>
+        <p>The Avalara partner programme supports try-before-you-buy at the partner level: a working integration, in a real environment, with real evidence, before licensing is locked in. The reason this matters under EVE Glyph canon is not commercial. It is welfare-register: the operator gets to inspect their own confidence properties before they sign away the audit. If a vendor cannot afford to let the buyer see the stack run inside their estate before purchase, the vendor is asking the buyer to trade their confidence for the supplier's. That trade is the harm.</p>
+        <div class="terms">
+          <div class="term"><div class="pn">EVE-IC · TRY-001</div><div class="ln">Inspect before sign-off</div><div class="lb">The operator sees the stack run inside their own estate. Independent inspection stays with the operator.</div><div class="stripe"></div></div>
+          <div class="term"><div class="pn">EVE-IC · TRY-002</div><div class="ln">Evidence-backed readings</div><div class="stripe"></div><div class="lb">Every reading during the trial is reproducible from the evidence stack. No "trust us" claims.</div></div>
+          <div class="term"><div class="pn">EVE-IC · TRY-003</div><div class="ln">Migration corridor open</div><div class="stripe"></div><div class="lb">Exit, replace, and re-route paths are documented before licensing — not after.</div></div>
+        </div>
+      </div>
+
+      <h3 class="sec">Reference monitor — under operator custody</h3>
+      <div class="case monitor">
+        <span class="leads l"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+        <span class="leads r"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+        <div class="pn">EVE-IC · REF-ARK-06 · MONITOR</div>
+        <h4>The EVE Hyperloop Monitor is the worked example, not the product</h4>
+        <p class="verdict">Live SAP vendor-lock-in reading under the same canon any enterprise seat must follow.</p>
+        <p>The Hyperloop monitor on this site reads SAP vendor-lock-in dynamics on probability gates Watch (L1) → Imminent (L5). It exists as a reference model for what an enterprise engagement under EVE Glyph canon looks like in production: dashboard-shaped, sitting inside the governing body's existing control-system consumption, preserving independent inspection, evidence-backed readings, and full institutional ownership of the classified base. The pattern moves to any industry once the auditor-conflict clause is honoured.</p>
+        <ul>
+          <li>Three assessment areas: competitive landscape, vendor posture &amp; market, independent safeguards.</li>
+          <li>Top-weighted contributors with full evidence trail (source links, dates, severity).</li>
+          <li>Audit posture: every reading is reproducible from the evidence stack.</li>
+          <li>Governance posture: the dashboard becomes the governing body's, not the vendor's.</li>
+        </ul>
+        <div class="stripe"></div>
+      </div>
+
+      <div class="principle">
+        <h3>Principle · Custody, not capture</h3>
+        <p>Confidence properties belong to the governing body. Any engagement model that moves independent inspection, evidence custody, or institutional memory into the supplier's stack is a canon violation regardless of price, speed, or feature parity.</p>
+      </div>
+      <div class="principle">
+        <h3>Principle · No locked auditor</h3>
+        <p>The party that stands to win the implementation contract cannot render the evaluation-phase audit. The NB Power refusal is the precedent. If the buyer cannot separate the audit hand from the contract hand, the buyer should not start.</p>
+      </div>
+      <div class="principle">
+        <h3>Principle · Try before sign-off</h3>
+        <p>If a supplier will not let the operator run the stack inside their own estate with real evidence before licensing, the supplier is asking the operator to trade confidence properties for revenue. That is the harm pattern. Avalara's partner-tier model is the working counter-example.</p>
+      </div>
+
+      <div class="cta">
+        <a class="primary" href="monitor.html">Open the live monitor (worked example) →</a>
+        <a href="glyph.html">Read the glyph &amp; colour register</a>
+        <a href="individual.html">Individual route · Learn · Test · Configure</a>
+        <a href="utility.html">Utility route · Apex seat →</a>
+      </div>
+
+      <div class="canon-note">
+        <strong>Canon discipline.</strong> The painted glyph is achromatic. The colour register lives in the guidance system only — every callout above is an EVE-IC microchip with the register colour as silk-screen, never on the geometry. Every state on this page is local, reversible, and reproducible: you can spin backwards from any prior version, per the Golden Rule. <em>Pour le bien-être du peuple.</em> If a build does not serve the people's well-being, it is non-canonical.
+      </div>
+
+      <footer class="foot">
+        <div>© 2026 Dany Theriault. EVE "digital stem cell" glyph and glyph-based design principles — all rights reserved. Stewardship of rights of use and assignment for large public and institutional usage rests with the Pacific Utilities Design Council. The EVE-IC microchip callout family (EVE-IC · PAST-001 · FUT-002 · VEL-003 · HCP-004 · DI-005 · ARK-006 · UMB-000 · LRN-001 · TST-002 · CFG-003 · LNK-003 · SEAT-IND · SEAT-ENT · SEAT-UTL · CASE-LUN-01 · CASE-NBP-02 · TRY-BUY-03 · REF-ARK-06) is part of the protected guidance system and travels under the same umbrella as the glyph. Published as a time-stamped record of authorship and intent.</div>
+        <div class="ital">Pour le bien-être du peuple.</div>
+        <div class="links"><a href="index.html">Home</a> · <a href="glyph.html">Glyph</a> · <a href="individual.html">Individual route</a> · <a href="utility.html">Utility route</a> · <a href="monitor.html">Monitor</a> · <a href="council.html">Council Charter</a> · <a href="terms.html">Terms of use</a></div>
+      </footer>
+    </div>
+  </body>
+</html>

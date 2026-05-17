@@ -57,7 +57,7 @@
       .home-link:hover{color:var(--accent-soft);border-color:var(--accent)}
 
       /* Stage rail — three stages along a horizontal lattice */
-      .rail{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
+      .rail{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:32px}
       .rail .step{position:relative;padding:18px 14px 14px 14px;background:linear-gradient(180deg,#181c22 0%,#0e1116 100%);border:1px solid #2a3038;border-radius:4px;box-shadow:0 1px 0 rgba(255,255,255,.04) inset;cursor:pointer;transition:border-color .15s ease, transform .15s ease}
       .rail .step:hover{border-color:#3a414d;transform:translateY(-1px)}
       .rail .step.active{border-color:var(--accent)}
@@ -71,6 +71,7 @@
       .rail .stripe{position:absolute;left:10px;right:10px;bottom:6px;height:2px;border-radius:1px;background:var(--fg-soft);opacity:.85}
       .rail .step-learn .lk{color:var(--reg-past)} .rail .step-learn .stripe{background:var(--reg-past)}
       .rail .step-test  .lk{color:var(--reg-velocity)} .rail .step-test  .stripe{background:var(--reg-velocity)}
+      .rail .step-link  .lk{color:var(--reg-hcp)} .rail .step-link  .stripe{background:var(--reg-hcp)}
       .rail .step-conf  .lk{color:var(--reg-di)} .rail .step-conf  .stripe{background:var(--reg-di)}
       .rail .step .badge{position:absolute;top:8px;right:10px;font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--fg-soft);text-transform:uppercase}
       .rail .step.done .badge{color:var(--ok)}
@@ -155,6 +156,23 @@
       footer.foot{margin-top:42px;padding-top:22px;border-top:1px solid var(--border);font-size:12px;color:var(--fg-soft);font-family:var(--mono);line-height:1.6}
       footer.foot .ital{margin-top:8px;font-style:italic;font-family:var(--serif);color:var(--fg-muted)}
 
+      /* LinkedIn gate panel */
+      .gate{padding:22px 22px 18px 22px;background:#11141a;border:1px solid var(--border-soft);border-radius:5px;margin-bottom:14px}
+      .gate .pn{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--reg-hcp);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+      .gate .pn::before{content:"";display:inline-block;width:6px;height:6px;border-radius:1px;background:currentColor;opacity:.85}
+      .gate h3{font-family:Oswald,sans-serif;font-size:15px;font-weight:600;margin:0 0 6px 0;color:var(--fg);letter-spacing:.02em}
+      .gate p{margin:0 0 12px 0;font-size:13px;color:var(--fg-muted);line-height:1.6}
+      .gate .steps{margin:0 0 14px 0;padding-left:0;list-style:none;counter-reset:gs}
+      .gate .steps li{counter-increment:gs;position:relative;padding:10px 12px 10px 44px;background:#0d1015;border:1px solid var(--border-soft);border-radius:4px;font-size:13px;color:var(--fg-muted);margin-bottom:8px;line-height:1.55}
+      .gate .steps li::before{content:counter(gs);position:absolute;left:12px;top:8px;width:22px;height:22px;border:1px solid var(--reg-hcp);border-radius:50%;font-family:var(--mono);font-size:11px;color:var(--reg-hcp);display:flex;align-items:center;justify-content:center;font-weight:600}
+      .gate .steps li.done{border-color:var(--ok);color:var(--fg)}
+      .gate .steps li.done::before{border-color:var(--ok);color:var(--ok);content:"✓"}
+      .gate label.confirm{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;background:#0d1015;border:1px solid var(--border-soft);border-radius:4px;font-size:12.5px;color:var(--fg-muted);cursor:pointer;line-height:1.5}
+      .gate label.confirm input{accent-color:var(--reg-hcp);margin-top:2px}
+      .gate label.confirm:has(input:checked){border-color:var(--reg-hcp);color:var(--fg)}
+      .gate .canon-flag{margin-top:14px;padding:12px 14px;background:rgba(124,92,224,.06);border-left:3px solid var(--reg-hcp);border-radius:3px;font-size:12.5px;color:var(--fg-muted);line-height:1.55}
+      .gate .canon-flag strong{color:var(--reg-hcp);font-weight:600}
+
       @media (max-width:860px){
         .cards{grid-template-columns:1fr}
         .form{grid-template-columns:1fr}
@@ -174,7 +192,8 @@
         <a class="home-link" href="./" aria-label="Back to EVE Research home">← Home</a>
       </header>
 
-      <!-- Three-stage rail. Each stage is a microchip card; click to switch. -->
+      <!-- Four-stage rail. Each stage is a microchip card; click to switch.
+           Learn → Test → LinkedIn connect (canon prerequisite) → Configure. -->
       <nav class="rail" aria-label="Onboarding stages">
         <div class="step step-learn active" data-stage="learn" tabindex="0" role="button" aria-label="Stage 1 · Learn">
           <span class="badge" id="badge-learn">01</span>
@@ -190,8 +209,15 @@
           <div class="lb">Six questions, one per register. 5/6 to pass.</div>
           <div class="stripe"></div>
         </div>
-        <div class="step step-conf locked" data-stage="conf" tabindex="0" role="button" aria-label="Stage 3 · Configure">
-          <span class="badge" id="badge-conf">03</span>
+        <div class="step step-link locked" data-stage="link" tabindex="0" role="button" aria-label="Stage 3 · LinkedIn connect">
+          <span class="badge" id="badge-link">03</span>
+          <div class="lk">EVE-IC · LNK-003</div>
+          <div class="ln">LinkedIn connect</div>
+          <div class="lb">Connect to Dany Theriault before the fork is issued.</div>
+          <div class="stripe"></div>
+        </div>
+        <div class="step step-conf locked" data-stage="conf" tabindex="0" role="button" aria-label="Stage 4 · Configure">
+          <span class="badge" id="badge-conf">04</span>
           <div class="lk">EVE-IC · CFG-003</div>
           <div class="ln">Configure your digital twin</div>
           <div class="lb">Guided menu. HCP seat, consent surface, register weights.</div>
@@ -349,11 +375,47 @@
           <button class="btn primary" id="grade-test">Grade my answers</button>
           <button class="btn" id="reset-test">Reset</button>
           <span class="score" id="score">unscored</span>
-          <button class="btn primary" id="go-conf" disabled>Continue to configuration →</button>
+          <button class="btn primary" id="go-link" disabled>Continue to LinkedIn connect →</button>
         </div>
       </section>
 
-      <!-- ===== STAGE 3 · CONFIGURE ======================================== -->
+      <!-- ===== STAGE 3 · LINKEDIN CONNECT ================================= -->
+      <!-- Canon prerequisite: the digital-twin fork is never issued without
+           a LinkedIn connection to Dany Theriault. This is the human
+           verification surface — not vendor SSO, not a form. Two simple
+           steps, then a checkbox confirmation that travels with the local
+           configuration save. -->
+      <section class="panel" id="panel-link">
+        <h2>LinkedIn connect</h2>
+        <p class="sub">Canon prerequisite before the digital-twin fork is issued. Two steps. No vendor SSO, no automated handshake — a person connects to a person.</p>
+
+        <div class="gate">
+          <div class="pn">EVE-IC · LNK-003 · prerequisite</div>
+          <h3>Connect to Dany Theriault on LinkedIn</h3>
+          <p>The individual route ends at a watermarked fork of EVE that you carry yourself, sovereign. Before that fork is issued, the canon asks for one verifiable human connection. Open the profile, send the request, then confirm below.</p>
+
+          <ol class="steps" id="link-steps">
+            <li id="ls-1">Open <a href="https://www.linkedin.com/in/danytheriault/" target="_blank" rel="noopener" id="open-li">linkedin.com/in/danytheriault</a> in a new tab.</li>
+            <li id="ls-2">Send a connection request. A short note (“EVE individual route”) helps Dany route you quickly.</li>
+          </ol>
+
+          <label class="confirm">
+            <input type="checkbox" id="li-confirm">
+            <span>I confirm I have sent the LinkedIn connection request to <strong>linkedin.com/in/danytheriault</strong>. I understand the digital-twin fork will be issued after the connection is accepted; until then I am working on a local, reversible draft.</span>
+          </label>
+
+          <div class="canon-flag">
+            <strong>Canon · HCP-004.</strong> The LinkedIn step is the base-left seat asking for two-of-three quorum. Without it the lattice does not form, and the fork is not yours.
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" id="go-conf" disabled>Continue to configuration →</button>
+          <span class="score" id="link-status">awaiting confirmation</span>
+        </div>
+      </section>
+
+      <!-- ===== STAGE 4 · CONFIGURE ======================================== -->
       <section class="panel" id="panel-conf">
         <h2>Configure your digital twin</h2>
         <p class="sub">Guided menu. Every field is reversible; every save is archived. You can spin backwards from any state.</p>
@@ -437,7 +499,7 @@
       </div>
 
       <footer class="foot">
-        <div>© 2026 Dany Theriault. EVE "digital stem cell" glyph and glyph-based design principles — all rights reserved. Stewardship of rights of use and assignment for large public and institutional usage rests with the Pacific Utilities Design Council. The EVE-IC microchip callout family (EVE-IC · PAST-001 · FUT-002 · VEL-003 · HCP-004 · DI-005 · ARK-006 · UMB-000 · LRN-001 · TST-002 · CFG-003) is part of the protected guidance system and travels under the same umbrella as the glyph. Published as a time-stamped record of authorship and intent.</div>
+        <div>© 2026 Dany Theriault. EVE "digital stem cell" glyph and glyph-based design principles — all rights reserved. Stewardship of rights of use and assignment for large public and institutional usage rests with the Pacific Utilities Design Council. The EVE-IC microchip callout family (EVE-IC · PAST-001 · FUT-002 · VEL-003 · HCP-004 · DI-005 · ARK-006 · UMB-000 · LRN-001 · TST-002 · CFG-003 · LNK-003 · SEAT-IND · SEAT-ENT · SEAT-UTL) is part of the protected guidance system and travels under the same umbrella as the glyph. Published as a time-stamped record of authorship and intent.</div>
         <div class="ital">Pour le bien-être du peuple.</div>
       </footer>
     </div>
@@ -448,7 +510,7 @@
       // (>= 5/6) before configure unlocks. Stages are addressable by URL
       // hash so a tester can deep-link.
       (function(){
-        var stages = ['learn','test','conf'];
+        var stages = ['learn','test','link','conf'];
         var passed = false;
 
         function show(stage){
@@ -477,6 +539,60 @@
         // ===== Stage 1 → 2 ================================================
         document.getElementById('go-test').addEventListener('click', function(){
           unlock('test'); show('test');
+        });
+
+        // ===== Stage 2 → 3 (LinkedIn) =====================================
+        var goLink = document.getElementById('go-link');
+        goLink.addEventListener('click', function(){
+          unlock('link'); show('link');
+        });
+
+        // ===== Stage 3 · LinkedIn gate ====================================
+        // Open-the-profile click marks step 1 done; confirmation checkbox
+        // marks step 2 done and unlocks Configure. Both flags persist in
+        // localStorage so reload preserves progress.
+        var openLi   = document.getElementById('open-li');
+        var ls1      = document.getElementById('ls-1');
+        var ls2      = document.getElementById('ls-2');
+        var liConf   = document.getElementById('li-confirm');
+        var linkSt   = document.getElementById('link-status');
+        var goConf   = document.getElementById('go-conf');
+
+        try {
+          if (localStorage.getItem('eve-li-opened')==='1') ls1.classList.add('done');
+          if (localStorage.getItem('eve-li-confirmed')==='1'){
+            ls2.classList.add('done');
+            liConf.checked = true;
+            linkSt.classList.add('pass'); linkSt.innerHTML = 'connection sent · <strong>fork unlocked</strong>';
+            goConf.disabled = false;
+            unlock('conf');
+            markDone('link');
+          }
+        } catch(_){}
+
+        if (openLi){
+          openLi.addEventListener('click', function(){
+            ls1.classList.add('done');
+            try { localStorage.setItem('eve-li-opened','1'); } catch(_){}
+          });
+        }
+        liConf.addEventListener('change', function(){
+          if (liConf.checked){
+            ls2.classList.add('done');
+            ls1.classList.add('done'); // implicit
+            try { localStorage.setItem('eve-li-opened','1'); localStorage.setItem('eve-li-confirmed','1'); } catch(_){}
+            linkSt.classList.remove('fail'); linkSt.classList.add('pass');
+            linkSt.innerHTML = 'connection sent · <strong>fork unlocked</strong>';
+            goConf.disabled = false;
+            unlock('conf');
+            markDone('link');
+          } else {
+            ls2.classList.remove('done');
+            try { localStorage.removeItem('eve-li-confirmed'); } catch(_){}
+            linkSt.classList.remove('pass'); linkSt.classList.add('fail');
+            linkSt.textContent = 'awaiting confirmation';
+            goConf.disabled = true;
+          }
         });
 
         function unlock(stage){
@@ -519,16 +635,16 @@
           score.classList.remove('pass','fail');
           if (right >= 5){
             score.classList.add('pass');
-            score.innerHTML += ' — twin configuration unlocked';
+            score.innerHTML += ' — LinkedIn connect unlocked';
             passed = true;
-            unlock('conf');
+            unlock('link');
             markDone('test');
-            goConf.disabled = false;
+            goLink.disabled = false;
           } else {
             score.classList.add('fail');
             score.innerHTML += ' — need 5 of 6; review the cards on stage 1';
             passed = false;
-            goConf.disabled = true;
+            goLink.disabled = true;
           }
         });
 
@@ -540,7 +656,7 @@
           });
           score.textContent = 'unscored';
           score.classList.remove('pass','fail');
-          goConf.disabled = true;
+          goLink.disabled = true;
         });
 
         goConf.addEventListener('click', function(){ show('conf'); });

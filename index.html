@@ -49,7 +49,45 @@
       ul.tight{margin:0 0 14px 18px;padding:0}
       ul.tight li{font-size:15px;color:var(--fg);margin-bottom:6px}
 
-      /* Two-path access section */
+      /* === EVE-IC microchip engagement cards =============================
+         Canon vocabulary: each engagement path renders as a DIP-package
+         microchip — top notch, pin-1 dot, pin-leads on each side, mono
+         part-number across the top, silk-screen accent stripe in the
+         register colour at the foot. Three paths: Individual, Enterprise,
+         Utility. The painted glyph stays achromatic; colour appears only
+         on the chip silk-screen. */
+      :root{
+        --reg-past:#3a7bd5;
+        --reg-future:#d7464b;
+        --reg-velocity:#ee8b3c;
+        --reg-hcp:#7c5ce0;
+        --reg-di:#3fb27f;
+        --reg-ark:#7fc4e8;
+      }
+      .engage{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:6px 0 10px 0}
+      @media (max-width:860px){.engage{grid-template-columns:1fr}}
+      .ic{position:relative;background:linear-gradient(180deg,#181c22 0%,#0e1116 100%);border:1px solid #2a3038;border-radius:4px;padding:22px 16px 20px 16px;display:flex;flex-direction:column;box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 6px 18px rgba(0,0,0,.35);transition:border-color .15s ease, transform .15s ease}
+      .ic:hover{border-color:#3a414d;transform:translateY(-1px)}
+      .ic::before{content:"";position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:20px;height:8px;background:#0b0d10;border:1px solid #2a3038;border-top:none;border-bottom-left-radius:10px;border-bottom-right-radius:10px}
+      .ic::after{content:"";position:absolute;top:8px;left:10px;width:5px;height:5px;border-radius:50%;background:var(--fg-soft);opacity:.7}
+      .ic .leads{position:absolute;top:16px;bottom:14px;width:4px;pointer-events:none}
+      .ic .leads.l{left:-4px} .ic .leads.r{right:-4px}
+      .ic .leads span{display:block;width:4px;height:6px;margin-bottom:7px;background:#3b424d;border-radius:1px}
+      .ic .pn{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.22em;margin:2px 0 8px 0;color:var(--fg-soft);display:flex;align-items:center;gap:6px}
+      .ic .pn::before{content:"";display:inline-block;width:6px;height:6px;border-radius:1px;background:currentColor;opacity:.9}
+      .ic h3{font-family:Oswald,sans-serif;font-weight:600;font-size:18px;letter-spacing:.02em;margin:0 0 6px 0;color:var(--fg);text-transform:none}
+      .ic .sub{font-family:var(--serif);font-style:italic;font-size:13px;color:var(--fg-muted);margin:0 0 12px 0}
+      .ic p{font-size:13.5px;color:var(--fg-muted);line-height:1.55;margin:0 0 12px 0}
+      .ic .req{font-family:var(--mono);font-size:11px;color:var(--fg-soft);background:#0d1015;border:1px dashed #2a3038;border-radius:3px;padding:8px 10px;margin:0 0 14px 0;line-height:1.5}
+      .ic .req strong{color:var(--accent-soft);font-weight:600}
+      .ic .ctarow{margin-top:auto;display:flex;flex-wrap:wrap;gap:8px}
+      .ic .ctarow .cta{padding:9px 14px;font-size:12px;border-radius:4px}
+      .ic .stripe{position:absolute;left:12px;right:12px;bottom:6px;height:2px;border-radius:1px;opacity:.92}
+      .ic-individual .pn{color:var(--reg-past)} .ic-individual .stripe{background:var(--reg-past)}
+      .ic-enterprise .pn{color:var(--reg-future)} .ic-enterprise .stripe{background:var(--reg-future)}
+      .ic-utility    .pn{color:var(--reg-hcp)}   .ic-utility    .stripe{background:var(--reg-hcp)}
+
+      /* (legacy) Two-path access section retained below for the live monitor */
       .paths{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:6px 0 8px 0}
       @media (max-width:760px){.paths{grid-template-columns:1fr}}
       .path-card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:22px 22px;display:flex;flex-direction:column}
@@ -119,7 +157,58 @@
       </section>
 
       <section>
-        <h2>Two Ways to Engage</h2>
+        <h2>Three Ways to Engage</h2>
+        <p class="muted" style="margin-bottom:18px">EVE Glyph canon recognises three entry paths. Each one routes a different kind of operator into the same register — the geometry stays whole, only the seat changes.</p>
+
+        <div class="engage">
+          <!-- Individual -->
+          <article class="ic ic-individual">
+            <span class="leads l"><span></span><span></span><span></span><span></span><span></span></span><span class="leads r"><span></span><span></span><span></span><span></span><span></span></span>
+            <div class="pn">EVE-IC · SEAT-IND</div>
+            <h3>Individual</h3>
+            <p class="sub">Base-left of the HCP triangle.</p>
+            <p>Short intro education brief, six-question skill test, then a guided digital-twin fork menu. Configuration is reversible by canon; every save is archived.</p>
+            <div class="req"><strong>Prerequisite:</strong> LinkedIn connection to <a href="https://www.linkedin.com/in/danytheriault/" target="_blank" rel="noopener">linkedin.com/in/danytheriault</a> before the digital-twin fork is issued.</div>
+            <div class="ctarow">
+              <a class="cta" href="./individual.html">Open the individual route →</a>
+            </div>
+            <div class="stripe"></div>
+          </article>
+
+          <!-- Enterprise -->
+          <article class="ic ic-enterprise">
+            <span class="leads l"><span></span><span></span><span></span><span></span><span></span><span></span></span><span class="leads r"><span></span><span></span><span></span><span></span><span></span><span></span></span>
+            <div class="pn">EVE-IC · SEAT-ENT</div>
+            <h3>Enterprise</h3>
+            <p class="sub">Base-right of the HCP triangle.</p>
+            <p>Lock-in harm brief, two named case citations (Luneau/Avalara→Avalara/Vertex inversion; NB Power Bayside legacy-supplier-as-auditor), and partner-supported try-before-you-buy licensing through Avalara as the perpetual channel.</p>
+            <div class="req"><strong>Prerequisite:</strong> Read the lock-in harm brief; written acknowledgement of the auditor-conflict clause before vendor evaluation begins.</div>
+            <div class="ctarow">
+              <a class="cta" href="./enterprise.html">Open the enterprise brief →</a>
+              <a class="cta secondary" href="#request">Live monitor access</a>
+            </div>
+            <div class="stripe"></div>
+          </article>
+
+          <!-- Utility -->
+          <article class="ic ic-utility">
+            <span class="leads l"><span></span><span></span><span></span><span></span><span></span></span><span class="leads r"><span></span><span></span><span></span><span></span><span></span></span>
+            <div class="pn">EVE-IC · SEAT-UTL</div>
+            <h3>Utility operator</h3>
+            <p class="sub">Apex of the HCP triangle.</p>
+            <p>Sovereign-AI as nuclear material. Pacific Utilities Design Council governance, EVE Star Academy, Human Safety Protocol Certification, and the Hyperloop monitor as the reference model under operator custody.</p>
+            <div class="req"><strong>Prerequisite:</strong> Apex qualification — LinkedIn verification of utility employment, and Council Charter acknowledgement.</div>
+            <div class="ctarow">
+              <a class="cta" href="./utility.html">Open the utility route →</a>
+              <a class="cta secondary" href="./council.html">Council Charter</a>
+            </div>
+            <div class="stripe"></div>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2>Live Monitor Access</h2>
         <p class="muted" style="margin-bottom:18px">Read a deeper look at the research, or talk to me directly.</p>
 
         <div class="paths">
@@ -247,7 +336,9 @@
         <h2>Related Material</h2>
         <ul class="tight">
           <li><a href="./glyph.html">EVE Glyph — Geometry and Colour Register</a> — the achromatic glyph with the colour register surfaced on hover; geometry stays pure, colours live in the guidance system only</li>
-          <li><a href="./individual.html">Individual route — Learn · Test · Configure</a> — introductory education and skill test, then the guided digital-twin configuration menu for individual users</li>
+          <li><a href="./individual.html">Individual route — Learn · Test · LinkedIn · Configure</a> — introductory education, skill test, LinkedIn connection to Dany Theriault, then the guided digital-twin configuration menu for individual users</li>
+          <li><a href="./enterprise.html">Enterprise route — Lock-in Harm Brief</a> — two named cases (Luneau/Avalara→Avalara/Vertex inversion, NB Power S/4 Bayside legacy-supplier-as-auditor) and Avalara try-before-you-buy partner support; read and acknowledge the auditor-conflict clause before vendor evaluation begins</li>
+          <li><a href="./utility.html">Utility route — Apex Seat</a> — third path for utility operators and the Pacific Utilities Design Council; apex qualification requires LinkedIn verification of utility employment and Council Charter acknowledgement</li>
           <li><a href="./projection.html">DI Framework Projection</a> — the pyramid as a projection of the underlying decision-intelligence framework</li>
           <li><a href="./terms.html">Terms of Use</a> — rights of use, assignment, operator-side non-retention</li>
           <li><a href="./council.html">Council Charter</a> — Council Triangle, two-of-three voting, succession to Chief Betterment Officer, EVE Star Academy, Human Safety Protocol Certification, fork rights, ocean-focused R&amp;D in Vallarta</li>
@@ -255,11 +346,13 @@
       </section>
 
       <footer class="foot">
-        <div>© 2026 Dany Theriault. EVE "digital stem cell" glyph and glyph-based design principles — all rights reserved. Stewardship of rights of use and assignment for large public and institutional usage rests with the Pacific Utilities Design Council. The EVE-IC microchip callout family (EVE-IC · PAST-001 · FUT-002 · VEL-003 · HCP-004 · DI-005 · ARK-006 · UMB-000 · LRN-001 · TST-002 · CFG-003) is part of the protected guidance system and travels under the same umbrella as the glyph. Published as a time-stamped record of authorship and intent.</div>
+        <div>© 2026 Dany Theriault. EVE "digital stem cell" glyph and glyph-based design principles — all rights reserved. Stewardship of rights of use and assignment for large public and institutional usage rests with the Pacific Utilities Design Council. The EVE-IC microchip callout family (EVE-IC · PAST-001 · FUT-002 · VEL-003 · HCP-004 · DI-005 · ARK-006 · UMB-000 · LRN-001 · TST-002 · CFG-003 · LNK-003 · SEAT-IND · SEAT-ENT · SEAT-UTL · CASE-LUN-01 · CASE-NBP-02 · TRY-BUY-03 · REF-ARK-06 · UTL-APEX-Q) is part of the protected guidance system and travels under the same umbrella as the glyph. Published as a time-stamped record of authorship and intent.</div>
         <div class="links-row">
           <a href="https://www.linkedin.com/in/danytheriault/" target="_blank" rel="noopener">LinkedIn · Dany Theriault</a>
           <a href="./glyph.html">Glyph &middot; register</a>
-          <a href="./individual.html">Individual &middot; learn · test · configure</a>
+          <a href="./individual.html">Individual &middot; learn · test · linkedin · configure</a>
+          <a href="./enterprise.html">Enterprise &middot; lock-in harm brief</a>
+          <a href="./utility.html">Utility &middot; apex seat</a>
           <a href="./projection.html">DI framework projection</a>
           <a href="./terms.html">Terms of use</a>
           <a href="./council.html">Council Charter</a>
