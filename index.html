@@ -146,26 +146,20 @@
        * into future (above the chord, into the apex's light).
        * "Pour le bien-être du peuple" is stamped as the welfare register, visible on the surface. */
       .glyph-anno{position:absolute;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:var(--fg-muted);z-index:2;pointer-events:none;line-height:1}
-      .glyph-anno.side{color:var(--accent-soft);font-family:Oswald,sans-serif;font-size:11.5px;letter-spacing:.20em}
-      .glyph-anno.side-soil{top:46%;left:31%;transform:rotate(-62deg);transform-origin:center}
-      .glyph-anno.side-future{top:46%;right:31%;transform:rotate(62deg);transform-origin:center;color:var(--accent-soft)}
-      .glyph-anno.side-vessel{top:84%;left:50%;transform:translateX(-50%);color:var(--accent-soft);font-size:11.5px;letter-spacing:.22em}
-      .glyph-anno.side-vessel small{display:block;font-family:var(--serif);font-style:italic;font-size:10px;letter-spacing:.02em;text-transform:none;color:var(--fg-muted);margin-top:3px;font-weight:400}
-      .glyph-anno.vertex-name{font-size:8.5px;color:var(--fg-soft);letter-spacing:.20em;background:rgba(11,13,16,.7);padding:2px 6px;border-radius:2px;border:1px solid var(--border-soft)}
-      .glyph-anno.hcp-apex{top:7%;left:50%;transform:translateX(-50%)}
-      .glyph-anno.hcp-bl{top:84.5%;left:34%}
-      .glyph-anno.hcp-br{top:84.5%;right:34%}
-      .glyph-anno.temporal{font-family:var(--serif);font-style:italic;font-size:11px;letter-spacing:.04em;text-transform:none;color:var(--accent-soft)}
-      .glyph-anno.t-past{top:90%;left:13%;color:#6c7587}
-      .glyph-anno.t-present{top:38%;left:50%;transform:translateX(-50%)}
-      .glyph-anno.t-future{top:11%;right:13%}
-      /* Velocity vector — the upward arrow from past through present into future. */
-      .velocity-vector{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;opacity:.7}
-      /* Welfare-register stamp — "Pour le bien-être du peuple" surfaced on the geometry */
-      .welfare-stamp{position:absolute;top:6%;right:1%;font-family:var(--serif);font-style:italic;font-size:13px;color:var(--accent-soft);background:rgba(11,13,16,.85);border:1px solid var(--accent);border-radius:50% / 35%;padding:10px 18px;letter-spacing:.02em;line-height:1.25;text-align:center;z-index:3;max-width:180px;box-shadow:0 6px 22px rgba(217,126,47,.18)}
-      .welfare-stamp::after{content:"✓";display:block;font-family:Oswald,sans-serif;font-style:normal;font-size:14px;color:var(--accent);margin-top:4px}
-      @media (max-width:1100px){.welfare-stamp{font-size:11px;padding:8px 12px;max-width:140px}}
-      @media (max-width:900px){.glyph-anno, .velocity-vector, .welfare-stamp{display:none}}
+      /* Side labels: SVG-rendered to guarantee correct orientation along the painted edges.
+         The HTML-only labels below are kept simple, horizontal, and outside the glyph. */
+      .glyph-anno.vertex-name{font-size:8.5px;color:var(--fg-soft);letter-spacing:.20em;background:rgba(11,13,16,.85);padding:2px 7px;border-radius:2px;border:1px solid var(--border-soft);white-space:nowrap}
+      /* HCP chips placed OUTSIDE the painted triangle, near each anchor dot but in clear space. */
+      .glyph-anno.hcp-apex{top:1%;left:50%;transform:translateX(-50%);color:var(--accent-soft);border-color:rgba(217,126,47,.4)}
+      .glyph-anno.hcp-bl{top:91%;left:23%;color:var(--accent-soft);border-color:rgba(217,126,47,.4)}
+      .glyph-anno.hcp-br{top:91%;right:23%;color:var(--accent-soft);border-color:rgba(217,126,47,.4)}
+      /* Velocity vector — dashed arrow from past (below the chord) into the apex's light. */
+      .velocity-vector{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;opacity:.55}
+      /* Welfare-register stamp — placed in the upper-right of the stage, outside the glyph */
+      .welfare-stamp{position:absolute;top:2%;right:0.5%;font-family:var(--serif);font-style:italic;font-size:12px;color:var(--accent-soft);background:rgba(11,13,16,.92);border:1px solid var(--accent);border-radius:50% / 38%;padding:9px 16px;letter-spacing:.02em;line-height:1.2;text-align:center;z-index:3;max-width:150px;box-shadow:0 6px 22px rgba(217,126,47,.20)}
+      .welfare-stamp::after{content:"✓";display:block;font-family:Oswald,sans-serif;font-style:normal;font-size:13px;color:var(--accent);margin-top:3px}
+      @media (max-width:1100px){.welfare-stamp{font-size:10.5px;padding:7px 11px;max-width:120px}}
+      @media (max-width:900px){.glyph-anno, .velocity-vector, .welfare-stamp, .side-labels{display:none}}
 
       /* Legend below the glyph stage — carries the inheritance lines that used to clutter the callouts. */
       .glyph-legend{max-width:1180px;margin:0 auto 40px;padding:0 8px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;font-family:var(--mono);font-size:11px;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.08em;line-height:1.5}
@@ -288,9 +282,28 @@
             <circle cx="755" cy="600" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
           </svg>
 
-          <!-- Velocity vector — past → present → future. Rises from below the chord through the
-               inner circle's center into the apex's light. The arrow names the direction of the
-               work: we are not stationary; we carry the present forward. -->
+          <!-- Side labels for the three sides of the triangle, rendered as SVG text along the
+               painted edges so orientation is guaranteed regardless of CSS rotation quirks.
+               Soil  = left edge   (apex 590,60 → base-left 425,600)
+               Future·Truth = right edge (apex 590,60 → base-right 755,600)
+               Vessel·EVE  = chord/base (425,600 → 755,600), already labeled by the bifurcation. -->
+          <svg class="side-labels" viewBox="0 0 1180 720" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none">
+            <defs>
+              <!-- Path along the LEFT edge, starting from the base-left corner so text reads bottom-up -->
+              <path id="edge-soil" d="M 425,600 L 590,60" fill="none"/>
+              <!-- Path along the RIGHT edge, starting from the apex so text reads top-down toward the base -->
+              <path id="edge-future" d="M 590,60 L 755,600" fill="none"/>
+            </defs>
+            <text font-family="Oswald, sans-serif" font-size="15" font-weight="600" letter-spacing="4" fill="#e8a468" opacity=".85">
+              <textPath xlink:href="#edge-soil" startOffset="30%">SOIL · PAST</textPath>
+            </text>
+            <text font-family="Oswald, sans-serif" font-size="15" font-weight="600" letter-spacing="4" fill="#e8a468" opacity=".85">
+              <textPath xlink:href="#edge-future" startOffset="30%">FUTURE · TRUTH</textPath>
+            </text>
+          </svg>
+
+          <!-- Velocity vector — dashed arrow from past (below the chord) into the apex's light.
+               This is the direction of the work: carrying the present forward across the vessel. -->
           <svg class="velocity-vector" viewBox="0 0 1180 720" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <defs>
               <marker id="arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto">
@@ -298,22 +311,15 @@
               </marker>
             </defs>
             <line x1="590" y1="660" x2="590" y2="110" stroke="#5f9e6e" stroke-width="1.3" stroke-dasharray="3 4" opacity=".75" marker-end="url(#arr)"/>
+            <!-- velocity label, offset to the right so it doesn't fight the inner circle -->
+            <text x="610" y="380" font-family="Georgia, serif" font-style="italic" font-size="12" fill="#5f9e6e" opacity=".85">velocity</text>
           </svg>
 
-          <!-- Annotation layer — the Operator's reading of the glyph -->
-          <!-- Three sides of the triangle -->
-          <span class="glyph-anno side side-soil">Soil</span>
-          <span class="glyph-anno side side-future">Future · Truth</span>
-          <span class="glyph-anno side side-vessel">Vessel · EVE<small>carries the present across</small></span>
-          <!-- Human control points marker at each vertex (small chip near the orange dot) -->
+          <!-- Three Human Control Point chips — placed outside the glyph near each anchor dot -->
           <span class="glyph-anno vertex-name hcp-apex">Human control point</span>
           <span class="glyph-anno vertex-name hcp-bl">Human control point</span>
           <span class="glyph-anno vertex-name hcp-br">Human control point</span>
-          <!-- Temporal markers along the velocity axis -->
-          <span class="glyph-anno temporal t-future">Future</span>
-          <span class="glyph-anno temporal t-present">Present</span>
-          <span class="glyph-anno temporal t-past">Past · locked-in tech</span>
-          <!-- Welfare register stamp -->
+          <!-- Welfare register stamp — surfaced on the geometry, outside the glyph -->
           <div class="welfare-stamp">Pour le bien-être du peuple</div>
 
           <!-- APEX callout — three scale dimensions: vertex-label / gate-name / action verb. No paragraphs. -->
