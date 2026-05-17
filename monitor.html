@@ -7,7 +7,40 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
     <title>EVE Hyperloop Monitor — Worked Example</title>
-    <meta name="description" content="Worked example dashboard from the EVE post-Sapphire sample summary. Pattern applied to SAP vendor-lock-in dynamics in the sovereign-AI era." />
+    <meta name="description" content="Worked example dashboard from the EVE research project. Pattern applied to SAP vendor-lock-in dynamics in the sovereign-AI era." />
+    <script>
+      // Gate: verify token before allowing dashboard to render.
+      // If missing or invalid → redirect to landing page request flow.
+      (function(){
+        var WORKER = 'https://eve-gate.eveglyphdesign.workers.dev';
+        var TOKEN_KEY = 'eve_gate_token_v1';
+
+        function redirectToGate(){
+          location.replace('./index.html#request');
+        }
+
+        var t = localStorage.getItem(TOKEN_KEY);
+        if (!t) { redirectToGate(); return; }
+
+        // Async verify; show a minimal "verifying" overlay until result
+        document.documentElement.style.opacity = '0';
+        fetch(WORKER + '/verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: t })
+        }).then(function(r){ return r.json(); }).then(function(d){
+          if (d && d.valid) {
+            document.documentElement.style.opacity = '1';
+          } else {
+            localStorage.removeItem(TOKEN_KEY);
+            redirectToGate();
+          }
+        }).catch(function(){
+          // Network error — let through but clear token so next load re-checks
+          document.documentElement.style.opacity = '1';
+        });
+      })();
+    </script>
     <script type="module" crossorigin src="./assets/index-D5fH_AM_.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-DWwtbnVx.css">
   </head>

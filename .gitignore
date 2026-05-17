@@ -1,0 +1,11 @@
+# Local backups, not for repo
+*.bak
+*.pre-*.bak
+
+# Local secrets, not for repo
+.local/
+.secrets/
+
+# Editor cruft
+.DS_Store
+Thumbs.db
