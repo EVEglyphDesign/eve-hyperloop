@@ -146,20 +146,23 @@
        * into future (above the chord, into the apex's light).
        * "Pour le bien-être du peuple" is stamped as the welfare register, visible on the surface. */
       .glyph-anno{position:absolute;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:var(--fg-muted);z-index:2;pointer-events:none;line-height:1}
-      /* Side labels: SVG-rendered to guarantee correct orientation along the painted edges.
-         The HTML-only labels below are kept simple, horizontal, and outside the glyph. */
-      .glyph-anno.vertex-name{font-size:8.5px;color:var(--fg-soft);letter-spacing:.20em;background:rgba(11,13,16,.85);padding:2px 7px;border-radius:2px;border:1px solid var(--border-soft);white-space:nowrap}
-      /* HCP chips placed OUTSIDE the painted triangle, near each anchor dot but in clear space. */
-      .glyph-anno.hcp-apex{top:1%;left:50%;transform:translateX(-50%);color:var(--accent-soft);border-color:rgba(217,126,47,.4)}
-      .glyph-anno.hcp-bl{top:91%;left:23%;color:var(--accent-soft);border-color:rgba(217,126,47,.4)}
-      .glyph-anno.hcp-br{top:91%;right:23%;color:var(--accent-soft);border-color:rgba(217,126,47,.4)}
+      /* HCP markers — each HCP is depicted as a miniature of the EVE glyph itself.
+         The glyph IS the HCP icon. Each marker shows the triangle + inner circle + half-circle
+         vessel in accent orange, with a thin label "HCP" + vertex name below.
+         Sized at 36px square so they read clearly without overpowering the painted glyph. */
+      .hcp-marker{position:absolute;z-index:4;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:3px}
+      .hcp-marker svg{width:36px;height:36px;display:block;filter:drop-shadow(0 2px 6px rgba(0,0,0,.75))}
+      .hcp-marker .hcp-tag{font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-soft);background:rgba(11,13,16,.92);padding:2px 6px;border-radius:2px;border:1px solid rgba(217,126,47,.4);white-space:nowrap;line-height:1}
+      .hcp-marker.hcp-apex{top:0;left:50%;transform:translateX(-50%)}
+      .hcp-marker.hcp-bl{top:90%;left:21%}
+      .hcp-marker.hcp-br{top:90%;right:21%}
       /* Velocity vector — dashed arrow from past (below the chord) into the apex's light. */
       .velocity-vector{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;opacity:.55}
       /* Welfare-register stamp — placed in the upper-right of the stage, outside the glyph */
       .welfare-stamp{position:absolute;top:2%;right:0.5%;font-family:var(--serif);font-style:italic;font-size:12px;color:var(--accent-soft);background:rgba(11,13,16,.92);border:1px solid var(--accent);border-radius:50% / 38%;padding:9px 16px;letter-spacing:.02em;line-height:1.2;text-align:center;z-index:3;max-width:150px;box-shadow:0 6px 22px rgba(217,126,47,.20)}
       .welfare-stamp::after{content:"✓";display:block;font-family:Oswald,sans-serif;font-style:normal;font-size:13px;color:var(--accent);margin-top:3px}
       @media (max-width:1100px){.welfare-stamp{font-size:10.5px;padding:7px 11px;max-width:120px}}
-      @media (max-width:900px){.glyph-anno, .velocity-vector, .welfare-stamp, .side-labels{display:none}}
+      @media (max-width:900px){.glyph-anno, .velocity-vector, .welfare-stamp, .side-labels, .hcp-marker{display:none}}
 
       /* Legend below the glyph stage — carries the inheritance lines that used to clutter the callouts. */
       .glyph-legend{max-width:1180px;margin:0 auto 40px;padding:0 8px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;font-family:var(--mono);font-size:11px;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.08em;line-height:1.5}
@@ -315,10 +318,36 @@
             <text x="610" y="380" font-family="Georgia, serif" font-style="italic" font-size="12" fill="#5f9e6e" opacity=".85">velocity</text>
           </svg>
 
-          <!-- Three Human Control Point chips — placed outside the glyph near each anchor dot -->
-          <span class="glyph-anno vertex-name hcp-apex">Human control point</span>
-          <span class="glyph-anno vertex-name hcp-bl">Human control point</span>
-          <span class="glyph-anno vertex-name hcp-br">Human control point</span>
+          <!-- Three HCPs (Human Control Points), each depicted as a miniature EVE glyph.
+               The glyph IS the HCP icon — same geometric language at every vertex.
+               Inline SVG so it scales crisply and matches the accent palette exactly. -->
+          <div class="hcp-marker hcp-apex">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="EVE glyph HCP marker · apex">
+              <!-- Triangle (apex up) -->
+              <polygon points="24,5 5,40 43,40" fill="none" stroke="#d97e2f" stroke-width="2.4" stroke-linejoin="round"/>
+              <!-- Inner circle (the present) -->
+              <circle cx="24" cy="27" r="9" fill="none" stroke="#d97e2f" stroke-width="1.8"/>
+              <!-- Half-circle vessel (open downward, sitting on the chord at y=40) -->
+              <path d="M 9 40 A 15 15 0 0 0 39 40" fill="none" stroke="#d97e2f" stroke-width="1.8"/>
+            </svg>
+            <span class="hcp-tag">HCP · Apex</span>
+          </div>
+          <div class="hcp-marker hcp-bl">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="EVE glyph HCP marker · base-left">
+              <polygon points="24,5 5,40 43,40" fill="none" stroke="#d97e2f" stroke-width="2.4" stroke-linejoin="round"/>
+              <circle cx="24" cy="27" r="9" fill="none" stroke="#d97e2f" stroke-width="1.8"/>
+              <path d="M 9 40 A 15 15 0 0 0 39 40" fill="none" stroke="#d97e2f" stroke-width="1.8"/>
+            </svg>
+            <span class="hcp-tag">HCP · Base-left</span>
+          </div>
+          <div class="hcp-marker hcp-br">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="EVE glyph HCP marker · base-right">
+              <polygon points="24,5 5,40 43,40" fill="none" stroke="#d97e2f" stroke-width="2.4" stroke-linejoin="round"/>
+              <circle cx="24" cy="27" r="9" fill="none" stroke="#d97e2f" stroke-width="1.8"/>
+              <path d="M 9 40 A 15 15 0 0 0 39 40" fill="none" stroke="#d97e2f" stroke-width="1.8"/>
+            </svg>
+            <span class="hcp-tag">HCP · Base-right</span>
+          </div>
           <!-- Welfare register stamp — surfaced on the geometry, outside the glyph -->
           <div class="welfare-stamp">Pour le bien-être du peuple</div>
 
@@ -329,7 +358,7 @@
             <div class="qualify">Have you ever worked for an electric utility?</div>
             <a class="cta-mini" href="#apex-intake" id="apex-cta">Enter →</a>
             <div class="hil-panel" id="hil-apex" role="tooltip">
-              <div class="hil-kicker">Human control point · apex</div>
+              <div class="hil-kicker">HCP · Apex</div>
               <div class="hil-seat">Pacific Utilities Design Council</div>
               <div class="hil-body">Two-of-three voting on rights of use and assignment. Confidence properties — inspection, escalation, audit — remain with the utility operator. Sovereign-AI never decides alone. <em>Above the vessel: truth held under the umbrella.</em></div>
             </div>
@@ -341,7 +370,7 @@
             <h3>Individual · education</h3>
             <a class="cta-mini" href="#individual-intake" id="individual-cta">Enter →</a>
             <div class="hil-panel" id="hil-bl" role="tooltip">
-              <div class="hil-kicker">Human control point · base-left</div>
+              <div class="hil-kicker">HCP · Base-left</div>
               <div class="hil-seat">The operator herself · A-glyph inheritor</div>
               <div class="hil-body">Personal Article I §8 Cl. 8 extension. The child or adult learner remains the only operator of her own A-glyph. EVE keeps no retention; the umbrella protects the design, not the data. <em>Above the vessel: the learner's own truth.</em></div>
             </div>
@@ -353,7 +382,7 @@
             <h3>Enterprise · vendor-lock-in</h3>
             <a class="cta-mini" href="#enterprise-intake" id="enterprise-cta">Enter →</a>
             <div class="hil-panel" id="hil-br" role="tooltip">
-              <div class="hil-kicker">Human control point · base-right</div>
+              <div class="hil-kicker">HCP · Base-right</div>
               <div class="hil-seat">Enterprise assessor + Avalara channel reviewer</div>
               <div class="hil-body">No-lock-in DI capital asset class. The enterprise's own staff signs every assessment; the channel partner audits the procedure, not the verdict. <em>Above the vessel: a finding the enterprise owns.</em></div>
             </div>
