@@ -48,35 +48,95 @@
       ul.tight{margin:0 0 14px 18px;padding:0}
       ul.tight li{font-size:15px;color:var(--fg);margin-bottom:6px}
 
-      /* === Glyph hero with Apple-style callouts pointing into the glyph === */
-      .triangle-stage{position:relative;width:100%;max-width:1180px;margin:0 auto 30px;aspect-ratio:1180/720;min-height:560px}
+      /* === EVE glyph with callouts attached at the three triangle points ===
+       *
+       * Protocol standard:
+       *   1. The three callouts terminate AT the glyph's three triangle vertices (anchor dots).
+       *   2. Each callout label is terse — a name, not a paragraph. Apple HIG: "Lightning connector",
+       *      not three sentences.
+       *   3. Three scale dimensions: z-depth (glyph<leader<label), size hierarchy (kicker<name<verb),
+       *      spacing rhythm (4px micro / 12px small / 80px+ canvas).
+       *   4. Leader lines are thin, single-stroke, and never cross.
+       */
+      .triangle-stage{position:relative;width:100%;max-width:1180px;margin:0 auto 24px;aspect-ratio:1180/720;min-height:560px}
 
-      /* The EVE glyph is the HERO at center — full opacity, geometric anchor of the page */
-      .triangle-stage .glyph-hero{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:auto;height:78%;max-width:46%;z-index:1;display:flex;align-items:center;justify-content:center}
-      .triangle-stage .glyph-hero img{height:100%;width:auto;object-fit:contain;display:block;border-radius:4px;box-shadow:0 0 60px rgba(0,0,0,.6)}
+      /* Layer 1 (z=1) — the EVE glyph as the geometric anchor. Larger than before so the three
+         vertices are clearly visible and the painted triangle reads at a glance. */
+      .triangle-stage .glyph-hero{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);height:88%;max-width:54%;z-index:1;display:flex;align-items:center;justify-content:center}
+      .triangle-stage .glyph-hero img{height:100%;width:auto;object-fit:contain;display:block;border-radius:4px;box-shadow:0 0 80px rgba(0,0,0,.55)}
 
-      /* Leader lines drawn in SVG between callouts and the glyph's vertices */
+      /* Layer 2 (z=2) — leader lines and vertex anchor dots. Thin, single-stroke, never crossing. */
       .triangle-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
 
-      /* Callout chips — small, terse, never compete with the glyph */
-      .triangle-stage .callout{position:absolute;z-index:3;background:rgba(19,22,27,.94);border:1px solid var(--border);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;box-shadow:0 6px 24px rgba(0,0,0,.55);width:min(260px,22%)}
+      /* Layer 3 (z=3) — callout labels. Attached at the leader's terminal point opposite the vertex.
+         Each label is sized to the minimum that holds its three text scales. */
+      .triangle-stage .callout{position:absolute;z-index:3;background:rgba(19,22,27,.96);border:1px solid var(--border);border-radius:6px;padding:10px 14px;display:flex;flex-direction:column;box-shadow:0 8px 28px rgba(0,0,0,.7);width:auto;max-width:260px}
 
-      /* Apex callout: above the glyph, centered, leader goes DOWN to apex vertex */
-      .triangle-stage .callout-apex{top:0;left:50%;transform:translateX(-50%);width:min(360px,32%)}
-      /* Bottom-left callout: left of glyph base, leader goes RIGHT to base-left vertex */
-      .triangle-stage .callout-bl{bottom:6%;left:0}
-      /* Bottom-right callout: right of glyph base, leader goes LEFT to base-right vertex */
-      .triangle-stage .callout-br{bottom:6%;right:0}
+      /* APEX label — attaches above the glyph's top vertex. The painted apex sits at about y=14%
+         of the stage (glyph is 88% tall, vertically centered). Leader runs from the label's bottom
+         edge down to (50%, 14%). */
+      .triangle-stage .callout-apex{top:0;left:50%;transform:translateX(-50%)}
+      /* BOTTOM-LEFT label — attaches at the painted triangle's base-left corner (about 23% x, 86% y).
+         Label sits to the lower-left of that corner; leader runs from label's top-right into the corner. */
+      .triangle-stage .callout-bl{bottom:0;left:0}
+      /* BOTTOM-RIGHT label — attaches at the painted triangle's base-right corner (about 77% x, 86% y).
+         Label sits to the lower-right; leader runs from label's top-left into the corner. */
+      .triangle-stage .callout-br{bottom:0;right:0}
 
-      .callout .vertex-label{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--fg-soft);margin-bottom:4px}
-      .callout .kicker{font-family:Oswald,sans-serif;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:3px}
-      .callout h3{margin:0 0 6px 0;font-size:14.5px;line-height:1.25;color:var(--fg)}
-      .callout .qualify{font-family:var(--serif);font-style:italic;font-size:12.5px;color:var(--fg);background:rgba(217,126,47,.08);border-left:2px solid var(--accent);padding:5px 9px;margin:4px 0 6px 0;border-radius:0 3px 3px 0;line-height:1.3}
-      .callout .abridged{font-size:11.5px;color:var(--fg-muted);line-height:1.4;margin:0 0 8px 0;font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em}
-      .callout .cta-mini{display:inline-block;font-family:Oswald,sans-serif;font-size:10.5px;letter-spacing:.10em;text-transform:uppercase;color:var(--accent-soft);padding:6px 10px;border:1px solid var(--accent);border-radius:4px;border-bottom:1px solid var(--accent);align-self:flex-start;background:transparent}
-      .callout .cta-mini:hover{background:rgba(217,126,47,.08);border-bottom:1px solid var(--accent)}
-      .callout .cta-mini.primary{background:var(--accent);color:#11151a}
-      .callout .cta-mini.primary:hover{background:var(--accent-soft);color:#11151a}
+      /* Three scale dimensions inside each callout, applied consistently:
+         — Vertex-label (scale 1, smallest, mono):  9.5pt, uppercase, soft
+         — Gate name (scale 2, body):              13pt, sans, bright
+         — Action verb (scale 3, primary):         11pt, oswald, accent
+         The three steps create natural visual rhythm without paragraphs of body copy. */
+      .callout .vertex-label{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.16em;color:var(--fg-soft);margin-bottom:4px}
+      .callout h3{margin:0 0 8px 0;font-size:13px;line-height:1.25;color:var(--fg);font-weight:600;letter-spacing:.01em}
+      .callout .qualify{font-family:var(--serif);font-style:italic;font-size:11.5px;color:var(--fg);background:rgba(217,126,47,.08);border-left:2px solid var(--accent);padding:5px 9px;margin:-2px 0 8px 0;border-radius:0 3px 3px 0;line-height:1.3;max-width:240px}
+      .callout .cta-mini{display:inline-block;font-family:Oswald,sans-serif;font-size:11px;letter-spacing:.10em;text-transform:uppercase;color:var(--accent-soft);padding:5px 0 0 0;border:none;border-bottom:1px solid var(--accent);align-self:flex-start;background:transparent}
+      .callout .cta-mini:hover{color:var(--accent);border-bottom:1px solid var(--accent-soft)}
+
+      /* === Hover explainer — where the human-in-the-loop control sits at each gate ===
+       * Apple HIG: "Use tooltips to reveal supplementary information on demand without crowding the surface."
+       * The callout itself stays terse (vertex-label / gate-name / verb). The hover panel
+       * reveals which human seat owns the decisions at this vertex. Critical for copyright protection:
+       * the umbrella is enforced by humans, not by software. The hover names the seat. */
+      .callout{cursor:help;transition:border-color .2s ease, box-shadow .2s ease}
+      .callout:hover{border-color:var(--accent);box-shadow:0 10px 36px rgba(217,126,47,.18)}
+      .callout .hil-panel{position:absolute;z-index:5;background:#0a0c10;border:1px solid var(--accent);border-radius:6px;padding:12px 14px 14px 14px;width:280px;font-family:var(--sans);font-size:12px;line-height:1.45;color:var(--fg);box-shadow:0 14px 40px rgba(0,0,0,.75);opacity:0;pointer-events:none;transform:translateY(-4px);transition:opacity .18s ease, transform .18s ease}
+      .callout:hover .hil-panel, .callout:focus-within .hil-panel{opacity:1;pointer-events:auto;transform:translateY(0)}
+      .callout .hil-panel .hil-kicker{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.16em;color:var(--accent-soft);margin-bottom:5px}
+      .callout .hil-panel .hil-seat{font-family:Oswald,sans-serif;font-size:13.5px;font-weight:600;color:var(--fg);margin-bottom:6px;letter-spacing:.02em}
+      .callout .hil-panel .hil-body{color:var(--fg-muted);font-size:11.5px;line-height:1.5}
+      .callout .hil-panel .hil-body em{font-family:var(--serif);font-style:italic;color:var(--accent-soft)}
+      /* Panel placement per vertex — each panel sits OUTSIDE the triangle so it never covers the glyph */
+      .callout-apex .hil-panel{top:calc(100% + 10px);left:50%;transform:translate(-50%,-4px)}
+      .callout-apex:hover .hil-panel{transform:translate(-50%,0)}
+      .callout-bl .hil-panel{bottom:calc(100% + 10px);left:0}
+      .callout-br .hil-panel{bottom:calc(100% + 10px);right:0}
+
+      /* === Vessel bifurcation — truth above, darkness below ===
+       * The EVE glyph's half-circle is the vessel. Its chord (the straight diameter) is the
+       * surface of the water. What the vessel holds, lit by the apex above, is TRUTH under the
+       * umbrella. What sinks below the chord, uncovered, is DARKNESS — the un-watermarked, the
+       * un-attributed, the un-stewarded. This bifurcation is the operational metaphor of the
+       * copyright protection. It is rendered as a thin horizontal line at the glyph's chord with
+       * two terse labels at the page margins, far from the callouts so they never cross. */
+      .bifurcation{position:absolute;left:0;right:0;top:62%;z-index:2;pointer-events:none}
+      .bifurcation .axis{position:absolute;left:6%;right:6%;top:0;height:1px;background:linear-gradient(90deg, transparent 0%, rgba(217,126,47,.12) 8%, rgba(217,126,47,.45) 30%, rgba(217,126,47,.45) 70%, rgba(217,126,47,.12) 92%, transparent 100%)}
+      .bifurcation .axis::before, .bifurcation .axis::after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(217,126,47,.55);top:-2.5px}
+      .bifurcation .axis::before{left:-3px}
+      .bifurcation .axis::after{right:-3px}
+      .bifurcation .lbl{position:absolute;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-soft);background:rgba(11,13,16,.85);padding:3px 7px;border-radius:3px}
+      .bifurcation .lbl-truth{left:1%;top:-22px;color:var(--accent-soft);border:1px solid rgba(217,126,47,.4)}
+      .bifurcation .lbl-truth::before{content:"↑ ";letter-spacing:0}
+      .bifurcation .lbl-dark{right:1%;top:6px;color:#6c7587;border:1px solid var(--border)}
+      .bifurcation .lbl-dark::before{content:"↓ ";letter-spacing:0}
+      @media (max-width:900px){.bifurcation{display:none}}
+
+      /* Legend below the glyph stage — carries the inheritance lines that used to clutter the callouts. */
+      .glyph-legend{max-width:1180px;margin:0 auto 40px;padding:0 8px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;font-family:var(--mono);font-size:11px;color:var(--fg-muted);text-transform:uppercase;letter-spacing:.08em;line-height:1.5}
+      .glyph-legend .legend-item{padding-left:14px;border-left:1px solid var(--border)}
+      .glyph-legend .legend-item strong{color:var(--accent-soft);font-weight:600;display:block;margin-bottom:4px;letter-spacing:.12em}
+      @media (max-width:900px){.glyph-legend{grid-template-columns:1fr}}
       .cta{display:inline-block;background:var(--accent);color:#11151a;font-weight:600;font-family:Oswald,sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border-radius:5px;border-bottom:none}
       .cta:hover{background:var(--accent-soft);border-bottom:none}
       .cta.secondary{background:transparent;color:var(--accent-soft);border:1px solid var(--accent)}
@@ -112,11 +172,12 @@
       .unlocked-cta.show{display:block}
 
       @media (max-width:900px){
-        /* Below tablet, stack: glyph on top at readable size, callouts below in a column */
-        .triangle-stage{aspect-ratio:auto;min-height:0;display:flex;flex-direction:column;align-items:center;gap:14px;padding:0}
+        /* Below tablet, abandon the absolute geometry: glyph on top, vertex labels in a column below */
+        .triangle-stage{aspect-ratio:auto;min-height:0;display:flex;flex-direction:column;align-items:center;gap:12px;padding:0}
         .triangle-stage .glyph-hero{position:relative;top:auto;left:auto;transform:none;height:auto;width:80%;max-width:320px;margin:0 auto}
         .triangle-stage .glyph-hero img{height:auto;width:100%}
-        .triangle-stage .callout{position:relative;width:100%;top:auto;left:auto;right:auto;bottom:auto;transform:none}
+        .triangle-stage .callout{position:relative;width:100%;max-width:none;top:auto;left:auto;right:auto;bottom:auto;transform:none}
+        .triangle-stage .callout .hil-panel{position:relative;opacity:1;pointer-events:auto;transform:none;top:auto;left:auto;right:auto;bottom:auto;width:100%;margin-top:8px}
         .triangle-lines{display:none}
       }
       @media (max-width:760px){
@@ -144,58 +205,93 @@
       <section>
         <p class="muted" style="margin:0 0 14px 0;font-size:13.5px;text-align:center;letter-spacing:.04em;text-transform:uppercase;font-family:var(--mono)">Three gates. One glyph. Choose the vertex that matches the operator you are.</p>
 
-        <div class="triangle-stage" aria-label="EVE glyph with three gate callouts pointing at each vertex">
+        <div class="triangle-stage" aria-label="EVE glyph with three gate callouts attached at the triangle's three points">
           <!-- Glyph hero — the visual centerpiece of the page -->
           <div class="glyph-hero">
             <img src="./assets/eve-glyph-CLvHhd6w.jpg" alt="EVE digital stem cell glyph by Dany Theriault" />
           </div>
 
-          <!-- Leader lines from callouts into glyph vertices. Coordinates in 1180x720 viewBox.
-               Glyph hero is centered, ~46% wide, ~78% tall — in viewBox terms its apex sits near (590, 175)
-               and its base corners near (345, 560) and (835, 560). Each callout has a leader line that
-               points INTO the glyph at its vertex, Apple-style: thin, single-stroke, never crossing. -->
+          <!-- Leader lines and anchor dots. ViewBox 1180x720. Glyph is 88% tall, centered:
+               its top edge sits at y≈43, bottom at y≈677. Within the glyph image itself, the painted
+               triangle's apex is at about 50% width, 14% height of the IMAGE, base corners at ~21%/79%.
+               In viewBox coords, after accounting for image height 88% of 720 = ~633 and centering:
+                 apex      ≈ (590, 132)
+                 base-left ≈ (470, 575)
+                 base-right≈ (710, 575)
+               (Geometric notes; tuned by sight against the painted glyph image.)
+               Each leader is a single thin stroke from label-edge to vertex anchor dot, no crossings. -->
           <svg class="triangle-lines" viewBox="0 0 1180 720" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- Apex leader: short vertical from bottom of apex chip down into apex of glyph -->
-            <line x1="590" y1="112" x2="590" y2="170" stroke="#d97e2f" stroke-width="1.5" opacity=".85"/>
-            <circle cx="590" cy="112" r="3" fill="#d97e2f"/>
-            <!-- Bottom-left leader: from right edge of BL chip rising to glyph base-left -->
-            <line x1="260" y1="610" x2="340" y2="562" stroke="#d97e2f" stroke-width="1.5" opacity=".85"/>
-            <circle cx="260" cy="610" r="3" fill="#d97e2f"/>
-            <!-- Bottom-right leader: from left edge of BR chip rising to glyph base-right -->
-            <line x1="920" y1="610" x2="840" y2="562" stroke="#d97e2f" stroke-width="1.5" opacity=".85"/>
-            <circle cx="920" cy="610" r="3" fill="#d97e2f"/>
-            <!-- Anchor dots ON the glyph at each vertex -->
-            <circle cx="590" cy="175" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="1.5"/>
-            <circle cx="340" cy="562" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="1.5"/>
-            <circle cx="840" cy="562" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="1.5"/>
+            <!-- Apex leader: vertical line from bottom-center of apex label to glyph apex -->
+            <line x1="590" y1="72" x2="590" y2="125" stroke="#d97e2f" stroke-width="1.25" opacity=".9"/>
+            <!-- Bottom-left leader: from top-right of BL label to base-left vertex of painted triangle -->
+            <line x1="280" y1="620" x2="465" y2="572" stroke="#d97e2f" stroke-width="1.25" opacity=".9"/>
+            <!-- Bottom-right leader: from top-left of BR label to base-right vertex of painted triangle -->
+            <line x1="900" y1="620" x2="715" y2="572" stroke="#d97e2f" stroke-width="1.25" opacity=".9"/>
+            <!-- Anchor dots ON the painted triangle's three points -->
+            <circle cx="590" cy="125" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
+            <circle cx="465" cy="572" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
+            <circle cx="715" cy="572" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="2"/>
           </svg>
 
-          <!-- APEX callout — above the glyph, leader points down into apex vertex -->
-          <div class="callout callout-apex">
-            <div class="vertex-label">Apex · top vertex</div>
-            <div class="kicker">Apex Entry Point</div>
+          <!-- APEX callout — three scale dimensions: vertex-label / gate-name / action verb. No paragraphs. -->
+          <div class="callout callout-apex" tabindex="0" aria-describedby="hil-apex">
+            <div class="vertex-label">Apex point</div>
             <h3>Utility operator gate</h3>
             <div class="qualify">Have you ever worked for an electric utility?</div>
-            <div class="abridged">Inheritance: utility-operator sovereign-AI confidence</div>
-            <a class="cta-mini" href="#apex-intake" id="apex-cta">Begin apex intake →</a>
+            <a class="cta-mini" href="#apex-intake" id="apex-cta">Enter →</a>
+            <div class="hil-panel" id="hil-apex" role="tooltip">
+              <div class="hil-kicker">Human in the loop</div>
+              <div class="hil-seat">Pacific Utilities Design Council</div>
+              <div class="hil-body">Two-of-three voting on rights of use and assignment. Confidence properties — inspection, escalation, audit — remain with the utility operator. Sovereign-AI never decides alone. <em>Above the vessel: truth held under the umbrella.</em></div>
+            </div>
           </div>
 
           <!-- BOTTOM-LEFT callout — Individual / Education -->
-          <div class="callout callout-bl">
-            <div class="vertex-label">Bottom-left vertex</div>
-            <div class="kicker">Individual Gate</div>
-            <h3>Education &amp; A-glyph design</h3>
-            <div class="abridged">Inheritance: personal Article I §8 Cl. 8 extension</div>
-            <a class="cta-mini" href="#individual-intake" id="individual-cta">Begin individual intake →</a>
+          <div class="callout callout-bl" tabindex="0" aria-describedby="hil-bl">
+            <div class="vertex-label">Base-left point</div>
+            <h3>Individual · education</h3>
+            <a class="cta-mini" href="#individual-intake" id="individual-cta">Enter →</a>
+            <div class="hil-panel" id="hil-bl" role="tooltip">
+              <div class="hil-kicker">Human in the loop</div>
+              <div class="hil-seat">The operator herself · A-glyph inheritor</div>
+              <div class="hil-body">Personal Article I §8 Cl. 8 extension. The child or adult learner remains the only operator of her own A-glyph. EVE keeps no retention; the umbrella protects the design, not the data. <em>Above the vessel: the learner's own truth.</em></div>
+            </div>
           </div>
 
-          <!-- BOTTOM-RIGHT callout — Enterprise / Vendor-lock-in -->
-          <div class="callout callout-br">
-            <div class="vertex-label">Bottom-right vertex</div>
-            <div class="kicker">Enterprise Gate</div>
-            <h3>Vendor-lock-in evaluation</h3>
-            <div class="abridged">Inheritance: no-lock-in DI capital asset class · Avalara channel</div>
-            <a class="cta-mini primary" href="#enterprise-intake" id="enterprise-cta">Begin enterprise intake →</a>
+          <!-- BOTTOM-RIGHT callout — Enterprise -->
+          <div class="callout callout-br" tabindex="0" aria-describedby="hil-br">
+            <div class="vertex-label">Base-right point</div>
+            <h3>Enterprise · vendor-lock-in</h3>
+            <a class="cta-mini" href="#enterprise-intake" id="enterprise-cta">Enter →</a>
+            <div class="hil-panel" id="hil-br" role="tooltip">
+              <div class="hil-kicker">Human in the loop</div>
+              <div class="hil-seat">Enterprise assessor + Avalara channel reviewer</div>
+              <div class="hil-body">No-lock-in DI capital asset class. The enterprise's own staff signs every assessment; the channel partner audits the procedure, not the verdict. <em>Above the vessel: a finding the enterprise owns.</em></div>
+            </div>
+          </div>
+
+          <!-- Vessel bifurcation — truth (above the half-circle's chord) vs darkness (below).
+               Visible only on desktop; positioned at the glyph's chord line. -->
+          <div class="bifurcation" aria-hidden="true">
+            <div class="axis"></div>
+            <span class="lbl lbl-truth">Truth · under the umbrella</span>
+            <span class="lbl lbl-dark">Darkness · uncovered, unwatermarked</span>
+          </div>
+        </div>
+
+        <!-- Legend below the glyph — carries what used to be in the callouts so the glyph is uncluttered. -->
+        <div class="glyph-legend" aria-label="Inheritance legend for the three gates">
+          <div class="legend-item">
+            <strong>Apex · Utility</strong>
+            Inheritance: utility-operator sovereign-AI confidence properties
+          </div>
+          <div class="legend-item">
+            <strong>Base-left · Individual</strong>
+            Inheritance: personal Article I §8 Cl. 8 extension via A-glyph design
+          </div>
+          <div class="legend-item">
+            <strong>Base-right · Enterprise</strong>
+            Inheritance: no-lock-in DI capital asset class · first channel partner Avalara
           </div>
         </div>
       </section>
