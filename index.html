@@ -48,34 +48,35 @@
       ul.tight{margin:0 0 14px 18px;padding:0}
       ul.tight li{font-size:15px;color:var(--fg);margin-bottom:6px}
 
-      /* === Triangle formation on a single page, glyph as backdrop === */
-      /* Stage sized to viewport so triangle + glyph fit on one screen */
-      .triangle-stage{position:relative;width:100%;max-width:1180px;margin:0 auto 30px;aspect-ratio:1180/780;min-height:560px}
+      /* === Glyph hero with Apple-style callouts pointing into the glyph === */
+      .triangle-stage{position:relative;width:100%;max-width:1180px;margin:0 auto 30px;aspect-ratio:1180/720;min-height:560px}
 
-      /* Glyph backdrop — large, centered, faint, behind everything */
-      .triangle-stage .glyph-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:0}
-      .triangle-stage .glyph-bg img{height:100%;width:auto;max-width:100%;object-fit:contain;opacity:.14;filter:saturate(.7) contrast(1.05);mix-blend-mode:screen}
+      /* The EVE glyph is the HERO at center — full opacity, geometric anchor of the page */
+      .triangle-stage .glyph-hero{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:auto;height:78%;max-width:46%;z-index:1;display:flex;align-items:center;justify-content:center}
+      .triangle-stage .glyph-hero img{height:100%;width:auto;object-fit:contain;display:block;border-radius:4px;box-shadow:0 0 60px rgba(0,0,0,.6)}
 
-      /* Cards sit absolutely on the glyph's vertices */
-      .triangle-stage .vertex{position:absolute;z-index:2;background:rgba(19,22,27,.86);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid var(--border);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+      /* Leader lines drawn in SVG between callouts and the glyph's vertices */
+      .triangle-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
 
-      /* Apex vertex sits at the top of the glyph triangle */
-      .triangle-stage .triangle-apex{top:0;left:50%;transform:translateX(-50%);width:min(380px,38%)}
-      /* Bottom-left and bottom-right sit at the base corners of the glyph triangle */
-      .triangle-stage .triangle-bl{bottom:0;left:0;width:min(340px,30%)}
-      .triangle-stage .triangle-br{bottom:0;right:0;width:min(340px,30%)}
+      /* Callout chips — small, terse, never compete with the glyph */
+      .triangle-stage .callout{position:absolute;z-index:3;background:rgba(19,22,27,.94);border:1px solid var(--border);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;box-shadow:0 6px 24px rgba(0,0,0,.55);width:min(260px,22%)}
 
-      /* Decorative connecting lines (now fitted to the stage) */
-      .triangle-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+      /* Apex callout: above the glyph, centered, leader goes DOWN to apex vertex */
+      .triangle-stage .callout-apex{top:0;left:50%;transform:translateX(-50%);width:min(360px,32%)}
+      /* Bottom-left callout: left of glyph base, leader goes RIGHT to base-left vertex */
+      .triangle-stage .callout-bl{bottom:6%;left:0}
+      /* Bottom-right callout: right of glyph base, leader goes LEFT to base-right vertex */
+      .triangle-stage .callout-br{bottom:6%;right:0}
 
-      .vertex .position-label{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--fg-soft);margin-bottom:5px}
-      .vertex .kicker{font-family:Oswald,sans-serif;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:4px}
-      .vertex h3{margin:0 0 7px 0;font-size:15.5px;line-height:1.25}
-      .vertex .qualify{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--fg);background:rgba(217,126,47,.08);border-left:2px solid var(--accent);padding:7px 11px;margin:6px 0 9px 0;border-radius:0 4px 4px 0;line-height:1.35}
-      .vertex p{font-size:13px;color:var(--fg-muted);line-height:1.5;margin-bottom:8px}
-      .vertex p.compact{margin-bottom:6px}
-      .vertex .protection{font-family:var(--mono);font-size:10px;color:var(--fg-soft);text-transform:uppercase;letter-spacing:.08em;margin-top:6px;padding-top:7px;border-top:1px solid var(--border-soft);line-height:1.4}
-      .vertex .cta-row{margin-top:8px;padding-top:4px}
+      .callout .vertex-label{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--fg-soft);margin-bottom:4px}
+      .callout .kicker{font-family:Oswald,sans-serif;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:3px}
+      .callout h3{margin:0 0 6px 0;font-size:14.5px;line-height:1.25;color:var(--fg)}
+      .callout .qualify{font-family:var(--serif);font-style:italic;font-size:12.5px;color:var(--fg);background:rgba(217,126,47,.08);border-left:2px solid var(--accent);padding:5px 9px;margin:4px 0 6px 0;border-radius:0 3px 3px 0;line-height:1.3}
+      .callout .abridged{font-size:11.5px;color:var(--fg-muted);line-height:1.4;margin:0 0 8px 0;font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em}
+      .callout .cta-mini{display:inline-block;font-family:Oswald,sans-serif;font-size:10.5px;letter-spacing:.10em;text-transform:uppercase;color:var(--accent-soft);padding:6px 10px;border:1px solid var(--accent);border-radius:4px;border-bottom:1px solid var(--accent);align-self:flex-start;background:transparent}
+      .callout .cta-mini:hover{background:rgba(217,126,47,.08);border-bottom:1px solid var(--accent)}
+      .callout .cta-mini.primary{background:var(--accent);color:#11151a}
+      .callout .cta-mini.primary:hover{background:var(--accent-soft);color:#11151a}
       .cta{display:inline-block;background:var(--accent);color:#11151a;font-weight:600;font-family:Oswald,sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border-radius:5px;border-bottom:none}
       .cta:hover{background:var(--accent-soft);border-bottom:none}
       .cta.secondary{background:transparent;color:var(--accent-soft);border:1px solid var(--accent)}
@@ -111,11 +112,11 @@
       .unlocked-cta.show{display:block}
 
       @media (max-width:900px){
-        /* Below tablet, abandon the absolute geometry and stack vertically with a faint glyph behind */
-        .triangle-stage{aspect-ratio:auto;min-height:0;display:flex;flex-direction:column;gap:14px;padding:0}
-        .triangle-stage .glyph-bg{position:absolute;inset:0}
-        .triangle-stage .glyph-bg img{height:auto;width:90%;max-height:none;opacity:.08}
-        .triangle-stage .vertex{position:relative;width:100%;top:auto;left:auto;right:auto;bottom:auto;transform:none}
+        /* Below tablet, stack: glyph on top at readable size, callouts below in a column */
+        .triangle-stage{aspect-ratio:auto;min-height:0;display:flex;flex-direction:column;align-items:center;gap:14px;padding:0}
+        .triangle-stage .glyph-hero{position:relative;top:auto;left:auto;transform:none;height:auto;width:80%;max-width:320px;margin:0 auto}
+        .triangle-stage .glyph-hero img{height:auto;width:100%}
+        .triangle-stage .callout{position:relative;width:100%;top:auto;left:auto;right:auto;bottom:auto;transform:none}
         .triangle-lines{display:none}
       }
       @media (max-width:760px){
@@ -143,54 +144,58 @@
       <section>
         <p class="muted" style="margin:0 0 14px 0;font-size:13.5px;text-align:center;letter-spacing:.04em;text-transform:uppercase;font-family:var(--mono)">Three gates. One glyph. Choose the vertex that matches the operator you are.</p>
 
-        <div class="triangle-stage" aria-label="EVE glyph with three gate vertices superimposed">
-          <!-- Glyph backdrop -->
-          <div class="glyph-bg" aria-hidden="true">
-            <img src="./assets/eve-glyph-CLvHhd6w.jpg" alt="" />
+        <div class="triangle-stage" aria-label="EVE glyph with three gate callouts pointing at each vertex">
+          <!-- Glyph hero — the visual centerpiece of the page -->
+          <div class="glyph-hero">
+            <img src="./assets/eve-glyph-CLvHhd6w.jpg" alt="EVE digital stem cell glyph by Dany Theriault" />
           </div>
 
-          <!-- Decorative connecting lines, fitted to the glyph's triangle vertices -->
-          <svg class="triangle-lines" viewBox="0 0 1180 780" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <line x1="590" y1="110" x2="180" y2="680" stroke="#3a3f48" stroke-width="1.5" stroke-dasharray="6 6" opacity=".6"/>
-            <line x1="590" y1="110" x2="1000" y2="680" stroke="#3a3f48" stroke-width="1.5" stroke-dasharray="6 6" opacity=".6"/>
-            <line x1="180" y1="680" x2="1000" y2="680" stroke="#3a3f48" stroke-width="1.5" stroke-dasharray="6 6" opacity=".6"/>
+          <!-- Leader lines from callouts into glyph vertices. Coordinates in 1180x720 viewBox.
+               Glyph hero is centered, ~46% wide, ~78% tall — in viewBox terms its apex sits near (590, 175)
+               and its base corners near (345, 560) and (835, 560). Each callout has a leader line that
+               points INTO the glyph at its vertex, Apple-style: thin, single-stroke, never crossing. -->
+          <svg class="triangle-lines" viewBox="0 0 1180 720" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Apex leader: short vertical from bottom of apex chip down into apex of glyph -->
+            <line x1="590" y1="112" x2="590" y2="170" stroke="#d97e2f" stroke-width="1.5" opacity=".85"/>
+            <circle cx="590" cy="112" r="3" fill="#d97e2f"/>
+            <!-- Bottom-left leader: from right edge of BL chip rising to glyph base-left -->
+            <line x1="260" y1="610" x2="340" y2="562" stroke="#d97e2f" stroke-width="1.5" opacity=".85"/>
+            <circle cx="260" cy="610" r="3" fill="#d97e2f"/>
+            <!-- Bottom-right leader: from left edge of BR chip rising to glyph base-right -->
+            <line x1="920" y1="610" x2="840" y2="562" stroke="#d97e2f" stroke-width="1.5" opacity=".85"/>
+            <circle cx="920" cy="610" r="3" fill="#d97e2f"/>
+            <!-- Anchor dots ON the glyph at each vertex -->
+            <circle cx="590" cy="175" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="1.5"/>
+            <circle cx="340" cy="562" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="1.5"/>
+            <circle cx="840" cy="562" r="5" fill="#d97e2f" stroke="#0b0d10" stroke-width="1.5"/>
           </svg>
 
-          <!-- APEX (top) — Utility Operator -->
-          <div class="vertex triangle-apex">
-            <div class="position-label">Apex · top vertex</div>
+          <!-- APEX callout — above the glyph, leader points down into apex vertex -->
+          <div class="callout callout-apex">
+            <div class="vertex-label">Apex · top vertex</div>
             <div class="kicker">Apex Entry Point</div>
             <h3>Utility operator gate</h3>
             <div class="qualify">Have you ever worked for an electric utility?</div>
-            <p class="compact">Reserved for operators who have stood inside the kind of system EVE is designed to keep confidence in — regulated grid, control room, integrated operating procedure with nuclear-grade human-safety protocols already in muscle memory.</p>
-            <div class="protection">Inheritance: utility-operator sovereign-AI confidence properties</div>
-            <div class="cta-row">
-              <a class="cta secondary" href="#apex-intake" id="apex-cta">Begin apex intake →</a>
-            </div>
+            <div class="abridged">Inheritance: utility-operator sovereign-AI confidence</div>
+            <a class="cta-mini" href="#apex-intake" id="apex-cta">Begin apex intake →</a>
           </div>
 
-          <!-- BOTTOM-LEFT — Individual -->
-          <div class="vertex triangle-bl">
-            <div class="position-label">Bottom-left vertex</div>
+          <!-- BOTTOM-LEFT callout — Individual / Education -->
+          <div class="callout callout-bl">
+            <div class="vertex-label">Bottom-left vertex</div>
             <div class="kicker">Individual Gate</div>
             <h3>Education &amp; A-glyph design</h3>
-            <p class="compact">For individuals. The gate leads into the EVE education domain: do the A-glyph design exercise and place your own work under the EVE Glyph Design copyright umbrella. The friction is the exercise, not the form.</p>
-            <div class="protection">Inheritance: personal Article I §8 Cl. 8 extension via A-glyph design</div>
-            <div class="cta-row">
-              <a class="cta secondary" href="#individual-intake" id="individual-cta">Begin individual intake →</a>
-            </div>
+            <div class="abridged">Inheritance: personal Article I §8 Cl. 8 extension</div>
+            <a class="cta-mini" href="#individual-intake" id="individual-cta">Begin individual intake →</a>
           </div>
 
-          <!-- BOTTOM-RIGHT — Enterprise -->
-          <div class="vertex triangle-br">
-            <div class="position-label">Bottom-right vertex</div>
+          <!-- BOTTOM-RIGHT callout — Enterprise / Vendor-lock-in -->
+          <div class="callout callout-br">
+            <div class="vertex-label">Bottom-right vertex</div>
             <div class="kicker">Enterprise Gate</div>
             <h3>Vendor-lock-in evaluation</h3>
-            <p class="compact">For enterprises. Upload your current vendor blueprint and receive a no-cost reference-architecture assessment from the EVE Decision Intelligence Center of Excellence (COE). First channel partner: Avalara.</p>
-            <div class="protection">Inheritance: no-lock-in vendor evaluation under DI capital asset class</div>
-            <div class="cta-row">
-              <a class="cta" href="#enterprise-intake" id="enterprise-cta">Begin enterprise intake →</a>
-            </div>
+            <div class="abridged">Inheritance: no-lock-in DI capital asset class · Avalara channel</div>
+            <a class="cta-mini primary" href="#enterprise-intake" id="enterprise-cta">Begin enterprise intake →</a>
           </div>
         </div>
       </section>
