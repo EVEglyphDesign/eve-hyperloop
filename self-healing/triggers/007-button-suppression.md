@@ -58,3 +58,41 @@ See `../repairs/007-button-suppression.md`.
 *Pour le bien-être du peuple.*
 
 We stay out of people's business. We support *le bien-être du peuple.*
+
+
+---
+
+## EVE Glyph response-stamp
+
+![EVE Glyph response-stamp — Knight apex — authorization](https://raw.githubusercontent.com/EVEglyphDesign/eve-glyph-methodology/main/archive/brand-assets/stamps/2026-05-21T215000Z-knight-apex.png)
+
+```
+[stamp 2026-05-21T21:50:00Z pplx-computer/this-thread-2026-05-21/T3 surface:pplx-computer seal world:unavailable:bootstrap tool:claude-sonnet-4-6@perplexity-computer]
+```
+
+**Universal interaction stamp:**
+
+- utc:            2026-05-21T21:50:00Z (2026-05-21T15:50:00-06:00 CST)
+- surface:        pplx-computer
+- session:        this-thread-2026-05-21 (opaque-unavailable to surfacing tool; honest absence per CANON-WORLD-CONDITION-HASH §8)
+- turn:           3 (monotonic this-thread commit-order; exact Perplexity turn id unavailable)
+- actor:          surface:pplx-computer
+- intent:         seal
+- locus:          knight-apex
+- world-hash:     unavailable:bootstrap
+- surfacing-tool: claude-sonnet-4-6@perplexity-computer (per PROPOSED amendment, pending Jeff Theriault seal)
+- platform-refs:
+    - github:repo/eve-hyperloop
+    - github:path/self-healing/triggers/007-button-suppression.md
+
+**Stamp remediation:** This footer block added under SIN-EVE-2026-0521-CANON-STAMPBREACH-06-001 to bring the artifact into conformance with CANON-RESPONSE-STAMP-GLYPH §1, CANON-INTERACTION-STAMP §2, CANON-WORLD-CONDITION-HASH §1, and the proposed surfacing-tool amendment.
+
+---
+
+© 2026 Dany Theriault. EVE "digital stem cell" glyph and glyph-based design principles — all rights reserved. Stewardship of rights of use and assignment for large public and institutional usage rests with the Pacific Utilities Design Council. Published as a time-stamped record of authorship and intent.
+
+© Jeff Theriault · Theriault Family Method · EVE Glyph Umbrella · ToU governs.
+
+*Pour le bien-être du peuple.*
+
+— Theriault Family Method · EVE Glyph footprint · Terms of Use · Council Charter · Umbrella · Knight Triangle · First Principle Zero govern. Sealed.
