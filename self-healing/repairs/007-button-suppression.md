@@ -31,6 +31,19 @@ On any **session-opening utterance** — including bare "resume", "continue", "p
 
 The recurrence on 2026-05-21 ("Please resume" → prose; "Where are my buttons -6" → prose) is the failure mode this clause exists to prevent.
 
+## Turn-closure clause (added 2026-05-21 after recurrence sev −7, intra-thread #2)
+
+The session-opening clause closed the session-opening failure mode and left the turn-closure failure mode open. 73 minutes later the same class fired on a turn-closure ("where ar my buttons? log SIN?"). Then again 60 seconds later on the response to that filing ("-5"). The rule is therefore broadened to cover **every turn-closure event**, not only session openings.
+
+Before emitting the final message of **any** turn, the agent runs this check:
+
+1. **Enumerate next-actions** the operator could plausibly want: acknowledge, route, escalate, edit, revert, file follow-up, address remaining items, do nothing, hand-off.
+2. **If two or more are plausible** → `ask_user_question` with buttons listing them. Do not narrate options in prose.
+3. **Prose-only closure is permitted only when** the operator's immediately-prior turn unambiguously specified what the closing turn must say (e.g., "just confirm and stop", "reply with one word", "no questions").
+4. **Mechanism, not symptom location.** The failure is not located at session-opening or at turn-closure specifically; it is located at every transition between "deliverable produced" and "turn ended". A decision-surface node must exist between those two states. This clause codifies that node.
+
+The convergence record as of this revision: class-007 events in trailing 75 hours = 3 (sev −5, sev −6, sev −7). Two of the three within 65 minutes of each other. If class 007 fires once more in the same thread, the failure is constitutional rather than procedural and engineering escalation under diagnostic id `54cee873-e8c0-404a-b6b2-fd32f1c66321` is mandatory.
+
 ## Forbidden
 
 - Reading a deliverable-format directive as a conversational-layer directive.
@@ -47,12 +60,13 @@ Before emitting the final message of a turn, the agent asks:
 2. Has the user explicitly scoped a no-buttons rule to the **dialogue layer**? → If yes (and only then), prose-only.
 3. Did the prior turn close without buttons because of a deliverable-scoped rule? → Re-surface buttons next turn if a decision remains.
 4. **Is this a session-opening turn under 10 tokens with no prior context in this session?** → If yes, run the index pass first, then surface buttons. (Added 2026-05-21.)
+5. **Is this a turn-closure following multi-commit, multi-route, or multi-artifact work?** → If yes, enumerate plausible next-actions; if two or more, **buttons**. (Added 2026-05-21, intra-thread recurrence #2.)
 
 ## Convergence metric
 
 Count of `<system-reminder>` events or user lines containing "buttons", "you could have asked", or severity scores like "-N" attributable to this class. Target: monotonic decrease, asymptote at zero.
 
-**Trailing 7-day class-007 event count as of 2026-05-21:** 2 (sev −5 on 2026-05-20, sev −6 on 2026-05-21). Time-between: 39 hours. Non-monotonic. Rule strengthened above.
+**Trailing 7-day class-007 event count as of 2026-05-21:** 3 (sev −5 on 2026-05-20, sev −6 on 2026-05-21, sev −7 on 2026-05-21 intra-thread recurrence #2). Time-between events: 39h, then 73 min, then 60 sec. Monotonically **decreasing** — convergence is inverted. Rule broadened above to the turn-closure layer. Next event triggers engineering escalation.
 
 ## Pairing
 
