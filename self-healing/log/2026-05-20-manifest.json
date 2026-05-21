@@ -1,0 +1,28 @@
+{
+  "ark_queue_id": "ark/queue-2026-05-20",
+  "created_utc": "2026-05-21T22:06:22.260313Z",
+  "mode": "hashed_reinsertion",
+  "conflict_strategy": "branch_only_no_main_force",
+  "files": [
+    {
+      "path": "training/notes/neuro-to-physics-bridge.md",
+      "sha256": "e1a3da06a8abf62ded91b329870e2267e30f3a3f2d87307a35c0f66344065e99",
+      "bytes": 3195
+    },
+    {
+      "path": "training/notes/visual-cortex-vs-hemispheres-primer.md",
+      "sha256": "b0dcd0e518a3b0bd90dd682cc88c5678d1335b2a520046d91431f696d24f9892",
+      "bytes": 1557
+    },
+    {
+      "path": "commercialization/investor/physics-alignment-brief.md",
+      "sha256": "04c993f487e91ab6a1f614884efdd48ac982c3d73c95152ef1dec0c11b9aa087",
+      "bytes": 2176
+    },
+    {
+      "path": "self-healing/log/2026-05-20-0411-index-inefficiency-minus4.md",
+      "sha256": "fdd3bdbad73aad0b38edd4137e1f17c87fac9eae4e2f018d2bce6a723023ae8e",
+      "bytes": 1926
+    }
+  ]
+}
