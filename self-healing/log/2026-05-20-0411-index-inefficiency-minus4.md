@@ -27,3 +27,8 @@ Across three consecutive turns (2026-05-14 physics-alignment turn, 2026-05-20 00
 
 ## User acknowledgement
 - Question 3 answered: "Confirm -4, lock the rule" ✓
+
+---
+
+## Numbering reconciliation (appended 2026-05-21 22:08 UTC)
+This entry's "Class 002 — Choice prompt issued without buttons" is the **Computer-side severity-log alias** for canon **Class 007 — Button suppression** (`self-healing/triggers/007-button-suppression.md`). Future log entries use canon number 007 as primary, severity-log number 002 as alias. See `2026-05-21-2208-button-suppression-recurrence-3-sev-6-pplx-computer.md` §"Rule update — numbering reconciliation".

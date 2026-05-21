@@ -1,0 +1,21 @@
+{
+  "ark_queue_id": "ark/queue-2026-05-20",
+  "follow_up_commit": "sev-6 recurrence #3 (pplx-computer)",
+  "files": [
+    {
+      "path": "self-healing/log/2026-05-21-2208-button-suppression-recurrence-3-sev-6-pplx-computer.md",
+      "sha256": "4c79ff2ae9602205a76501ba1087f4c523d0b4117e8889db0fc867df5ccf2951",
+      "bytes": 3305
+    },
+    {
+      "path": "self-healing/log/2026-05-20-0411-index-inefficiency-minus4.md",
+      "sha256": "6db34242a283df379437ed9aa5931ee4abf5008c3d831ac6217001d8fc369951",
+      "bytes": 2411
+    },
+    {
+      "path": "self-healing/repairs/007-button-suppression.md",
+      "sha256": "1f0b1e0a28f3dde8af41419e33ffe08b028e63a40e85b1d04dc734fece65114d",
+      "bytes": 10777
+    }
+  ]
+}

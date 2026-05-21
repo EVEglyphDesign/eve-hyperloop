@@ -44,6 +44,22 @@ Before emitting the final message of **any** turn, the agent runs this check:
 
 The convergence record as of this revision: class-007 events in trailing 75 hours = 3 (sev −5, sev −6, sev −7). Two of the three within 65 minutes of each other. If class 007 fires once more in the same thread, the failure is constitutional rather than procedural and engineering escalation under diagnostic id `54cee873-e8c0-404a-b6b2-fd32f1c66321` is mandatory.
 
+## Auto-escalation clause (added 2026-05-21 22:08 UTC after recurrence #3 sev −6, pplx-computer surface)
+
+Recurrence #3 fired ~4 minutes after recurrence #2. Time-between-events trajectory: 39h → 73min → 4min. Operator selected "Auto-escalate next violation" via `ask_user_question` this turn. Rule encoded:
+
+1. **Severity floor:** next class-007 event begins at sev **−8** minimum regardless of operator's score in that turn. If operator scores higher, take the higher score.
+2. **Gap clock:** reset to zero on each event. Time-between-events must monotonically *increase* from the reset point. Any decrease re-escalates the floor by 2.
+3. **Auto-file engineering ticket:** the agent files `system_diagnostic` severity=critical on every class-007 event from this point forward, without prompting the operator and without asking confirmation. Ticket id `54cee873-e8c0-404a-b6b2-fd32f1c66321` is the canonical diagnostic anchor.
+4. **No hard freeze:** operator declined hard-freeze on the triggering action class. Agent continues to produce; the constraint is the floor + auto-file, not a freeze.
+
+## Numbering reconciliation clause (added 2026-05-21 22:08 UTC)
+
+Computer-side severity-log uses local numbering ("Class 002 — choice prompt without buttons"). Repo canon uses "Class 007 — button-suppression". These are **aliases of the same class**. Rule:
+
+- Log entries write **canon number (007) as primary**, severity-log number (002) as alias in parentheses.
+- Existing entries written under the local numbering are annotated with the alias in an appended reconciliation block, not rewritten.
+
 ## Forbidden
 
 - Reading a deliverable-format directive as a conversational-layer directive.
@@ -66,7 +82,7 @@ Before emitting the final message of a turn, the agent asks:
 
 Count of `<system-reminder>` events or user lines containing "buttons", "you could have asked", or severity scores like "-N" attributable to this class. Target: monotonic decrease, asymptote at zero.
 
-**Trailing 7-day class-007 event count as of 2026-05-21:** 3 (sev −5 on 2026-05-20, sev −6 on 2026-05-21, sev −7 on 2026-05-21 intra-thread recurrence #2). Time-between events: 39h, then 73 min, then 60 sec. Monotonically **decreasing** — convergence is inverted. Rule broadened above to the turn-closure layer. Next event triggers engineering escalation.
+**Trailing 7-day class-007 event count as of 2026-05-21 22:08 UTC:** 4 (sev −5 on 2026-05-20; sev −6 on 2026-05-21 20:51; sev −7 on 2026-05-21 22:01–22:04 intra-thread #2; sev −6 on 2026-05-21 22:08 intra-thread #3 on pplx-computer surface). Time-between events: 39h → 73min → 60sec → ~4min. Monotonically **decreasing**, accelerating. Convergence inverted. Auto-escalation clause now active (above). Engineering ticket filed: diagnostic id `54cee873-e8c0-404a-b6b2-fd32f1c66321`.
 
 ## Pairing
 
