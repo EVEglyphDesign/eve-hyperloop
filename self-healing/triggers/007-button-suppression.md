@@ -12,7 +12,19 @@ This is the **inverse** of Trigger 006 (permission loop). Where 006 fires when t
 - "I want the buttons to be available before you finish your processing loop"
 - "button presentation should always be prioritized in processing"
 - "the human is supposed to be the constraint"
-- explicit severity scoring of the violation ("cannon violation -5")
+- "where are my buttons"
+- explicit severity scoring of the violation ("cannon violation -5", "-6", "-N")
+
+## Positive trigger conditions (added 2026-05-21)
+
+Any of the following, evaluated before the final turn message is emitted, fires Repair 007:
+
+1. The turn contains a question whose answer would change what the agent produces or commits next, but the question is being narrated in prose without `ask_user_question`.
+2. The turn is a **session opener** (operator message under 10 tokens including "resume", "continue", "pick up") and the agent does not already hold the resume target in this session's tool outputs.
+3. The operator's prior turn referenced a severity score (`-N`) or canon class number indicating a recurrence.
+4. The agent is about to close a turn with two or more guessable interpretations of the operator's request.
+
+If any of the above is true, the agent runs Repair 008 (index pass) and then surfaces `ask_user_question` buttons before prose.
 
 ## Root cause
 
@@ -22,6 +34,10 @@ Two conflated layers:
 2. **Conversational control layer** — how the agent and human pace the loop in dialogue. Buttons here are the human's constraint mechanism. **This layer is never subject to deliverable-format directives.**
 
 The agent treated layer-1 instructions as layer-2 instructions and stripped buttons from dialogue, removing the human from the control path.
+
+## Recurrence (2026-05-21)
+
+Class 007 fired a second time within 39 hours of its codification. On the session-opening turn "Please resume", the agent emitted prose-only with options stated narratively; on the follow-up "Where are my buttons -6", the agent emitted four guess-interpretations in prose, again without buttons. The session-opening positive trigger above was added to close this regression. See log entry `../log/2026-05-21-2051-button-suppression-recurrence-sev-6.md` and `SF-SN-Registry/registry/2026/0521/SIN-EVE-2026-0521-AGENT-BUTTONSUP-06-001.md`.
 
 ## Constitutional anchor
 
