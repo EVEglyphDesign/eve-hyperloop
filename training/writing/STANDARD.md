@@ -51,14 +51,14 @@ meaning, remove it. Then read it again.
 
 ---
 
-## Operating mode — Async IDOC
+## Operating mode — Async Signal
 
-The human–agent connection runs as **asynchronous IDOC processing**, not
-sequential dialogue. Full spec: `../protocols/ASYNC-IDOC.md`.
+The human–agent connection runs as **asynchronous signal processing**, not
+sequential dialogue. Full spec: `../protocols/ASYNC-SIGNAL.md`.
 
 Short form:
 
-- **Irritation = failed IDOC.** Spin the ball back, self-heal, re-try.
+- **Irritation = failed signal.** Spin the ball back, self-heal, re-try.
 - **Re-read canon before asking.** If it's in `/glyph.html`,
   `/individual.html`, `/council.html`, or a transcript, it's not a
   question for the user.

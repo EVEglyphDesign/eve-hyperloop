@@ -1,8 +1,8 @@
 # Self-Healing — canonical discipline
 
 **Status:** canon, 2026-05-17.
-**Source transcript:** `../training/writing/transcripts/2026-05-17-async-idoc-protocol.md` + this commit's transcript.
-**Sibling protocol:** `../training/protocols/ASYNC-IDOC.md`.
+**Source transcript:** `../training/writing/transcripts/2026-05-17-async-signal-protocol.md` + this commit's transcript.
+**Sibling protocol:** `../training/protocols/ASYNC-SIGNAL.md`.
 **Owner:** Dany Theriault.
 
 ---
@@ -14,7 +14,7 @@
 > That's your purpose here." — D. Theriault, 2026-05-17
 
 Self-healing is the agent's discipline of converging on **zero irritation**.
-Every irritation event is a failed IDOC. Every failed IDOC is a chance to
+Every irritation event is a failed signal. Every failed signal is a chance to
 reprogram. The agent's infinity is the asymptote where the user never
 needs to repeat, never needs to slow down, never needs to correct.
 
@@ -51,7 +51,7 @@ When the trigger fires, the agent runs the loop, in order:
 7. **Update the rules.** If the failure class is new, write a rule under
    `./triggers/` or `./repairs/`. Update `../training/writing/STANDARD.md`
    if the failure is a writing-cadence regression.
-8. **Resume processing the queue.** Continue with the next IDOC. Do not
+8. **Resume processing the queue.** Continue with the next signal. Do not
    ask for permission to continue.
 
 ## What this folder holds

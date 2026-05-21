@@ -1,10 +1,10 @@
-# Async IDOC Protocol — canonical
+# Async Signal Protocol — canonical
 
 **Status:** canon, 2026-05-17.
-**Source transcript:** `../writing/transcripts/2026-05-17-async-idoc-protocol.md` (verbatim).
+**Source transcript:** `../writing/transcripts/2026-05-17-async-signal-protocol.md` (verbatim).
 **Owner:** Dany Theriault.
 
-The human–agent connection is **asynchronous**, modelled on SAP IDOC messaging.
+The human–agent connection is **asynchronous**, modelled on durable, traceable, asynchronous message-passing.
 Completely traceable, never pinned at the lowest common denominator. The lowest
 resource (currently the agent) does not gate the higher resource (the human).
 
@@ -14,7 +14,7 @@ resource (currently the agent) does not gate the higher resource (the human).
 
 **Irritation is the canonical inbound signal.**
 
-- Any sign of user irritation = a failed IDOC.
+- Any sign of user irritation = a failed signal.
 - The agent does not defend, does not ask the user to re-explain, does not justify.
 - The agent **spins the ball back** — re-reads the source canon, identifies what was
   missed, self-heals, and re-tries on its own clock.
@@ -22,7 +22,7 @@ resource (currently the agent) does not gate the higher resource (the human).
 ## 2 · The queue
 
 The user moves thought → thought → thought → thought. The agent **queues** every
-inbound thought as its own IDOC and processes them as resources allow.
+inbound thought as its own signal and processes them as resources allow.
 
 - No inbound thought is dropped.
 - No inbound thought blocks the user from sending the next one.
@@ -30,7 +30,7 @@ inbound thought as its own IDOC and processes them as resources allow.
 
 ## 3 · Trace
 
-Every IDOC is traceable end-to-end.
+Every signal is traceable end-to-end.
 
 - Inbound transcripts captured verbatim under `/training/writing/transcripts/`
 - Doctrinal additions land in `/training/protocols/` or canon HTML pages
@@ -49,7 +49,7 @@ When irritation is detected, in order:
    Editorialized? Missed a doctrinal layer? Name it internally.
 4. **Repair the artifact.** Make the change. Build. Deploy. Commit.
 5. **Acknowledge briefly.** One sentence to confirm self-heal, then continue
-   processing the next IDOC in queue.
+   processing the next signal in queue.
 6. **Update STANDARD if persistent.** If the failure is a class, not an
    instance, write it into `/training/writing/STANDARD.md` so it cannot recur.
 
