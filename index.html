@@ -3,446 +3,105 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EVE Research — Sovereign-AI Decision Intelligence</title>
-    <meta name="description" content="EVE Glyph Design applied to sovereign-AI decision intelligence: a research observatory on vendor-lock-in dynamics, governance posture, and the integration of nuclear human-safety protocols. Access the worked-example monitor by request or reach Dany Theriault directly." />
+    <title>EVE Hyperloop — Children's Educational Game (Wireframe)</title>
+    <meta name="description" content="EVE Hyperloop is a children's educational video game in wireframe development. Three shapes, three lessons: the circle, the triangle, and the sphere. Request access by WhatsApp." />
+    <meta name="robots" content="noindex,nofollow" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
       :root{
-        --bg:#0b0d10;
-        --bg-elev:#13161b;
-        --bg-card:#161a20;
-        --fg:#e6ebf5;
-        --fg-muted:#9aa3b2;
-        --fg-soft:#6c7587;
-        --border:#262b34;
-        --border-soft:#1c2027;
-        --accent:#d97e2f;
-        --accent-soft:#e8a468;
-        --green:#5f9e6e;
-        --amber:#caa14b;
-        --red:#c46a5b;
-        --serif:Georgia,"Times New Roman",serif;
+        --bg:#fdfaf4;
+        --ink:#1a1a1a;
+        --ink-soft:#5a5a5a;
+        --line:#e7e1d3;
+        --circle:#e8a468;
+        --triangle:#5f9e6e;
+        --sphere:#6a8caf;
+        --whatsapp:#25d366;
+        --whatsapp-dark:#128c7e;
+        --serif:Fraunces,Georgia,serif;
         --sans:Inter,system-ui,-apple-system,sans-serif;
-        --mono:"JetBrains Mono",ui-monospace,monospace;
       }
       *{box-sizing:border-box}
-      html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
-      a{color:var(--accent-soft);text-decoration:none;border-bottom:1px solid rgba(232,164,104,.3)}
-      a:hover{border-bottom-color:var(--accent-soft)}
-      .wrap{max-width:980px;margin:0 auto;padding:40px 24px 80px}
-      header.top{display:flex;gap:20px;align-items:center;padding-bottom:28px;border-bottom:1px solid var(--border);margin-bottom:36px}
-      .glyph{width:64px;height:64px;flex-shrink:0;border-radius:6px;overflow:hidden;background:#0a0c10;border:1px solid var(--border-soft)}
-      .glyph img{width:100%;height:100%;object-fit:cover;display:block}
-      .brand h1{font-family:Oswald,sans-serif;font-weight:700;font-size:26px;letter-spacing:.02em;line-height:1.1;margin:0 0 6px 0;color:var(--fg)}
-      .brand .tagline{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--fg-muted);margin:0}
-      .stamp{margin-left:auto;text-align:right;font-family:var(--mono);font-size:11px;color:var(--fg-soft);line-height:1.5}
-      .stamp .stamp-label{display:block;text-transform:uppercase;letter-spacing:.08em;color:var(--fg-soft);font-size:10px;margin-bottom:2px}
-      section{margin-bottom:44px}
-      h2{font-family:Oswald,sans-serif;font-weight:600;font-size:18px;letter-spacing:.04em;text-transform:uppercase;color:var(--fg);margin:0 0 14px 0;padding-bottom:8px;border-bottom:1px solid var(--border-soft)}
-      h3{font-family:var(--sans);font-weight:600;font-size:15px;color:var(--fg);margin:24px 0 8px 0}
-      p{margin:0 0 14px 0;font-size:15.5px;color:var(--fg)}
-      p.lede{font-size:17px;color:var(--fg);line-height:1.6}
-      .muted{color:var(--fg-muted)}
-      @media (max-width:760px){header.top{flex-wrap:wrap} .stamp{margin-left:0;text-align:left;width:100%}}
-      ul.tight{margin:0 0 14px 18px;padding:0}
-      ul.tight li{font-size:15px;color:var(--fg);margin-bottom:6px}
+      html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+      .wrap{max-width:760px;margin:0 auto;padding:56px 24px 80px}
 
-      /* === EVE-IC microchip engagement cards =============================
-         Canon vocabulary: each engagement path renders as a DIP-package
-         microchip — top notch, pin-1 dot, pin-leads on each side, mono
-         part-number across the top, silk-screen accent stripe in the
-         register colour at the foot. Three paths: Individual, Enterprise,
-         Utility. The painted glyph stays achromatic; colour appears only
-         on the chip silk-screen. */
-      :root{
-        --reg-past:#3a7bd5;
-        --reg-future:#d7464b;
-        --reg-velocity:#ee8b3c;
-        --reg-hcp:#7c5ce0;
-        --reg-di:#3fb27f;
-        --reg-ark:#7fc4e8;
-      }
-      .engage{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:6px 0 10px 0}
-      @media (max-width:860px){.engage{grid-template-columns:1fr}}
-      .ic{position:relative;background:linear-gradient(180deg,#181c22 0%,#0e1116 100%);border:1px solid #2a3038;border-radius:4px;padding:22px 16px 20px 16px;display:flex;flex-direction:column;box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 6px 18px rgba(0,0,0,.35);transition:border-color .15s ease, transform .15s ease}
-      .ic:hover{border-color:#3a414d;transform:translateY(-1px)}
-      .ic::before{content:"";position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:20px;height:8px;background:#0b0d10;border:1px solid #2a3038;border-top:none;border-bottom-left-radius:10px;border-bottom-right-radius:10px}
-      .ic::after{content:"";position:absolute;top:8px;left:10px;width:5px;height:5px;border-radius:50%;background:var(--fg-soft);opacity:.7}
-      .ic .leads{position:absolute;top:16px;bottom:14px;width:4px;pointer-events:none}
-      .ic .leads.l{left:-4px} .ic .leads.r{right:-4px}
-      .ic .leads span{display:block;width:4px;height:6px;margin-bottom:7px;background:#3b424d;border-radius:1px}
-      .ic .pn{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.22em;margin:2px 0 8px 0;color:var(--fg-soft);display:flex;align-items:center;gap:6px}
-      .ic .pn::before{content:"";display:inline-block;width:6px;height:6px;border-radius:1px;background:currentColor;opacity:.9}
-      .ic h3{font-family:Oswald,sans-serif;font-weight:600;font-size:18px;letter-spacing:.02em;margin:0 0 6px 0;color:var(--fg);text-transform:none}
-      .ic .sub{font-family:var(--serif);font-style:italic;font-size:13px;color:var(--fg-muted);margin:0 0 12px 0}
-      .ic p{font-size:13.5px;color:var(--fg-muted);line-height:1.55;margin:0 0 12px 0}
-      .ic .req{font-family:var(--mono);font-size:11px;color:var(--fg-soft);background:#0d1015;border:1px dashed #2a3038;border-radius:3px;padding:8px 10px;margin:0 0 14px 0;line-height:1.5}
-      .ic .req strong{color:var(--accent-soft);font-weight:600}
-      .ic .ctarow{margin-top:auto;display:flex;flex-wrap:wrap;gap:8px}
-      .ic .ctarow .cta{padding:9px 14px;font-size:12px;border-radius:4px}
-      .ic .stripe{position:absolute;left:12px;right:12px;bottom:6px;height:2px;border-radius:1px;opacity:.92}
-      .ic-individual .pn{color:var(--reg-past)} .ic-individual .stripe{background:var(--reg-past)}
-      .ic-enterprise .pn{color:var(--reg-future)} .ic-enterprise .stripe{background:var(--reg-future)}
-      .ic-utility    .pn{color:var(--reg-hcp)}   .ic-utility    .stripe{background:var(--reg-hcp)}
+      header{text-align:center;margin-bottom:48px}
+      .stamp{font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:18px}
+      h1{font-family:var(--serif);font-weight:700;font-size:44px;line-height:1.1;letter-spacing:-.01em;margin:0 0 14px 0}
+      .tagline{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ink-soft);margin:0}
 
-      /* (legacy) Two-path access section retained below for the live monitor */
-      .paths{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:6px 0 8px 0}
-      @media (max-width:760px){.paths{grid-template-columns:1fr}}
-      .path-card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:22px 22px;display:flex;flex-direction:column}
-      .path-card .kicker{font-family:Oswald,sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:8px}
-      .path-card h3{margin:0 0 10px 0;font-size:18px}
-      .path-card p{font-size:14.5px;color:var(--fg-muted);line-height:1.55;margin-bottom:16px}
-      .path-card .cta{margin-top:auto}
-      .cta{display:inline-block;background:var(--accent);color:#11151a;font-weight:600;font-family:Oswald,sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border-radius:5px;border-bottom:none}
-      .cta:hover{background:var(--accent-soft);border-bottom:none}
-      .cta.secondary{background:transparent;color:var(--accent-soft);border:1px solid var(--accent);}
-      .cta.secondary:hover{background:rgba(217,126,47,.08)}
+      .shapes{display:flex;justify-content:center;align-items:center;gap:28px;margin:48px 0}
+      .shape{display:flex;flex-direction:column;align-items:center;gap:10px}
+      .shape svg{width:64px;height:64px;display:block}
+      .shape-label{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
 
-      /* Form */
-      .form-block{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;padding:24px 22px;margin-top:18px;display:none}
-      .form-block.open{display:block}
-      .form-block label{display:block;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--fg-muted);margin:14px 0 6px 0}
-      .form-block input, .form-block textarea{width:100%;padding:10px 12px;background:#0a0c10;border:1px solid var(--border);border-radius:4px;color:var(--fg);font-family:var(--sans);font-size:14.5px;outline:none}
-      .form-block input:focus, .form-block textarea:focus{border-color:var(--accent)}
-      .form-block textarea{min-height:80px;resize:vertical;font-family:var(--sans)}
-      .form-block .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
-      .form-actions{display:flex;gap:12px;align-items:center;margin-top:18px;flex-wrap:wrap}
-      .form-actions button{background:var(--accent);color:#11151a;font-weight:600;font-family:Oswald,sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:11px 22px;border-radius:5px;border:none;cursor:pointer}
-      .form-actions button:hover{background:var(--accent-soft)}
-      .form-actions button[disabled]{opacity:.5;cursor:not-allowed}
-      .form-status{font-family:var(--mono);font-size:12px;color:var(--fg-muted);min-height:18px}
-      .form-status.ok{color:var(--green)}
-      .form-status.err{color:var(--red)}
+      .pitch{font-family:var(--serif);font-size:20px;line-height:1.55;text-align:center;margin:0 auto 40px;max-width:560px}
 
-      /* Blurred preview */
-      .preview-wrap{position:relative;margin-top:18px;border-radius:8px;overflow:hidden;border:1px solid var(--border)}
-      .preview-img{display:block;width:100%;height:auto;filter:blur(8px) saturate(0.85) brightness(0.65);transition:filter .8s ease;pointer-events:none;user-select:none}
-      .preview-wrap.unlocked .preview-img{filter:none}
-      .preview-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(11,13,16,.55);transition:opacity .6s ease}
-      .preview-wrap.unlocked .preview-overlay{opacity:0;pointer-events:none}
-      .preview-overlay .label{font-family:Oswald,sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-muted);padding:8px 16px;background:rgba(11,13,16,.85);border:1px solid var(--border);border-radius:5px}
-      .preview-svg{display:block;width:100%;height:auto;background:#0a0c10}
+      .meta{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px 0;margin:40px 0;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+      .meta div{font-size:13px;color:var(--ink-soft)}
+      .meta strong{display:block;color:var(--ink);font-weight:600;margin-bottom:3px;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
 
-      .unlocked-cta{display:none;margin-top:16px}
-      .unlocked-cta.show{display:block}
+      .cta-block{text-align:center;margin:48px 0 32px}
+      .cta-lead{font-size:15px;color:var(--ink-soft);margin:0 0 18px}
+      .cta{display:inline-flex;align-items:center;gap:10px;background:var(--whatsapp);color:#fff;padding:16px 28px;border-radius:999px;font-weight:600;font-size:16px;text-decoration:none;border:none;transition:background .15s}
+      .cta:hover{background:var(--whatsapp-dark)}
+      .cta svg{width:20px;height:20px;fill:currentColor}
+      .cta-sub{margin-top:14px;font-size:12px;color:var(--ink-soft);font-family:var(--sans)}
 
-      footer.foot{margin-top:60px;padding-top:24px;border-top:1px solid var(--border);font-size:12.5px;color:var(--fg-soft);font-family:var(--mono);line-height:1.6}
-      footer.foot a{color:var(--fg-muted)}
-      .links-row{display:flex;flex-wrap:wrap;gap:18px;margin-top:10px}
-      .links-row a{color:var(--accent-soft)}
-      blockquote.attest{margin:18px 0;padding:14px 18px;border-left:2px solid var(--accent);background:rgba(217,126,47,.04);font-family:var(--serif);font-style:italic;color:var(--fg);font-size:15.5px}
+      footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--line);text-align:center;font-size:12px;color:var(--ink-soft);line-height:1.7}
+      footer .copy{font-family:var(--serif);font-style:italic}
     </style>
   </head>
   <body>
     <div class="wrap">
-      <header class="top">
-        <div class="glyph"><img src="./assets/eve-glyph-CLvHhd6w.jpg" alt="EVE digital stem cell glyph by Dany Theriault" /></div>
-        <div class="brand">
-          <h1>EVE Research — Sovereign-AI Decision Intelligence</h1>
-          <p class="tagline">Pour le bien-être du peuple.</p>
-        </div>
-        <div class="stamp">
-          <span class="stamp-label">Published</span>
-          14 May 2026<br />Time-stamped record
-        </div>
+      <header>
+        <div class="stamp">Wireframe · v0 · 2026</div>
+        <h1>EVE Hyperloop</h1>
+        <p class="tagline">A children's educational video game.</p>
       </header>
 
-      <section>
-        <h2>About the Research</h2>
-        <p class="lede">EVE is a research project on how a governing body keeps confidence in itself while it adopts sovereign-AI decision intelligence — a class of systems that interprets, classifies, and prioritizes evidence faster than any committee can.</p>
-        <p>The research observatory studies vendor-lock-in dynamics, hyperscaler commoditization, and the integration of nuclear-grade human-safety protocols into the operating practice of governing bodies. It is dashboard-shaped: each instance preserves the governing body's own confidence properties — independent inspection, probability-gated escalation, evidence-backed readings, audit trails, and full institutional ownership of the classified base accrued under its remit.</p>
-        <p class="muted">The first worked example, the EVE Hyperloop Monitor, applies the pattern today to SAP vendor-lock-in dynamics in the sovereign-AI era. The same dashboard, with classification rules adjusted, wraps any watched system the governing body chooses to extend its confidence to.</p>
-      </section>
-
-      <section>
-        <h2>Three Ways to Engage</h2>
-        <p class="muted" style="margin-bottom:18px">EVE Glyph canon recognises three entry paths. Each one routes a different kind of operator into the same register — the geometry stays whole, only the seat changes.</p>
-
-        <div class="engage">
-          <!-- Individual -->
-          <article class="ic ic-individual">
-            <span class="leads l"><span></span><span></span><span></span><span></span><span></span></span><span class="leads r"><span></span><span></span><span></span><span></span><span></span></span>
-            <h3>Individual</h3>
-            <p class="sub">Base-left of the HCP triangle.</p>
-            <p>Short intro education brief, six-question skill test, then a guided digital-twin fork menu. Configuration is reversible by canon; every save is archived.</p>
-            <div class="req"><strong>Prerequisite:</strong> LinkedIn connection to <a href="https://www.linkedin.com/in/danytheriault/" target="_blank" rel="noopener">linkedin.com/in/danytheriault</a> before the digital-twin fork is issued.</div>
-            <div class="ctarow">
-              <a class="cta" href="./individual.html">Open the individual route →</a>
-            </div>
-            <div class="stripe"></div>
-          </article>
-
-          <!-- Enterprise -->
-          <article class="ic ic-enterprise">
-            <span class="leads l"><span></span><span></span><span></span><span></span><span></span><span></span></span><span class="leads r"><span></span><span></span><span></span><span></span><span></span><span></span></span>
-            <h3>Enterprise</h3>
-            <p class="sub">Base-right of the HCP triangle.</p>
-            <p>Lock-in harm brief, two named case citations (Luneau/Avalara→Avalara/Vertex inversion; NB Power Bayside legacy-supplier-as-auditor), and partner-supported try-before-you-buy licensing through Avalara as the perpetual channel.</p>
-            <div class="req"><strong>Prerequisite:</strong> Read the lock-in harm brief; written acknowledgement of the auditor-conflict clause before vendor evaluation begins.</div>
-            <div class="ctarow">
-              <a class="cta" href="./enterprise.html">Open the enterprise brief →</a>
-              <a class="cta secondary" href="#request">Live monitor access</a>
-            </div>
-            <div class="stripe"></div>
-          </article>
-
-          <!-- Utility -->
-          <article class="ic ic-utility">
-            <span class="leads l"><span></span><span></span><span></span><span></span><span></span></span><span class="leads r"><span></span><span></span><span></span><span></span><span></span></span>
-            <h3>Utility operator</h3>
-            <p class="sub">Apex of the HCP triangle.</p>
-            <p>Sovereign-AI as nuclear material. Pacific Utilities Design Council governance, EVE Star Academy, Human Safety Protocol Certification, and the Hyperloop monitor as the reference model under operator custody.</p>
-            <div class="req"><strong>Prerequisite:</strong> Apex qualification — LinkedIn verification of utility employment, and Council Charter acknowledgement.</div>
-            <div class="ctarow">
-              <a class="cta" href="./utility.html">Open the utility route →</a>
-              <a class="cta secondary" href="./council.html">Council Charter</a>
-            </div>
-            <div class="stripe"></div>
-          </article>
+      <div class="shapes" aria-label="The three shapes of the game">
+        <div class="shape">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" fill="none" stroke="#e8a468" stroke-width="3"/></svg>
+          <span class="shape-label">Circle</span>
         </div>
-      </section>
-
-      <section>
-        <h2>Live Monitor Access</h2>
-        <p class="muted" style="margin-bottom:18px">Read a deeper look at the research, or talk to me directly.</p>
-
-        <div class="paths">
-
-          <!-- PATH A: Direct LinkedIn -->
-          <div class="path-card">
-            <div class="kicker">Path A · Direct</div>
-            <h3>Reach Dany directly on LinkedIn</h3>
-            <p>If you have a question, an objection, a project that touches the same problem, or you just want to talk — connect with me on LinkedIn. No gate, no form. Ask whatever you want, freeform.</p>
-            <a class="cta secondary" href="https://www.linkedin.com/in/danytheriault/" target="_blank" rel="noopener">Open LinkedIn →</a>
-          </div>
-
-          <!-- PATH B: Gated monitor access -->
-          <div class="path-card">
-            <div class="kicker">Path B · Worked example</div>
-            <h3>Request access to the live monitor</h3>
-            <p>The EVE Hyperloop Monitor is the SAP vendor-lock-in worked example. Share four details and you get instant access — the dashboard unblurs on this page and a fresh link to the live monitor opens.</p>
-            <a class="cta" href="#request" id="open-form-btn">Request access →</a>
-          </div>
-
+        <div class="shape">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><polygon points="32,8 56,54 8,54" fill="none" stroke="#5f9e6e" stroke-width="3" stroke-linejoin="round"/></svg>
+          <span class="shape-label">Triangle</span>
         </div>
-
-        <!-- Gated form -->
-        <div class="form-block" id="form-block">
-          <div class="kicker" style="font-family:Oswald,sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:6px">Contact intake · routed to Dany via WhatsApp</div>
-          <p style="font-size:14px;color:var(--fg-muted);margin-bottom:0">Four fields. A WhatsApp pings me with your details and the dashboard unlocks for you. You will not receive marketing email — this is direct human-to-human routing.</p>
-
-          <form id="gate-form" novalidate>
-            <label for="email">Work email</label>
-            <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@company.example" />
-
-            <label for="whatsapp">WhatsApp or phone (with country code)</label>
-            <input type="tel" id="whatsapp" name="whatsapp" required autocomplete="tel" placeholder="+1 555 123 4567" />
-
-            <label for="company_role">Company and role</label>
-            <input type="text" id="company_role" name="company_role" required placeholder="e.g. Avalara · VP Channel Strategy" />
-
-            <label for="linkedin">LinkedIn profile URL</label>
-            <input type="url" id="linkedin" name="linkedin" required placeholder="https://www.linkedin.com/in/..." />
-
-            <label for="message">Anything else (optional)</label>
-            <textarea id="message" name="message" placeholder="What brings you here? What would you want to look at first?"></textarea>
-
-            <!-- honeypot -->
-            <input type="text" class="hp" tabindex="-1" autocomplete="off" name="website" />
-
-            <div class="form-actions">
-              <button type="submit" id="submit-btn">Send & unlock monitor</button>
-              <span class="form-status" id="form-status"></span>
-            </div>
-          </form>
+        <div class="shape">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" fill="none" stroke="#6a8caf" stroke-width="3"/><ellipse cx="32" cy="32" rx="26" ry="10" fill="none" stroke="#6a8caf" stroke-width="2" opacity=".55"/><ellipse cx="32" cy="32" rx="10" ry="26" fill="none" stroke="#6a8caf" stroke-width="2" opacity=".55"/></svg>
+          <span class="shape-label">Sphere</span>
         </div>
+      </div>
 
-        <!-- Blurred preview + unlock CTA -->
-        <div class="preview-wrap" id="preview-wrap">
-          <svg class="preview-svg" viewBox="0 0 980 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#13161b"/>
-                <stop offset="1" stop-color="#0b0d10"/>
-              </linearGradient>
-            </defs>
-            <rect width="980" height="320" fill="url(#bg)"/>
-            <!-- Header band -->
-            <rect x="24" y="24" width="600" height="24" rx="3" fill="#d97e2f" opacity=".18"/>
-            <rect x="24" y="56" width="380" height="14" rx="2" fill="#9aa3b2" opacity=".25"/>
-            <rect x="800" y="24" width="156" height="46" rx="4" fill="#d97e2f" opacity=".35"/>
-            <!-- Big number -->
-            <text x="850" y="60" font-family="Oswald" font-size="32" font-weight="700" fill="#d97e2f" text-anchor="middle" opacity=".9">LEVEL 1</text>
-            <!-- Probability bar -->
-            <rect x="24" y="100" width="932" height="58" rx="5" fill="#161a20" stroke="#262b34"/>
-            <rect x="40" y="132" width="180" height="10" rx="2" fill="#d97e2f"/>
-            <rect x="220" y="132" width="736" height="10" rx="2" fill="#262b34"/>
-            <text x="940" y="124" font-family="Oswald" font-size="22" font-weight="700" fill="#d97e2f" text-anchor="end">15%</text>
-            <!-- 3 area cards -->
-            <rect x="24" y="180" width="220" height="120" rx="5" fill="#161a20" stroke="#262b34"/>
-            <rect x="40" y="200" width="80" height="10" rx="2" fill="#d97e2f" opacity=".7"/>
-            <rect x="40" y="220" width="160" height="14" rx="2" fill="#9aa3b2" opacity=".4"/>
-            <text x="40" y="270" font-family="Oswald" font-size="20" font-weight="600" fill="#e6ebf5">4.0</text>
-            <rect x="252" y="180" width="220" height="120" rx="5" fill="#161a20" stroke="#262b34"/>
-            <rect x="268" y="200" width="80" height="10" rx="2" fill="#9aa3b2" opacity=".4"/>
-            <rect x="268" y="220" width="160" height="14" rx="2" fill="#9aa3b2" opacity=".4"/>
-            <text x="268" y="270" font-family="Oswald" font-size="20" font-weight="600" fill="#e6ebf5">3.3</text>
-            <rect x="480" y="180" width="220" height="120" rx="5" fill="#161a20" stroke="#262b34"/>
-            <rect x="496" y="200" width="80" height="10" rx="2" fill="#9aa3b2" opacity=".4"/>
-            <rect x="496" y="220" width="160" height="14" rx="2" fill="#9aa3b2" opacity=".4"/>
-            <text x="496" y="270" font-family="Oswald" font-size="20" font-weight="600" fill="#e6ebf5">2.3</text>
-            <!-- Contributors table -->
-            <rect x="708" y="180" width="248" height="120" rx="5" fill="#161a20" stroke="#262b34"/>
-            <rect x="724" y="200" width="100" height="8" rx="2" fill="#9aa3b2" opacity=".4"/>
-            <rect x="724" y="220" width="180" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
-            <rect x="724" y="234" width="160" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
-            <rect x="724" y="248" width="170" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
-            <rect x="724" y="262" width="150" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
-            <rect x="724" y="276" width="140" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
-          </svg>
-          <div class="preview-overlay">
-            <div class="label">Live monitor · access by request</div>
-          </div>
-        </div>
+      <p class="pitch">
+        Three shapes, three lessons. Children draw the circle to find the edge of a problem, place the triangle to make a choice with three good reasons, then watch the sphere appear when the lesson belongs to everyone.
+      </p>
 
-        <div class="unlocked-cta" id="unlocked-cta">
-          <a class="cta" href="./monitor.html" id="open-monitor-btn">Open the live monitor →</a>
-          <span class="muted" style="margin-left:14px;font-size:13.5px">Access valid for 1 hour. Send again any time.</span>
-        </div>
-      </section>
+      <div class="meta">
+        <div><strong>Status</strong>Wireframe in development</div>
+        <div><strong>Audience</strong>Children, ages 8–14</div>
+        <div><strong>Stewardship</strong>Pacific Utilities Design Council</div>
+        <div><strong>Charter</strong>Non-commercial, charitable</div>
+      </div>
 
-      <section>
-        <h2>What's inside the monitor</h2>
-        <ul class="tight">
-          <li>Live probability-gated reading on SAP vendor-lock-in dynamics — Watch (L1) through Imminent (L5)</li>
-          <li>Three assessment areas: Competitive Landscape, Vendor Posture &amp; Market, Independent Safeguards</li>
-          <li>Top weighted contributors with evidence trail (source links, dates, severity)</li>
-          <li>Audit posture: every reading is reproducible from the evidence stack</li>
-        </ul>
-      </section>
+      <div class="cta-block">
+        <p class="cta-lead">Access is by request. Contributors, educators, and partners are welcome.</p>
+        <a class="cta" href="https://wa.me/15062921452?text=Hi%20Dany%20%E2%80%94%20I%27d%20like%20to%20learn%20about%20the%20EVE%20Hyperloop%20children%27s%20game%20wireframe.">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Request access on WhatsApp
+        </a>
+        <div class="cta-sub">+1 506-292-1452 · WhatsApp Business</div>
+      </div>
 
-      <section>
-        <h2>Governance Posture</h2>
-        <p>The framework is dashboard-shaped, fits inside existing control-system consumption, and does not require the governing body to learn a new genre of oversight. Each instance preserves the governing body's confidence properties: independent inspection, probability-gated escalation, evidence-backed readings, audit trails, and full institutional ownership of the classified base accrued under its remit.</p>
-        <p>This pattern extends across industries. Confidence properties are preserved. The dashboard becomes the governing body's.</p>
-      </section>
-
-      <section>
-        <h2>Related Material</h2>
-        <ul class="tight">
-          <li><a href="./glyph.html">EVE Glyph — Geometry and Colour Register</a> — the achromatic glyph with the colour register surfaced on hover; geometry stays pure, colours live in the guidance system only</li>
-          <li><a href="./individual.html">Individual route — Learn · Test · LinkedIn · Configure</a> — introductory education, skill test, LinkedIn connection to Dany Theriault, then the guided digital-twin configuration menu for individual users</li>
-          <li><a href="./enterprise.html">Enterprise route — Lock-in Harm Brief</a> — two named cases (Luneau/Avalara→Avalara/Vertex inversion, NB Power S/4 Bayside legacy-supplier-as-auditor) and Avalara try-before-you-buy partner support; read and acknowledge the auditor-conflict clause before vendor evaluation begins</li>
-          <li><a href="./utility.html">Utility route — Apex Seat</a> — third path for utility operators and the Pacific Utilities Design Council; apex qualification requires LinkedIn verification of utility employment and Council Charter acknowledgement</li>
-          <li><a href="./projection.html">DI Framework Projection</a> — the pyramid as a projection of the underlying decision-intelligence framework</li>
-          <li><a href="./terms.html">Terms of Use</a> — rights of use, assignment, operator-side non-retention</li>
-          <li><a href="./council.html">Council Charter</a> — Council Triangle, two-of-three voting, succession to Chief Betterment Officer, EVE Star Academy, Human Safety Protocol Certification, fork rights, ocean-focused R&amp;D in Vallarta</li>
-        </ul>
-      </section>
-
-      <footer class="foot">
-        <div>© 2026 Dany Theriault. EVE "digital stem cell" glyph and glyph-based design principles — all rights reserved. Stewardship of rights of use and assignment for large public and institutional usage rests with the Pacific Utilities Design Council. The EVE-IC microchip callout family (EVE-IC · PAST-001 · FUT-002 · VEL-003 · HCP-004 · DI-005 · ARK-006 · UMB-000 · LRN-001 · TST-002 · CFG-003 · LNK-003 · SEAT-IND · SEAT-ENT · SEAT-UTL · CASE-LUN-01 · CASE-NBP-02 · TRY-BUY-03 · REF-ARK-06 · UTL-APEX-Q) is part of the protected guidance system and travels under the same umbrella as the glyph. Published as a time-stamped record of authorship and intent.</div>
-        <div class="links-row">
-          <a href="https://www.linkedin.com/in/danytheriault/" target="_blank" rel="noopener">LinkedIn · Dany Theriault</a>
-          <a href="./glyph.html">Glyph &middot; register</a>
-          <a href="./individual.html">Individual &middot; learn · test · linkedin · configure</a>
-          <a href="./enterprise.html">Enterprise &middot; lock-in harm brief</a>
-          <a href="./utility.html">Utility &middot; apex seat</a>
-          <a href="./projection.html">DI framework projection</a>
-          <a href="./terms.html">Terms of use</a>
-          <a href="./council.html">Council Charter</a>
-        </div>
+      <footer>
+        <p class="copy">Pour le bien-être du peuple.</p>
+        <p>EVE Hyperloop · stewarded by the Pacific Utilities Design Council<br>
+        Prior art preserved in Git history · see <a href="./PRIOR-ART.md" style="color:var(--ink-soft)">PRIOR-ART.md</a></p>
       </footer>
     </div>
-
-    <script>
-      (function(){
-        var WORKER = 'https://eve-gate.eveglyphdesign.workers.dev';
-        var TOKEN_KEY = 'eve_gate_token_v1';
-
-        var formBlock = document.getElementById('form-block');
-        var openBtn = document.getElementById('open-form-btn');
-        var form = document.getElementById('gate-form');
-        var submitBtn = document.getElementById('submit-btn');
-        var status = document.getElementById('form-status');
-        var previewWrap = document.getElementById('preview-wrap');
-        var unlockedCta = document.getElementById('unlocked-cta');
-
-        function unlock() {
-          previewWrap.classList.add('unlocked');
-          unlockedCta.classList.add('show');
-        }
-
-        // If we already have a valid token, unlock immediately
-        async function checkExistingToken() {
-          var t = localStorage.getItem(TOKEN_KEY);
-          if (!t) return;
-          try {
-            var res = await fetch(WORKER + '/verify', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ token: t })
-            });
-            var data = await res.json();
-            if (data.valid) unlock();
-            else localStorage.removeItem(TOKEN_KEY);
-          } catch (e) { /* network error — silent */ }
-        }
-        checkExistingToken();
-
-        openBtn.addEventListener('click', function(e){
-          e.preventDefault();
-          formBlock.classList.add('open');
-          setTimeout(function(){ document.getElementById('email').focus(); }, 80);
-          history.replaceState(null, '', '#request');
-        });
-        if (location.hash === '#request') formBlock.classList.add('open');
-
-        form.addEventListener('submit', async function(e){
-          e.preventDefault();
-          status.className = 'form-status';
-          status.textContent = 'Sending…';
-          submitBtn.disabled = true;
-
-          var payload = {
-            email: form.email.value.trim(),
-            whatsapp: form.whatsapp.value.trim(),
-            company_role: form.company_role.value.trim(),
-            linkedin: form.linkedin.value.trim(),
-            message: form.message.value.trim(),
-            website: form.website.value /* honeypot */
-          };
-
-          try {
-            var res = await fetch(WORKER + '/submit', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload)
-            });
-            var data = await res.json();
-            if (!res.ok || !data.ok) {
-              status.className = 'form-status err';
-              status.textContent = data.error
-                ? ('Could not send: ' + data.error + (data.field ? ' (' + data.field + ')' : ''))
-                : 'Could not send. Please try LinkedIn instead.';
-              submitBtn.disabled = false;
-              return;
-            }
-            localStorage.setItem(TOKEN_KEY, data.token);
-            status.className = 'form-status ok';
-            status.textContent = 'Thank you. The monitor is now unlocked below.';
-            unlock();
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Sent ✓';
-          } catch (e) {
-            status.className = 'form-status err';
-            status.textContent = 'Network error. Try LinkedIn for a direct reply.';
-            submitBtn.disabled = false;
-          }
-        });
-      })();
-    </script>
   </body>
 </html>
