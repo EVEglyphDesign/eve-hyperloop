@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+    <title>EVE Hyperloop Monitor — Worked Example</title>
+    <meta name="description" content="Worked example dashboard from the EVE research project. Pattern applied to SAP vendor-lock-in dynamics in the sovereign-AI era." />
+    <script>
+      // Gate: verify token before allowing dashboard to render.
+      // If missing or invalid → redirect to landing page request flow.
+      (function(){
+        var WORKER = 'https://eve-gate.eveglyphdesign.workers.dev';
+        var TOKEN_KEY = 'eve_gate_token_v1';
+
+        function redirectToGate(){
+          location.replace('./index.html#request');
+        }
+
+        var t = localStorage.getItem(TOKEN_KEY);
+        if (!t) { redirectToGate(); return; }
+
+        // Async verify; show a minimal "verifying" overlay until result
+        document.documentElement.style.opacity = '0';
+        fetch(WORKER + '/verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: t })
+        }).then(function(r){ return r.json(); }).then(function(d){
+          if (d && d.valid) {
+            document.documentElement.style.opacity = '1';
+          } else {
+            localStorage.removeItem(TOKEN_KEY);
+            redirectToGate();
+          }
+        }).catch(function(){
+          // Network error — let through but clear token so next load re-checks
+          document.documentElement.style.opacity = '1';
+        });
+      })();
+    </script>
+    <script type="module" crossorigin src="./assets/index-D5fH_AM_.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DWwtbnVx.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <footer style="max-width:1100px; margin:40px auto 32px; padding:24px; border-top:1px solid rgba(255,255,255,0.08); font-family:'JetBrains Mono', ui-monospace, monospace; font-size:11.5px; line-height:1.6; color:#6c7587">
+      <div style="color:#9aa3b2">© 2026 Dany Theriault. EVE &ldquo;digital stem cell&rdquo; glyph and glyph-based design principles &mdash; all rights reserved. Stewardship of rights of use and assignment for large public and institutional usage rests with the Pacific Utilities Design Council. Published as a time-stamped record of authorship and intent.</div>
+      <div style="margin-top:10px"><em style="font-family:Georgia,serif">Pour le bien-être du peuple.</em> &middot; <a href="./" style="color:#e8a468; text-decoration:none">Landing</a> &middot; <a href="./projection.html" style="color:#e8a468; text-decoration:none">Projection</a> &middot; <a href="./terms.html" style="color:#e8a468; text-decoration:none">Terms</a> &middot; <a href="./council.html" style="color:#e8a468; text-decoration:none">Council Charter</a></div>
+    </footer>
+  </body>
+</html>
