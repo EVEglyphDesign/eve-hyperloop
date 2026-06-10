@@ -133,43 +133,56 @@
       .links-row{display:flex;flex-wrap:wrap;gap:18px;margin-top:10px}
       .links-row a{color:var(--accent-soft)}
       blockquote.attest{margin:18px 0;padding:14px 18px;border-left:2px solid var(--accent);background:rgba(217,126,47,.04);font-family:var(--serif);font-style:italic;color:var(--fg);font-size:15.5px}
+
+      /* Language switcher */
+      .lang-switch{position:fixed;top:16px;right:16px;display:flex;gap:6px;z-index:60;background:rgba(19,22,27,.82);backdrop-filter:blur(6px);padding:6px;border:1px solid var(--border);border-radius:999px}
+      .lang-btn{appearance:none;border:none;background:transparent;cursor:pointer;width:34px;height:30px;border-radius:999px;font-size:17px;line-height:1;display:flex;align-items:center;justify-content:center;padding:0;transition:background .15s,transform .15s,opacity .15s;opacity:.5}
+      .lang-btn:hover{transform:translateY(-1px);opacity:1}
+      .lang-btn.active{background:rgba(217,126,47,.18);opacity:1;box-shadow:0 0 0 1px var(--accent)}
+      .lang-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+      @media (max-width:760px){.lang-switch{top:10px;right:10px}}
     </style>
   </head>
   <body>
+    <nav class="lang-switch" aria-label="Selector de idioma / Language selector">
+      <button class="lang-btn" data-lang="es" title="Español" aria-label="Español">🇪🇸</button>
+      <button class="lang-btn" data-lang="en" title="English" aria-label="English">🇬🇧</button>
+      <button class="lang-btn" data-lang="fr" title="Français" aria-label="Français">🇫🇷</button>
+    </nav>
     <div class="wrap">
       <header class="top">
         <div class="glyph"><img src="./assets/eve-glyph-CLvHhd6w.jpg" alt="EVE digital stem cell glyph by Dany Theriault" /></div>
         <div class="brand">
-          <h1>EVE Research — Sovereign-AI Decision Intelligence</h1>
+          <h1 data-i18n="h1">EVE Research — Sovereign-AI Decision Intelligence</h1>
           <p class="tagline">Pour le bien-être du peuple.</p>
         </div>
         <div class="stamp">
-          <span class="stamp-label">Published</span>
-          14 May 2026<br />Time-stamped record
+          <span class="stamp-label" data-i18n="published">Published</span>
+          <span data-i18n="pubdate">14 May 2026</span><br /><span data-i18n="timestamp">Time-stamped record</span>
         </div>
       </header>
 
       <section>
-        <h2>About the Research</h2>
-        <p class="lede">EVE is a research project on how a governing body keeps confidence in itself while it adopts sovereign-AI decision intelligence — a class of systems that interprets, classifies, and prioritizes evidence faster than any committee can.</p>
-        <p>The research observatory studies vendor-lock-in dynamics, hyperscaler commoditization, and the integration of nuclear-grade human-safety protocols into the operating practice of governing bodies. It is dashboard-shaped: each instance preserves the governing body's own confidence properties — independent inspection, probability-gated escalation, evidence-backed readings, audit trails, and full institutional ownership of the classified base accrued under its remit.</p>
-        <p class="muted">The first worked example, the EVE Hyperloop Monitor, applies the pattern today to SAP vendor-lock-in dynamics in the sovereign-AI era. The same dashboard, with classification rules adjusted, wraps any watched system the governing body chooses to extend its confidence to.</p>
+        <h2 data-i18n="aboutH2">About the Research</h2>
+        <p class="lede" data-i18n="aboutLede">EVE is a research project on how a governing body keeps confidence in itself while it adopts sovereign-AI decision intelligence — a class of systems that interprets, classifies, and prioritizes evidence faster than any committee can.</p>
+        <p data-i18n="aboutP1">The research observatory studies vendor-lock-in dynamics, hyperscaler commoditization, and the integration of nuclear-grade human-safety protocols into the operating practice of governing bodies. It is dashboard-shaped: each instance preserves the governing body's own confidence properties — independent inspection, probability-gated escalation, evidence-backed readings, audit trails, and full institutional ownership of the classified base accrued under its remit.</p>
+        <p class="muted" data-i18n="aboutP2">The first worked example, the EVE Hyperloop Monitor, applies the pattern today to SAP vendor-lock-in dynamics in the sovereign-AI era. The same dashboard, with classification rules adjusted, wraps any watched system the governing body chooses to extend its confidence to.</p>
       </section>
 
       <section>
-        <h2>Three Ways to Engage</h2>
-        <p class="muted" style="margin-bottom:18px">EVE Glyph canon recognises three entry paths. Each one routes a different kind of operator into the same register — the geometry stays whole, only the seat changes.</p>
+        <h2 data-i18n="engageH2">Three Ways to Engage</h2>
+        <p class="muted" style="margin-bottom:18px" data-i18n="engageIntro">EVE Glyph canon recognises three entry paths. Each one routes a different kind of operator into the same register — the geometry stays whole, only the seat changes.</p>
 
         <div class="engage">
           <!-- Individual -->
           <article class="ic ic-individual">
             <span class="leads l"><span></span><span></span><span></span><span></span><span></span></span><span class="leads r"><span></span><span></span><span></span><span></span><span></span></span>
-            <h3>Individual</h3>
-            <p class="sub">Base-left of the HCP triangle.</p>
-            <p>Short intro education brief, six-question skill test, then a guided digital-twin fork menu. Configuration is reversible by canon; every save is archived.</p>
-            <div class="req"><strong>Prerequisite:</strong> LinkedIn connection to <a href="https://www.linkedin.com/in/danytheriault/" target="_blank" rel="noopener">linkedin.com/in/danytheriault</a> before the digital-twin fork is issued.</div>
+            <h3 data-i18n="indTitle">Individual</h3>
+            <p class="sub" data-i18n="indSub">Base-left of the HCP triangle.</p>
+            <p data-i18n="indBody">Short intro education brief, six-question skill test, then a guided digital-twin fork menu. Configuration is reversible by canon; every save is archived.</p>
+            <div class="req"><strong data-i18n="prereq">Prerequisite:</strong> <span data-i18n="indReq">LinkedIn connection to</span> <a href="https://www.linkedin.com/in/danytheriault/" target="_blank" rel="noopener">linkedin.com/in/danytheriault</a> <span data-i18n="indReq2">before the digital-twin fork is issued.</span></div>
             <div class="ctarow">
-              <a class="cta" href="./individual.html">Open the individual route →</a>
+              <a class="cta" href="./individual.html" data-i18n="indCta">Open the individual route →</a>
             </div>
             <div class="stripe"></div>
           </article>
@@ -177,13 +190,13 @@
           <!-- Enterprise -->
           <article class="ic ic-enterprise">
             <span class="leads l"><span></span><span></span><span></span><span></span><span></span><span></span></span><span class="leads r"><span></span><span></span><span></span><span></span><span></span><span></span></span>
-            <h3>Enterprise</h3>
-            <p class="sub">Base-right of the HCP triangle.</p>
-            <p>Lock-in harm brief, two named case citations (Luneau/Avalara→Avalara/Vertex inversion; NB Power Bayside legacy-supplier-as-auditor), and partner-supported try-before-you-buy licensing through Avalara as the perpetual channel.</p>
-            <div class="req"><strong>Prerequisite:</strong> Read the lock-in harm brief; written acknowledgement of the auditor-conflict clause before vendor evaluation begins.</div>
+            <h3 data-i18n="entTitle">Enterprise</h3>
+            <p class="sub" data-i18n="entSub">Base-right of the HCP triangle.</p>
+            <p data-i18n="entBody">Lock-in harm brief, two named case citations (Luneau/Avalara→Avalara/Vertex inversion; NB Power Bayside legacy-supplier-as-auditor), and partner-supported try-before-you-buy licensing through Avalara as the perpetual channel.</p>
+            <div class="req"><strong data-i18n="prereq">Prerequisite:</strong> <span data-i18n="entReq">Read the lock-in harm brief; written acknowledgement of the auditor-conflict clause before vendor evaluation begins.</span></div>
             <div class="ctarow">
-              <a class="cta" href="./enterprise.html">Open the enterprise brief →</a>
-              <a class="cta secondary" href="#request">Live monitor access</a>
+              <a class="cta" href="./enterprise.html" data-i18n="entCta">Open the enterprise brief →</a>
+              <a class="cta secondary" href="#request" data-i18n="entCta2">Live monitor access</a>
             </div>
             <div class="stripe"></div>
           </article>
@@ -191,13 +204,13 @@
           <!-- Utility -->
           <article class="ic ic-utility">
             <span class="leads l"><span></span><span></span><span></span><span></span><span></span></span><span class="leads r"><span></span><span></span><span></span><span></span><span></span></span>
-            <h3>Utility operator</h3>
-            <p class="sub">Apex of the HCP triangle.</p>
-            <p>Sovereign-AI as nuclear material. Pacific Utilities Design Council governance, EVE Star Academy, Human Safety Protocol Certification, and the Hyperloop monitor as the reference model under operator custody.</p>
-            <div class="req"><strong>Prerequisite:</strong> Apex qualification — LinkedIn verification of utility employment, and Council Charter acknowledgement.</div>
+            <h3 data-i18n="utlTitle">Utility operator</h3>
+            <p class="sub" data-i18n="utlSub">Apex of the HCP triangle.</p>
+            <p data-i18n="utlBody">Sovereign-AI as nuclear material. Pacific Utilities Design Council governance, EVE Star Academy, Human Safety Protocol Certification, and the Hyperloop monitor as the reference model under operator custody.</p>
+            <div class="req"><strong data-i18n="prereq">Prerequisite:</strong> <span data-i18n="utlReq">Apex qualification — LinkedIn verification of utility employment, and Council Charter acknowledgement.</span></div>
             <div class="ctarow">
-              <a class="cta" href="./utility.html">Open the utility route →</a>
-              <a class="cta secondary" href="./council.html">Council Charter</a>
+              <a class="cta" href="./utility.html" data-i18n="utlCta">Open the utility route →</a>
+              <a class="cta secondary" href="./council.html" data-i18n="utlCta2">Council Charter</a>
             </div>
             <div class="stripe"></div>
           </article>
@@ -205,55 +218,55 @@
       </section>
 
       <section>
-        <h2>Live Monitor Access</h2>
-        <p class="muted" style="margin-bottom:18px">Read a deeper look at the research, or talk to me directly.</p>
+        <h2 data-i18n="monH2">Live Monitor Access</h2>
+        <p class="muted" style="margin-bottom:18px" data-i18n="monIntro">Read a deeper look at the research, or talk to me directly.</p>
 
         <div class="paths">
 
           <!-- PATH A: Direct LinkedIn -->
           <div class="path-card">
-            <div class="kicker">Path A · Direct</div>
-            <h3>Reach Dany directly on LinkedIn</h3>
-            <p>If you have a question, an objection, a project that touches the same problem, or you just want to talk — connect with me on LinkedIn. No gate, no form. Ask whatever you want, freeform.</p>
-            <a class="cta secondary" href="https://www.linkedin.com/in/danytheriault/" target="_blank" rel="noopener">Open LinkedIn →</a>
+            <div class="kicker" data-i18n="pathAKicker">Path A · Direct</div>
+            <h3 data-i18n="pathATitle">Reach Dany directly on LinkedIn</h3>
+            <p data-i18n="pathABody">If you have a question, an objection, a project that touches the same problem, or you just want to talk — connect with me on LinkedIn. No gate, no form. Ask whatever you want, freeform.</p>
+            <a class="cta secondary" href="https://www.linkedin.com/in/danytheriault/" target="_blank" rel="noopener" data-i18n="pathACta">Open LinkedIn →</a>
           </div>
 
           <!-- PATH B: Gated monitor access -->
           <div class="path-card">
-            <div class="kicker">Path B · Worked example</div>
-            <h3>Request access to the live monitor</h3>
-            <p>The EVE Hyperloop Monitor is the SAP vendor-lock-in worked example. Share four details and you get instant access — the dashboard unblurs on this page and a fresh link to the live monitor opens.</p>
-            <a class="cta" href="#request" id="open-form-btn">Request access →</a>
+            <div class="kicker" data-i18n="pathBKicker">Path B · Worked example</div>
+            <h3 data-i18n="pathBTitle">Request access to the live monitor</h3>
+            <p data-i18n="pathBBody">The EVE Hyperloop Monitor is the SAP vendor-lock-in worked example. Share four details and you get instant access — the dashboard unblurs on this page and a fresh link to the live monitor opens.</p>
+            <a class="cta" href="#request" id="open-form-btn" data-i18n="pathBCta">Request access →</a>
           </div>
 
         </div>
 
         <!-- Gated form -->
         <div class="form-block" id="form-block">
-          <div class="kicker" style="font-family:Oswald,sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:6px">Contact intake · routed to Dany via WhatsApp</div>
-          <p style="font-size:14px;color:var(--fg-muted);margin-bottom:0">Four fields. A WhatsApp pings me with your details and the dashboard unlocks for you. You will not receive marketing email — this is direct human-to-human routing.</p>
+          <div class="kicker" style="font-family:Oswald,sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:6px" data-i18n="formKicker">Contact intake · routed to Dany via WhatsApp</div>
+          <p style="font-size:14px;color:var(--fg-muted);margin-bottom:0" data-i18n="formIntro">Four fields. A WhatsApp pings me with your details and the dashboard unlocks for you. You will not receive marketing email — this is direct human-to-human routing.</p>
 
           <form id="gate-form" novalidate>
-            <label for="email">Work email</label>
+            <label for="email" data-i18n="lblEmail">Work email</label>
             <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@company.example" />
 
-            <label for="whatsapp">WhatsApp or phone (with country code)</label>
+            <label for="whatsapp" data-i18n="lblWhatsapp">WhatsApp or phone (with country code)</label>
             <input type="tel" id="whatsapp" name="whatsapp" required autocomplete="tel" placeholder="+1 555 123 4567" />
 
-            <label for="company_role">Company and role</label>
+            <label for="company_role" data-i18n="lblCompany">Company and role</label>
             <input type="text" id="company_role" name="company_role" required placeholder="e.g. Avalara · VP Channel Strategy" />
 
-            <label for="linkedin">LinkedIn profile URL</label>
+            <label for="linkedin" data-i18n="lblLinkedin">LinkedIn profile URL</label>
             <input type="url" id="linkedin" name="linkedin" required placeholder="https://www.linkedin.com/in/..." />
 
-            <label for="message">Anything else (optional)</label>
-            <textarea id="message" name="message" placeholder="What brings you here? What would you want to look at first?"></textarea>
+            <label for="message" data-i18n="lblMessage">Anything else (optional)</label>
+            <textarea id="message" name="message" data-i18n-ph="phMessage" placeholder="What brings you here? What would you want to look at first?"></textarea>
 
             <!-- honeypot -->
             <input type="text" class="hp" tabindex="-1" autocomplete="off" name="website" />
 
             <div class="form-actions">
-              <button type="submit" id="submit-btn">Send & unlock monitor</button>
+              <button type="submit" id="submit-btn" data-i18n="submitBtn">Send & unlock monitor</button>
               <span class="form-status" id="form-status"></span>
             </div>
           </form>
@@ -303,42 +316,42 @@
             <rect x="724" y="276" width="140" height="6" rx="2" fill="#e6ebf5" opacity=".5"/>
           </svg>
           <div class="preview-overlay">
-            <div class="label">Live monitor · access by request</div>
+            <div class="label" data-i18n="previewLabel">Live monitor · access by request</div>
           </div>
         </div>
 
         <div class="unlocked-cta" id="unlocked-cta">
-          <a class="cta" href="./monitor.html" id="open-monitor-btn">Open the live monitor →</a>
-          <span class="muted" style="margin-left:14px;font-size:13.5px">Access valid for 1 hour. Send again any time.</span>
+          <a class="cta" href="./monitor.html" id="open-monitor-btn" data-i18n="openMonitor">Open the live monitor →</a>
+          <span class="muted" style="margin-left:14px;font-size:13.5px" data-i18n="accessValid">Access valid for 1 hour. Send again any time.</span>
         </div>
       </section>
 
       <section>
-        <h2>What's inside the monitor</h2>
+        <h2 data-i18n="insideH2">What's inside the monitor</h2>
         <ul class="tight">
-          <li>Live probability-gated reading on SAP vendor-lock-in dynamics — Watch (L1) through Imminent (L5)</li>
-          <li>Three assessment areas: Competitive Landscape, Vendor Posture &amp; Market, Independent Safeguards</li>
-          <li>Top weighted contributors with evidence trail (source links, dates, severity)</li>
-          <li>Audit posture: every reading is reproducible from the evidence stack</li>
+          <li data-i18n="inside1">Live probability-gated reading on SAP vendor-lock-in dynamics — Watch (L1) through Imminent (L5)</li>
+          <li data-i18n="inside2">Three assessment areas: Competitive Landscape, Vendor Posture &amp; Market, Independent Safeguards</li>
+          <li data-i18n="inside3">Top weighted contributors with evidence trail (source links, dates, severity)</li>
+          <li data-i18n="inside4">Audit posture: every reading is reproducible from the evidence stack</li>
         </ul>
       </section>
 
       <section>
-        <h2>Governance Posture</h2>
-        <p>The framework is dashboard-shaped, fits inside existing control-system consumption, and does not require the governing body to learn a new genre of oversight. Each instance preserves the governing body's confidence properties: independent inspection, probability-gated escalation, evidence-backed readings, audit trails, and full institutional ownership of the classified base accrued under its remit.</p>
-        <p>This pattern extends across industries. Confidence properties are preserved. The dashboard becomes the governing body's.</p>
+        <h2 data-i18n="govH2">Governance Posture</h2>
+        <p data-i18n="govP1">The framework is dashboard-shaped, fits inside existing control-system consumption, and does not require the governing body to learn a new genre of oversight. Each instance preserves the governing body's confidence properties: independent inspection, probability-gated escalation, evidence-backed readings, audit trails, and full institutional ownership of the classified base accrued under its remit.</p>
+        <p data-i18n="govP2">This pattern extends across industries. Confidence properties are preserved. The dashboard becomes the governing body's.</p>
       </section>
 
       <section>
-        <h2>Related Material</h2>
+        <h2 data-i18n="relH2">Related Material</h2>
         <ul class="tight">
-          <li><a href="./glyph.html">EVE Glyph — Geometry and Colour Register</a> — the achromatic glyph with the colour register surfaced on hover; geometry stays pure, colours live in the guidance system only</li>
-          <li><a href="./individual.html">Individual route — Learn · Test · LinkedIn · Configure</a> — introductory education, skill test, LinkedIn connection to Dany Theriault, then the guided digital-twin configuration menu for individual users</li>
-          <li><a href="./enterprise.html">Enterprise route — Lock-in Harm Brief</a> — two named cases (Luneau/Avalara→Avalara/Vertex inversion, NB Power S/4 Bayside legacy-supplier-as-auditor) and Avalara try-before-you-buy partner support; read and acknowledge the auditor-conflict clause before vendor evaluation begins</li>
-          <li><a href="./utility.html">Utility route — Apex Seat</a> — third path for utility operators and the Pacific Utilities Design Council; apex qualification requires LinkedIn verification of utility employment and Council Charter acknowledgement</li>
-          <li><a href="./projection.html">DI Framework Projection</a> — the pyramid as a projection of the underlying decision-intelligence framework</li>
-          <li><a href="./terms.html">Terms of Use</a> — rights of use, assignment, operator-side non-retention</li>
-          <li><a href="./council.html">Council Charter</a> — Council Triangle, two-of-three voting, succession to Chief Betterment Officer, EVE Star Academy, Human Safety Protocol Certification, fork rights, ocean-focused R&amp;D in Vallarta</li>
+          <li><a href="./glyph.html" data-i18n="relGlyphLink">EVE Glyph — Geometry and Colour Register</a> <span data-i18n="relGlyph">— the achromatic glyph with the colour register surfaced on hover; geometry stays pure, colours live in the guidance system only</span></li>
+          <li><a href="./individual.html" data-i18n="relIndLink">Individual route — Learn · Test · LinkedIn · Configure</a> <span data-i18n="relInd">— introductory education, skill test, LinkedIn connection to Dany Theriault, then the guided digital-twin configuration menu for individual users</span></li>
+          <li><a href="./enterprise.html" data-i18n="relEntLink">Enterprise route — Lock-in Harm Brief</a> <span data-i18n="relEnt">— two named cases (Luneau/Avalara→Avalara/Vertex inversion, NB Power S/4 Bayside legacy-supplier-as-auditor) and Avalara try-before-you-buy partner support; read and acknowledge the auditor-conflict clause before vendor evaluation begins</span></li>
+          <li><a href="./utility.html" data-i18n="relUtlLink">Utility route — Apex Seat</a> <span data-i18n="relUtl">— third path for utility operators and the Pacific Utilities Design Council; apex qualification requires LinkedIn verification of utility employment and Council Charter acknowledgement</span></li>
+          <li><a href="./projection.html" data-i18n="relProjLink">DI Framework Projection</a> <span data-i18n="relProj">— the pyramid as a projection of the underlying decision-intelligence framework</span></li>
+          <li><a href="./terms.html" data-i18n="relTermsLink">Terms of Use</a> <span data-i18n="relTerms">— rights of use, assignment, operator-side non-retention</span></li>
+          <li><a href="./council.html" data-i18n="relCouncilLink">Council Charter</a> <span data-i18n="relCouncil">— Council Triangle, two-of-three voting, succession to Chief Betterment Officer, EVE Star Academy, Human Safety Protocol Certification, fork rights, ocean-focused R&amp;D in Vallarta</span></li>
         </ul>
       </section>
 
@@ -442,6 +455,209 @@
             submitBtn.disabled = false;
           }
         });
+      })();
+    </script>
+
+    <script>
+      /* ===== Language switcher (ES default / EN / FR) =====================
+         Translates visible UI copy only. The footer copyright statement and
+         the EVE-IC part-number register are left verbatim in every language
+         to preserve the protected authorship/copyright record. Form logic,
+         hrefs, the glyph, and the Cloudflare worker are untouched. */
+      const I18N = {
+        es: {
+          docTitle: "EVE Research — Inteligencia de Decisiones con IA Soberana",
+          h1: "EVE Research — Inteligencia de Decisiones con IA Soberana",
+          published: "Publicado", pubdate: "14 de mayo de 2026", timestamp: "Registro con marca de tiempo",
+          aboutH2: "Sobre la investigación",
+          aboutLede: "EVE es un proyecto de investigación sobre cómo un órgano de gobierno mantiene la confianza en sí mismo mientras adopta inteligencia de decisiones con IA soberana — una clase de sistemas que interpreta, clasifica y prioriza la evidencia más rápido que cualquier comité.",
+          aboutP1: "El observatorio de investigación estudia las dinámicas de dependencia del proveedor (vendor lock-in), la mercantilización de los hiperescaladores y la integración de protocolos de seguridad humana de grado nuclear en la práctica operativa de los órganos de gobierno. Tiene forma de panel (dashboard): cada instancia preserva las propiedades de confianza del propio órgano de gobierno — inspección independiente, escalado activado por probabilidad, lecturas respaldadas por evidencia, registros de auditoría y plena propiedad institucional de la base clasificada acumulada bajo su competencia.",
+          aboutP2: "El primer ejemplo aplicado, el EVE Hyperloop Monitor, aplica hoy el patrón a las dinámicas de dependencia del proveedor de SAP en la era de la IA soberana. El mismo panel, con las reglas de clasificación ajustadas, envuelve cualquier sistema vigilado al que el órgano de gobierno decida extender su confianza.",
+          engageH2: "Tres formas de participar",
+          engageIntro: "El canon de EVE Glyph reconoce tres vías de entrada. Cada una dirige a un tipo distinto de operador hacia el mismo registro — la geometría permanece íntegra, solo cambia el asiento.",
+          indTitle: "Individual", indSub: "Base izquierda del triángulo HCP.",
+          indBody: "Breve informe educativo introductorio, prueba de aptitud de seis preguntas y luego un menú guiado de bifurcación del gemelo digital. La configuración es reversible por canon; cada guardado se archiva.",
+          prereq: "Requisito previo:", indReq: "Conexión en LinkedIn con", indReq2: "antes de emitir la bifurcación del gemelo digital.", indCta: "Abrir la vía individual →",
+          entTitle: "Empresa", entSub: "Base derecha del triángulo HCP.",
+          entBody: "Informe sobre el daño de la dependencia, dos citas de casos nombrados (inversión Luneau/Avalara→Avalara/Vertex; NB Power Bayside, proveedor heredado como auditor) y licenciamiento de prueba antes de comprar con apoyo de socios a través de Avalara como canal perpetuo.",
+          entReq: "Lea el informe sobre el daño de la dependencia; reconocimiento por escrito de la cláusula de conflicto del auditor antes de iniciar la evaluación del proveedor.",
+          entCta: "Abrir el informe de empresa →", entCta2: "Acceso al monitor en vivo",
+          utlTitle: "Operador de servicios públicos", utlSub: "Vértice del triángulo HCP.",
+          utlBody: "IA soberana como material nuclear. Gobernanza del Pacific Utilities Design Council, EVE Star Academy, Certificación del Protocolo de Seguridad Humana y el monitor Hyperloop como modelo de referencia bajo custodia del operador.",
+          utlReq: "Cualificación de vértice — verificación en LinkedIn del empleo en servicios públicos y reconocimiento de la Carta del Consejo.",
+          utlCta: "Abrir la vía de servicios públicos →", utlCta2: "Carta del Consejo",
+          monH2: "Acceso al monitor en vivo",
+          monIntro: "Lea un análisis más profundo de la investigación, o hable conmigo directamente.",
+          pathAKicker: "Vía A · Directa", pathATitle: "Contacta a Dany directamente en LinkedIn",
+          pathABody: "Si tienes una pregunta, una objeción, un proyecto que toca el mismo problema, o simplemente quieres hablar — conéctate conmigo en LinkedIn. Sin puerta, sin formulario. Pregunta lo que quieras, en formato libre.",
+          pathACta: "Abrir LinkedIn →",
+          pathBKicker: "Vía B · Ejemplo aplicado", pathBTitle: "Solicitar acceso al monitor en vivo",
+          pathBBody: "El EVE Hyperloop Monitor es el ejemplo aplicado de la dependencia del proveedor de SAP. Comparte cuatro datos y obtendrás acceso instantáneo — el panel se vuelve nítido en esta página y se abre un enlace nuevo al monitor en vivo.",
+          pathBCta: "Solicitar acceso →",
+          formKicker: "Recepción de contacto · dirigida a Dany por WhatsApp",
+          formIntro: "Cuatro campos. Un WhatsApp me avisa con tus datos y el panel se desbloquea para ti. No recibirás correo de marketing — esto es enrutamiento directo de persona a persona.",
+          lblEmail: "Correo de trabajo", lblWhatsapp: "WhatsApp o teléfono (con código de país)", lblCompany: "Empresa y cargo", lblLinkedin: "URL del perfil de LinkedIn", lblMessage: "Algo más (opcional)",
+          phMessage: "¿Qué te trae por aquí? ¿Qué te gustaría ver primero?",
+          submitBtn: "Enviar y desbloquear el monitor",
+          previewLabel: "Monitor en vivo · acceso por solicitud",
+          openMonitor: "Abrir el monitor en vivo →", accessValid: "Acceso válido por 1 hora. Vuelve a enviar cuando quieras.",
+          insideH2: "Qué hay dentro del monitor",
+          inside1: "Lectura en vivo activada por probabilidad sobre las dinámicas de dependencia del proveedor de SAP — desde Vigilancia (L1) hasta Inminente (L5)",
+          inside2: "Tres áreas de evaluación: Panorama competitivo, Postura del proveedor y mercado, Salvaguardas independientes",
+          inside3: "Principales contribuyentes ponderados con rastro de evidencia (enlaces de fuentes, fechas, gravedad)",
+          inside4: "Postura de auditoría: cada lectura es reproducible a partir de la pila de evidencia",
+          govH2: "Postura de gobernanza",
+          govP1: "El marco tiene forma de panel, encaja dentro del consumo del sistema de control existente y no exige que el órgano de gobierno aprenda un nuevo género de supervisión. Cada instancia preserva las propiedades de confianza del órgano de gobierno: inspección independiente, escalado activado por probabilidad, lecturas respaldadas por evidencia, registros de auditoría y plena propiedad institucional de la base clasificada acumulada bajo su competencia.",
+          govP2: "Este patrón se extiende a todas las industrias. Las propiedades de confianza se preservan. El panel pasa a ser del órgano de gobierno.",
+          relH2: "Material relacionado",
+          relGlyphLink: "EVE Glyph — Geometría y registro de color", relGlyph: "— el glifo acromático con el registro de color que aparece al pasar el cursor; la geometría permanece pura, los colores viven solo en el sistema de guía",
+          relIndLink: "Vía individual — Aprender · Probar · LinkedIn · Configurar", relInd: "— educación introductoria, prueba de aptitud, conexión en LinkedIn con Dany Theriault y luego el menú guiado de configuración del gemelo digital para usuarios individuales",
+          relEntLink: "Vía de empresa — Informe sobre el daño de la dependencia", relEnt: "— dos casos nombrados (inversión Luneau/Avalara→Avalara/Vertex, NB Power S/4 Bayside proveedor heredado como auditor) y apoyo de socio de prueba antes de comprar de Avalara; lea y reconozca la cláusula de conflicto del auditor antes de iniciar la evaluación del proveedor",
+          relUtlLink: "Vía de servicios públicos — Asiento de vértice", relUtl: "— tercera vía para operadores de servicios públicos y el Pacific Utilities Design Council; la cualificación de vértice requiere verificación en LinkedIn del empleo en servicios públicos y reconocimiento de la Carta del Consejo",
+          relProjLink: "Proyección del marco DI", relProj: "— la pirámide como proyección del marco subyacente de inteligencia de decisiones",
+          relTermsLink: "Términos de uso", relTerms: "— derechos de uso, cesión, no retención del lado del operador",
+          relCouncilLink: "Carta del Consejo", relCouncil: "— Triángulo del Consejo, votación de dos de tres, sucesión al Chief Betterment Officer, EVE Star Academy, Certificación del Protocolo de Seguridad Humana, derechos de bifurcación, I+D centrada en el océano en Vallarta"
+        },
+        en: {
+          docTitle: "EVE Research — Sovereign-AI Decision Intelligence",
+          h1: "EVE Research — Sovereign-AI Decision Intelligence",
+          published: "Published", pubdate: "14 May 2026", timestamp: "Time-stamped record",
+          aboutH2: "About the Research",
+          aboutLede: "EVE is a research project on how a governing body keeps confidence in itself while it adopts sovereign-AI decision intelligence — a class of systems that interprets, classifies, and prioritizes evidence faster than any committee can.",
+          aboutP1: "The research observatory studies vendor-lock-in dynamics, hyperscaler commoditization, and the integration of nuclear-grade human-safety protocols into the operating practice of governing bodies. It is dashboard-shaped: each instance preserves the governing body's own confidence properties — independent inspection, probability-gated escalation, evidence-backed readings, audit trails, and full institutional ownership of the classified base accrued under its remit.",
+          aboutP2: "The first worked example, the EVE Hyperloop Monitor, applies the pattern today to SAP vendor-lock-in dynamics in the sovereign-AI era. The same dashboard, with classification rules adjusted, wraps any watched system the governing body chooses to extend its confidence to.",
+          engageH2: "Three Ways to Engage",
+          engageIntro: "EVE Glyph canon recognises three entry paths. Each one routes a different kind of operator into the same register — the geometry stays whole, only the seat changes.",
+          indTitle: "Individual", indSub: "Base-left of the HCP triangle.",
+          indBody: "Short intro education brief, six-question skill test, then a guided digital-twin fork menu. Configuration is reversible by canon; every save is archived.",
+          prereq: "Prerequisite:", indReq: "LinkedIn connection to", indReq2: "before the digital-twin fork is issued.", indCta: "Open the individual route →",
+          entTitle: "Enterprise", entSub: "Base-right of the HCP triangle.",
+          entBody: "Lock-in harm brief, two named case citations (Luneau/Avalara→Avalara/Vertex inversion; NB Power Bayside legacy-supplier-as-auditor), and partner-supported try-before-you-buy licensing through Avalara as the perpetual channel.",
+          entReq: "Read the lock-in harm brief; written acknowledgement of the auditor-conflict clause before vendor evaluation begins.",
+          entCta: "Open the enterprise brief →", entCta2: "Live monitor access",
+          utlTitle: "Utility operator", utlSub: "Apex of the HCP triangle.",
+          utlBody: "Sovereign-AI as nuclear material. Pacific Utilities Design Council governance, EVE Star Academy, Human Safety Protocol Certification, and the Hyperloop monitor as the reference model under operator custody.",
+          utlReq: "Apex qualification — LinkedIn verification of utility employment, and Council Charter acknowledgement.",
+          utlCta: "Open the utility route →", utlCta2: "Council Charter",
+          monH2: "Live Monitor Access",
+          monIntro: "Read a deeper look at the research, or talk to me directly.",
+          pathAKicker: "Path A · Direct", pathATitle: "Reach Dany directly on LinkedIn",
+          pathABody: "If you have a question, an objection, a project that touches the same problem, or you just want to talk — connect with me on LinkedIn. No gate, no form. Ask whatever you want, freeform.",
+          pathACta: "Open LinkedIn →",
+          pathBKicker: "Path B · Worked example", pathBTitle: "Request access to the live monitor",
+          pathBBody: "The EVE Hyperloop Monitor is the SAP vendor-lock-in worked example. Share four details and you get instant access — the dashboard unblurs on this page and a fresh link to the live monitor opens.",
+          pathBCta: "Request access →",
+          formKicker: "Contact intake · routed to Dany via WhatsApp",
+          formIntro: "Four fields. A WhatsApp pings me with your details and the dashboard unlocks for you. You will not receive marketing email — this is direct human-to-human routing.",
+          lblEmail: "Work email", lblWhatsapp: "WhatsApp or phone (with country code)", lblCompany: "Company and role", lblLinkedin: "LinkedIn profile URL", lblMessage: "Anything else (optional)",
+          phMessage: "What brings you here? What would you want to look at first?",
+          submitBtn: "Send & unlock monitor",
+          previewLabel: "Live monitor · access by request",
+          openMonitor: "Open the live monitor →", accessValid: "Access valid for 1 hour. Send again any time.",
+          insideH2: "What's inside the monitor",
+          inside1: "Live probability-gated reading on SAP vendor-lock-in dynamics — Watch (L1) through Imminent (L5)",
+          inside2: "Three assessment areas: Competitive Landscape, Vendor Posture & Market, Independent Safeguards",
+          inside3: "Top weighted contributors with evidence trail (source links, dates, severity)",
+          inside4: "Audit posture: every reading is reproducible from the evidence stack",
+          govH2: "Governance Posture",
+          govP1: "The framework is dashboard-shaped, fits inside existing control-system consumption, and does not require the governing body to learn a new genre of oversight. Each instance preserves the governing body's confidence properties: independent inspection, probability-gated escalation, evidence-backed readings, audit trails, and full institutional ownership of the classified base accrued under its remit.",
+          govP2: "This pattern extends across industries. Confidence properties are preserved. The dashboard becomes the governing body's.",
+          relH2: "Related Material",
+          relGlyphLink: "EVE Glyph — Geometry and Colour Register", relGlyph: "— the achromatic glyph with the colour register surfaced on hover; geometry stays pure, colours live in the guidance system only",
+          relIndLink: "Individual route — Learn · Test · LinkedIn · Configure", relInd: "— introductory education, skill test, LinkedIn connection to Dany Theriault, then the guided digital-twin configuration menu for individual users",
+          relEntLink: "Enterprise route — Lock-in Harm Brief", relEnt: "— two named cases (Luneau/Avalara→Avalara/Vertex inversion, NB Power S/4 Bayside legacy-supplier-as-auditor) and Avalara try-before-you-buy partner support; read and acknowledge the auditor-conflict clause before vendor evaluation begins",
+          relUtlLink: "Utility route — Apex Seat", relUtl: "— third path for utility operators and the Pacific Utilities Design Council; apex qualification requires LinkedIn verification of utility employment and Council Charter acknowledgement",
+          relProjLink: "DI Framework Projection", relProj: "— the pyramid as a projection of the underlying decision-intelligence framework",
+          relTermsLink: "Terms of Use", relTerms: "— rights of use, assignment, operator-side non-retention",
+          relCouncilLink: "Council Charter", relCouncil: "— Council Triangle, two-of-three voting, succession to Chief Betterment Officer, EVE Star Academy, Human Safety Protocol Certification, fork rights, ocean-focused R&D in Vallarta"
+        },
+        fr: {
+          docTitle: "EVE Research — Intelligence décisionnelle à IA souveraine",
+          h1: "EVE Research — Intelligence décisionnelle à IA souveraine",
+          published: "Publié", pubdate: "14 mai 2026", timestamp: "Enregistrement horodaté",
+          aboutH2: "À propos de la recherche",
+          aboutLede: "EVE est un projet de recherche sur la manière dont un organe de gouvernance conserve confiance en lui-même tout en adoptant une intelligence décisionnelle à IA souveraine — une catégorie de systèmes qui interprète, classe et hiérarchise les preuves plus vite qu'aucun comité.",
+          aboutP1: "L'observatoire de recherche étudie les dynamiques de dépendance au fournisseur (vendor lock-in), la banalisation des hyperscalers et l'intégration de protocoles de sécurité humaine de niveau nucléaire dans la pratique opérationnelle des organes de gouvernance. Il prend la forme d'un tableau de bord : chaque instance préserve les propriétés de confiance propres à l'organe de gouvernance — inspection indépendante, escalade déclenchée par probabilité, lectures étayées par des preuves, pistes d'audit et pleine propriété institutionnelle de la base classifiée accumulée sous son mandat.",
+          aboutP2: "Le premier exemple concret, l'EVE Hyperloop Monitor, applique aujourd'hui le modèle aux dynamiques de dépendance au fournisseur SAP à l'ère de l'IA souveraine. Le même tableau de bord, avec des règles de classification ajustées, enveloppe tout système surveillé auquel l'organe de gouvernance choisit d'étendre sa confiance.",
+          engageH2: "Trois façons de s'engager",
+          engageIntro: "Le canon EVE Glyph reconnaît trois voies d'entrée. Chacune dirige un type d'opérateur différent vers le même registre — la géométrie reste entière, seul le siège change.",
+          indTitle: "Individuel", indSub: "Base gauche du triangle HCP.",
+          indBody: "Bref exposé éducatif introductif, test d'aptitude de six questions, puis un menu guidé de bifurcation du jumeau numérique. La configuration est réversible par canon ; chaque sauvegarde est archivée.",
+          prereq: "Prérequis :", indReq: "Connexion LinkedIn à", indReq2: "avant l'émission de la bifurcation du jumeau numérique.", indCta: "Ouvrir la voie individuelle →",
+          entTitle: "Entreprise", entSub: "Base droite du triangle HCP.",
+          entBody: "Exposé sur le préjudice de la dépendance, deux citations de cas nommés (inversion Luneau/Avalara→Avalara/Vertex ; NB Power Bayside, fournisseur hérité comme auditeur), et licence d'essai avant achat soutenue par des partenaires via Avalara comme canal perpétuel.",
+          entReq: "Lisez l'exposé sur le préjudice de la dépendance ; reconnaissance écrite de la clause de conflit de l'auditeur avant le début de l'évaluation du fournisseur.",
+          entCta: "Ouvrir l'exposé entreprise →", entCta2: "Accès au moniteur en direct",
+          utlTitle: "Opérateur de services publics", utlSub: "Sommet du triangle HCP.",
+          utlBody: "IA souveraine comme matière nucléaire. Gouvernance du Pacific Utilities Design Council, EVE Star Academy, Certification du Protocole de Sécurité Humaine, et le moniteur Hyperloop comme modèle de référence sous la garde de l'opérateur.",
+          utlReq: "Qualification de sommet — vérification LinkedIn de l'emploi dans les services publics et reconnaissance de la Charte du Conseil.",
+          utlCta: "Ouvrir la voie des services publics →", utlCta2: "Charte du Conseil",
+          monH2: "Accès au moniteur en direct",
+          monIntro: "Lisez une analyse plus approfondie de la recherche, ou parlez-moi directement.",
+          pathAKicker: "Voie A · Directe", pathATitle: "Joindre Dany directement sur LinkedIn",
+          pathABody: "Si vous avez une question, une objection, un projet qui touche au même problème, ou si vous voulez simplement échanger — connectez-vous avec moi sur LinkedIn. Aucune barrière, aucun formulaire. Demandez ce que vous voulez, librement.",
+          pathACta: "Ouvrir LinkedIn →",
+          pathBKicker: "Voie B · Exemple concret", pathBTitle: "Demander l'accès au moniteur en direct",
+          pathBBody: "L'EVE Hyperloop Monitor est l'exemple concret de la dépendance au fournisseur SAP. Partagez quatre informations et vous obtenez un accès instantané — le tableau de bord se défloute sur cette page et un nouveau lien vers le moniteur en direct s'ouvre.",
+          pathBCta: "Demander l'accès →",
+          formKicker: "Réception de contact · acheminée à Dany via WhatsApp",
+          formIntro: "Quatre champs. Un WhatsApp me prévient avec vos coordonnées et le tableau de bord se déverrouille pour vous. Vous ne recevrez aucun courriel marketing — il s'agit d'un acheminement direct d'humain à humain.",
+          lblEmail: "Courriel professionnel", lblWhatsapp: "WhatsApp ou téléphone (avec indicatif pays)", lblCompany: "Entreprise et fonction", lblLinkedin: "URL du profil LinkedIn", lblMessage: "Autre chose (facultatif)",
+          phMessage: "Qu'est-ce qui vous amène ici ? Que voudriez-vous regarder en premier ?",
+          submitBtn: "Envoyer et déverrouiller le moniteur",
+          previewLabel: "Moniteur en direct · accès sur demande",
+          openMonitor: "Ouvrir le moniteur en direct →", accessValid: "Accès valable 1 heure. Renvoyez quand vous voulez.",
+          insideH2: "Ce que contient le moniteur",
+          inside1: "Lecture en direct déclenchée par probabilité sur les dynamiques de dépendance au fournisseur SAP — de Surveillance (L1) à Imminent (L5)",
+          inside2: "Trois domaines d'évaluation : Paysage concurrentiel, Posture du fournisseur et marché, Garde-fous indépendants",
+          inside3: "Principaux contributeurs pondérés avec piste de preuves (liens sources, dates, gravité)",
+          inside4: "Posture d'audit : chaque lecture est reproductible à partir de la pile de preuves",
+          govH2: "Posture de gouvernance",
+          govP1: "Le cadre prend la forme d'un tableau de bord, s'intègre dans la consommation du système de contrôle existant et n'exige pas que l'organe de gouvernance apprenne un nouveau genre de supervision. Chaque instance préserve les propriétés de confiance de l'organe de gouvernance : inspection indépendante, escalade déclenchée par probabilité, lectures étayées par des preuves, pistes d'audit et pleine propriété institutionnelle de la base classifiée accumulée sous son mandat.",
+          govP2: "Ce modèle s'étend à toutes les industries. Les propriétés de confiance sont préservées. Le tableau de bord devient celui de l'organe de gouvernance.",
+          relH2: "Documents liés",
+          relGlyphLink: "EVE Glyph — Géométrie et registre de couleur", relGlyph: "— le glyphe achromatique avec le registre de couleur révélé au survol ; la géométrie reste pure, les couleurs ne vivent que dans le système de guidage",
+          relIndLink: "Voie individuelle — Apprendre · Tester · LinkedIn · Configurer", relInd: "— éducation introductive, test d'aptitude, connexion LinkedIn à Dany Theriault, puis le menu guidé de configuration du jumeau numérique pour les utilisateurs individuels",
+          relEntLink: "Voie entreprise — Exposé sur le préjudice de la dépendance", relEnt: "— deux cas nommés (inversion Luneau/Avalara→Avalara/Vertex, NB Power S/4 Bayside fournisseur hérité comme auditeur) et soutien partenaire d'essai avant achat d'Avalara ; lisez et reconnaissez la clause de conflit de l'auditeur avant le début de l'évaluation du fournisseur",
+          relUtlLink: "Voie services publics — Siège de sommet", relUtl: "— troisième voie pour les opérateurs de services publics et le Pacific Utilities Design Council ; la qualification de sommet exige une vérification LinkedIn de l'emploi dans les services publics et la reconnaissance de la Charte du Conseil",
+          relProjLink: "Projection du cadre DI", relProj: "— la pyramide comme projection du cadre d'intelligence décisionnelle sous-jacent",
+          relTermsLink: "Conditions d'utilisation", relTerms: "— droits d'usage, cession, non-rétention côté opérateur",
+          relCouncilLink: "Charte du Conseil", relCouncil: "— Triangle du Conseil, vote à deux sur trois, succession au Chief Betterment Officer, EVE Star Academy, Certification du Protocole de Sécurité Humaine, droits de bifurcation, R&D axée sur l'océan à Vallarta"
+        }
+      };
+
+      function applyLang(lang){
+        const dict = I18N[lang] || I18N.es;
+        document.documentElement.lang = lang;
+        document.title = dict.docTitle;
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+          const k = el.getAttribute("data-i18n");
+          if (dict[k] !== undefined) el.textContent = dict[k];
+        });
+        document.querySelectorAll("[data-i18n-ph]").forEach(el => {
+          const k = el.getAttribute("data-i18n-ph");
+          if (dict[k] !== undefined) el.setAttribute("placeholder", dict[k]);
+        });
+        document.querySelectorAll(".lang-btn").forEach(b => {
+          const on = b.getAttribute("data-lang") === lang;
+          b.classList.toggle("active", on);
+          b.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+        try { localStorage.setItem("eve-lang", lang); } catch(e){}
+      }
+
+      document.querySelectorAll(".lang-btn").forEach(btn => {
+        btn.addEventListener("click", () => applyLang(btn.getAttribute("data-lang")));
+      });
+
+      (function(){
+        let initial = "es";
+        try {
+          const saved = localStorage.getItem("eve-lang");
+          if (saved && I18N[saved]) initial = saved;
+          else { const n = (navigator.language || "es").slice(0,2).toLowerCase(); initial = I18N[n] ? n : "es"; }
+        } catch(e){ initial = "es"; }
+        applyLang(initial);
       })();
     </script>
   </body>
