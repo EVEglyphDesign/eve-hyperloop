@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EVE Hyperloop — Children's Educational Game (Wireframe)</title>
-    <meta name="description" content="EVE Hyperloop is a children's educational video game in wireframe development. Three shapes, three lessons: the circle, the triangle, and the sphere. Request access by WhatsApp." />
+    <title>EVE Hyperloop — Juego educativo para niños (Wireframe)</title>
+    <meta name="description" content="EVE Hyperloop es un videojuego educativo para niños en desarrollo de wireframe. Tres formas, tres lecciones: el círculo, el triángulo y la esfera. Solicita acceso por WhatsApp." />
     <meta name="robots" content="noindex,nofollow" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,6 +26,13 @@
       *{box-sizing:border-box}
       html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
       .wrap{max-width:760px;margin:0 auto;padding:56px 24px 80px}
+
+      /* Language switcher */
+      .lang-switch{position:fixed;top:18px;right:18px;display:flex;gap:6px;z-index:50;background:rgba(253,250,244,.85);backdrop-filter:blur(6px);padding:6px;border:1px solid var(--line);border-radius:999px}
+      .lang-btn{appearance:none;border:none;background:transparent;cursor:pointer;width:34px;height:30px;border-radius:999px;font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;padding:0;transition:background .15s,transform .15s;opacity:.55}
+      .lang-btn:hover{transform:translateY(-1px);opacity:1}
+      .lang-btn.active{background:#fff;opacity:1;box-shadow:0 0 0 1px var(--line)}
+      .lang-btn:focus-visible{outline:2px solid var(--sphere);outline-offset:2px}
 
       header{text-align:center;margin-bottom:48px}
       .stamp{font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:18px}
@@ -52,56 +59,186 @@
 
       footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--line);text-align:center;font-size:12px;color:var(--ink-soft);line-height:1.7}
       footer .copy{font-family:var(--serif);font-style:italic}
+
+      @media (max-width:480px){
+        h1{font-size:34px}
+        .shapes{gap:18px}
+        .lang-switch{top:12px;right:12px}
+      }
     </style>
   </head>
   <body>
+    <nav class="lang-switch" aria-label="Selector de idioma / Language selector">
+      <button class="lang-btn" data-lang="es" title="Español" aria-label="Español">🇪🇸</button>
+      <button class="lang-btn" data-lang="en" title="English" aria-label="English">🇬🇧</button>
+      <button class="lang-btn" data-lang="fr" title="Français" aria-label="Français">🇫🇷</button>
+    </nav>
+
     <div class="wrap">
       <header>
-        <div class="stamp">Wireframe · v0 · 2026</div>
-        <h1>EVE Hyperloop</h1>
-        <p class="tagline">A children's educational video game.</p>
+        <div class="stamp" data-i18n="stamp">Wireframe · v0 · 2026</div>
+        <h1 data-i18n="title">EVE Hyperloop</h1>
+        <p class="tagline" data-i18n="tagline">Un videojuego educativo para niños.</p>
       </header>
 
-      <div class="shapes" aria-label="The three shapes of the game">
+      <div class="shapes" data-i18n-aria="shapesAria" aria-label="Las tres formas del juego">
         <div class="shape">
           <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" fill="none" stroke="#e8a468" stroke-width="3"/></svg>
-          <span class="shape-label">Circle</span>
+          <span class="shape-label" data-i18n="circle">Círculo</span>
         </div>
         <div class="shape">
           <svg viewBox="0 0 64 64" aria-hidden="true"><polygon points="32,8 56,54 8,54" fill="none" stroke="#5f9e6e" stroke-width="3" stroke-linejoin="round"/></svg>
-          <span class="shape-label">Triangle</span>
+          <span class="shape-label" data-i18n="triangle">Triángulo</span>
         </div>
         <div class="shape">
           <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" fill="none" stroke="#6a8caf" stroke-width="3"/><ellipse cx="32" cy="32" rx="26" ry="10" fill="none" stroke="#6a8caf" stroke-width="2" opacity=".55"/><ellipse cx="32" cy="32" rx="10" ry="26" fill="none" stroke="#6a8caf" stroke-width="2" opacity=".55"/></svg>
-          <span class="shape-label">Sphere</span>
+          <span class="shape-label" data-i18n="sphere">Esfera</span>
         </div>
       </div>
 
-      <p class="pitch">
-        Three shapes, three lessons. Children draw the circle to find the edge of a problem, place the triangle to make a choice with three good reasons, then watch the sphere appear when the lesson belongs to everyone.
+      <p class="pitch" data-i18n="pitch">
+        Tres formas, tres lecciones. Los niños dibujan el círculo para encontrar el límite de un problema, colocan el triángulo para tomar una decisión con tres buenas razones, y luego ven aparecer la esfera cuando la lección pertenece a todos.
       </p>
 
       <div class="meta">
-        <div><strong>Status</strong>Wireframe in development</div>
-        <div><strong>Audience</strong>Children, ages 8–14</div>
-        <div><strong>Stewardship</strong>Pacific Utilities Design Council</div>
-        <div><strong>Charter</strong>Non-commercial, charitable</div>
+        <div><strong data-i18n="statusLabel">Estado</strong><span data-i18n="statusValue">Wireframe en desarrollo</span></div>
+        <div><strong data-i18n="audienceLabel">Público</strong><span data-i18n="audienceValue">Niños, de 8 a 14 años</span></div>
+        <div><strong data-i18n="stewardshipLabel">Administración</strong><span data-i18n="stewardshipValue">Pacific Utilities Design Council</span></div>
+        <div><strong data-i18n="charterLabel">Carta</strong><span data-i18n="charterValue">No comercial, benéfica</span></div>
       </div>
 
       <div class="cta-block">
-        <p class="cta-lead">Access is by request. Contributors, educators, and partners are welcome.</p>
-        <a class="cta" href="https://wa.me/15062921452?text=Hi%20Dany%20%E2%80%94%20I%27d%20like%20to%20learn%20about%20the%20EVE%20Hyperloop%20children%27s%20game%20wireframe.">
+        <p class="cta-lead" data-i18n="ctaLead">El acceso es por solicitud. Colaboradores, educadores y socios son bienvenidos.</p>
+        <a class="cta" id="cta-link" href="https://wa.me/15062921452?text=Hola%20Dany%20%E2%80%94%20me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20sobre%20el%20wireframe%20del%20juego%20infantil%20EVE%20Hyperloop.">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Request access on WhatsApp
+          <span data-i18n="ctaButton">Solicitar acceso por WhatsApp</span>
         </a>
-        <div class="cta-sub">+1 506-292-1452 · WhatsApp Business</div>
+        <div class="cta-sub" data-i18n="ctaSub">+1 506-292-1452 · WhatsApp Business</div>
       </div>
 
       <footer>
-        <p class="copy">Pour le bien-être du peuple.</p>
-        <p>EVE Hyperloop · stewarded by the Pacific Utilities Design Council<br>
-        Prior art preserved in Git history · see <a href="./PRIOR-ART.md" style="color:var(--ink-soft)">PRIOR-ART.md</a></p>
+        <p class="copy" data-i18n="copy">Pour le bien-être du peuple.</p>
+        <p><span data-i18n="footerLine">EVE Hyperloop · administrado por el Pacific Utilities Design Council</span><br>
+        <span data-i18n="priorArt">Arte previo preservado en el historial de Git · ver</span> <a href="./PRIOR-ART.md" style="color:var(--ink-soft)">PRIOR-ART.md</a></p>
       </footer>
     </div>
+
+    <script>
+      const I18N = {
+        es: {
+          docTitle: "EVE Hyperloop — Juego educativo para niños (Wireframe)",
+          stamp: "Wireframe · v0 · 2026",
+          title: "EVE Hyperloop",
+          tagline: "Un videojuego educativo para niños.",
+          shapesAria: "Las tres formas del juego",
+          circle: "Círculo",
+          triangle: "Triángulo",
+          sphere: "Esfera",
+          pitch: "Tres formas, tres lecciones. Los niños dibujan el círculo para encontrar el límite de un problema, colocan el triángulo para tomar una decisión con tres buenas razones, y luego ven aparecer la esfera cuando la lección pertenece a todos.",
+          statusLabel: "Estado", statusValue: "Wireframe en desarrollo",
+          audienceLabel: "Público", audienceValue: "Niños, de 8 a 14 años",
+          stewardshipLabel: "Administración", stewardshipValue: "Pacific Utilities Design Council",
+          charterLabel: "Carta", charterValue: "No comercial, benéfica",
+          ctaLead: "El acceso es por solicitud. Colaboradores, educadores y socios son bienvenidos.",
+          ctaButton: "Solicitar acceso por WhatsApp",
+          ctaSub: "+1 506-292-1452 · WhatsApp Business",
+          copy: "Pour le bien-être du peuple.",
+          footerLine: "EVE Hyperloop · administrado por el Pacific Utilities Design Council",
+          priorArt: "Arte previo preservado en el historial de Git · ver",
+          waText: "Hola Dany — me gustaría conocer más sobre el wireframe del juego infantil EVE Hyperloop."
+        },
+        en: {
+          docTitle: "EVE Hyperloop — Children's Educational Game (Wireframe)",
+          stamp: "Wireframe · v0 · 2026",
+          title: "EVE Hyperloop",
+          tagline: "A children's educational video game.",
+          shapesAria: "The three shapes of the game",
+          circle: "Circle",
+          triangle: "Triangle",
+          sphere: "Sphere",
+          pitch: "Three shapes, three lessons. Children draw the circle to find the edge of a problem, place the triangle to make a choice with three good reasons, then watch the sphere appear when the lesson belongs to everyone.",
+          statusLabel: "Status", statusValue: "Wireframe in development",
+          audienceLabel: "Audience", audienceValue: "Children, ages 8–14",
+          stewardshipLabel: "Stewardship", stewardshipValue: "Pacific Utilities Design Council",
+          charterLabel: "Charter", charterValue: "Non-commercial, charitable",
+          ctaLead: "Access is by request. Contributors, educators, and partners are welcome.",
+          ctaButton: "Request access on WhatsApp",
+          ctaSub: "+1 506-292-1452 · WhatsApp Business",
+          copy: "Pour le bien-être du peuple.",
+          footerLine: "EVE Hyperloop · stewarded by the Pacific Utilities Design Council",
+          priorArt: "Prior art preserved in Git history · see",
+          waText: "Hi Dany — I'd like to learn about the EVE Hyperloop children's game wireframe."
+        },
+        fr: {
+          docTitle: "EVE Hyperloop — Jeu éducatif pour enfants (Wireframe)",
+          stamp: "Wireframe · v0 · 2026",
+          title: "EVE Hyperloop",
+          tagline: "Un jeu vidéo éducatif pour enfants.",
+          shapesAria: "Les trois formes du jeu",
+          circle: "Cercle",
+          triangle: "Triangle",
+          sphere: "Sphère",
+          pitch: "Trois formes, trois leçons. Les enfants dessinent le cercle pour trouver les limites d'un problème, placent le triangle pour faire un choix appuyé sur trois bonnes raisons, puis voient apparaître la sphère lorsque la leçon appartient à tous.",
+          statusLabel: "Statut", statusValue: "Wireframe en développement",
+          audienceLabel: "Public", audienceValue: "Enfants, de 8 à 14 ans",
+          stewardshipLabel: "Intendance", stewardshipValue: "Pacific Utilities Design Council",
+          charterLabel: "Charte", charterValue: "Non commercial, à but caritatif",
+          ctaLead: "L'accès se fait sur demande. Les contributeurs, éducateurs et partenaires sont les bienvenus.",
+          ctaButton: "Demander l'accès sur WhatsApp",
+          ctaSub: "+1 506-292-1452 · WhatsApp Business",
+          copy: "Pour le bien-être du peuple.",
+          footerLine: "EVE Hyperloop · sous l'intendance du Pacific Utilities Design Council",
+          priorArt: "Travaux antérieurs conservés dans l'historique Git · voir",
+          waText: "Bonjour Dany — j'aimerais en savoir plus sur le wireframe du jeu pour enfants EVE Hyperloop."
+        }
+      };
+
+      const WA_BASE = "https://wa.me/15062921452?text=";
+
+      function applyLang(lang){
+        const dict = I18N[lang] || I18N.es;
+        document.documentElement.lang = lang;
+        document.title = dict.docTitle;
+
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+          const key = el.getAttribute("data-i18n");
+          if (dict[key] !== undefined) el.textContent = dict[key];
+        });
+        document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+          const key = el.getAttribute("data-i18n-aria");
+          if (dict[key] !== undefined) el.setAttribute("aria-label", dict[key]);
+        });
+
+        const cta = document.getElementById("cta-link");
+        if (cta) cta.href = WA_BASE + encodeURIComponent(dict.waText);
+
+        document.querySelectorAll(".lang-btn").forEach(b => {
+          b.classList.toggle("active", b.getAttribute("data-lang") === lang);
+          b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false");
+        });
+
+        try { localStorage.setItem("eve-lang", lang); } catch(e){}
+      }
+
+      document.querySelectorAll(".lang-btn").forEach(btn => {
+        btn.addEventListener("click", () => applyLang(btn.getAttribute("data-lang")));
+      });
+
+      // Initial language: saved preference > browser language > Spanish default
+      (function(){
+        let initial = "es";
+        try {
+          const saved = localStorage.getItem("eve-lang");
+          if (saved && I18N[saved]) {
+            initial = saved;
+          } else {
+            const nav = (navigator.language || "es").slice(0,2).toLowerCase();
+            if (I18N[nav]) initial = nav;
+            else initial = "es";
+          }
+        } catch(e){ initial = "es"; }
+        applyLang(initial);
+      })();
+    </script>
   </body>
 </html>
