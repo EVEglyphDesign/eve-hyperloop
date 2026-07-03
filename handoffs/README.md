@@ -17,9 +17,15 @@ came from. Append-only.
 
 Additional cities appended as contributors are confirmed.
 
+## Pre-handoff canon audit
+
+Before any handoff goes live, every artefact named verbally in the intro ("the source pack", "the ZIP", "the download", "the repo") must have a visible entry point on `index.html` — Related Material section and/or footer links-row. See self-healing trigger 010 for the class and repair 010 for the fix pattern.
+
 ## Log
 
-*(empty — first handoff pending)*
+### 2026-07-03 · Kansas City · Tim Hawkins · canon re-share
+
+Repaired a 404 on "public source pack" reported by Tim on Messenger during the platform-investment handoff (Austrian assessors, Kenworth/HoffmanMurphy operators renting from Tim going forward). Added a visible **Public source pack** entry to `index.html` Related Material and footer links-row, with ZIP / repo / live-canon links wired to the trilingual I18N dictionary. Self-healing record: `/self-healing/log/2026-07-03-1728-tim-404-source-pack.md`. Handoff status: canon-side unblocked; awaiting Tim's system-hookup for the Austrian assessment.
 
 ---
 
