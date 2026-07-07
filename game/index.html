@@ -60,10 +60,58 @@
       footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--line);text-align:center;font-size:12px;color:var(--ink-soft);line-height:1.7}
       footer .copy{font-family:var(--serif);font-style:italic}
 
+      /* Quest: twin onboarding flow */
+      .quest{margin:56px 0 40px;padding-top:40px;border-top:1px solid var(--line)}
+      .quest-head{text-align:center;margin-bottom:28px}
+      .quest-kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 8px}
+      .quest-title{font-family:var(--serif);font-weight:700;font-size:28px;margin:0 0 10px;letter-spacing:-.01em}
+      .quest-sub{font-size:14px;color:var(--ink-soft);max-width:480px;margin:0 auto}
+
+      .quest-progress{max-width:420px;margin:0 auto 40px}
+      .quest-progress-bar{height:6px;background:var(--line);border-radius:999px;overflow:hidden}
+      .quest-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--circle),var(--triangle),var(--sphere));border-radius:999px;transition:width .35s ease}
+
+      .quest-steps{display:flex;flex-direction:column;gap:20px}
+      .quest-step{border:1px solid var(--line);border-radius:16px;padding:22px 22px 18px;background:#fff;display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;transition:box-shadow .2s,opacity .2s}
+      .quest-step.done{box-shadow:0 0 0 2px rgba(0,0,0,.03) inset;opacity:.72}
+      .quest-step-shape{flex-shrink:0;width:44px;height:44px;display:flex;align-items:center;justify-content:center}
+      .quest-step-shape svg{width:40px;height:40px;transition:opacity .2s}
+      .quest-step[data-step="1"] .quest-step-shape svg{stroke:var(--circle)}
+      .quest-step[data-step="2"] .quest-step-shape svg{stroke:var(--triangle)}
+      .quest-step[data-step="3"] .quest-step-shape svg{stroke:var(--sphere)}
+      .quest-step-body{flex:1 1 260px;min-width:0}
+      .quest-step-tag{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+      .quest-step-body h3{font-family:var(--serif);font-size:19px;margin:0 0 8px;line-height:1.3}
+      .quest-step-body p{font-size:14px;color:var(--ink-soft);margin:0 0 14px;line-height:1.55}
+      .quest-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;font-size:13.5px;font-weight:600;text-decoration:none;border:none;cursor:pointer}
+      .quest-btn-wa{background:var(--whatsapp);color:#fff}
+      .quest-btn-wa:hover{background:var(--whatsapp-dark)}
+      .quest-btn-gh{background:#1a1a1a;color:#fff}
+      .quest-btn-gh:hover{background:#333}
+      .quest-btn svg{width:16px;height:16px;fill:currentColor}
+      .quest-btn-sub{display:block;margin-top:8px;font-size:11.5px;color:var(--ink-soft)}
+      .quest-check{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft);cursor:pointer;flex-shrink:0;align-self:flex-start;margin-left:auto}
+      .quest-check input{width:16px;height:16px;accent-color:var(--sphere);cursor:pointer}
+
+      .connect-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0 16px}
+      .connect-card{border:1px solid var(--line);border-radius:12px;padding:14px}
+      .connect-card h4{margin:0 0 6px;font-size:13px;display:flex;align-items:center;gap:6px}
+      .connect-card p{margin:0;font-size:12.5px;color:var(--ink-soft);line-height:1.5}
+
+      .quest-done{margin-top:28px;text-align:center;padding:26px;border-radius:16px;background:#f3f6fa;border:1px solid var(--line)}
+      .quest-done h3{font-family:var(--serif);font-size:20px;margin:0 0 8px}
+      .quest-done p{font-size:13.5px;color:var(--ink-soft);margin:0;max-width:420px;margin:0 auto}
+
+      @media (max-width:640px){
+        .connect-grid{grid-template-columns:1fr}
+      }
+
       @media (max-width:480px){
         h1{font-size:34px}
         .shapes{gap:18px}
         .lang-switch{top:12px;right:12px}
+        .quest-check{margin-left:0}
+        .quest-step{padding:18px}
       }
     </style>
   </head>
@@ -116,6 +164,83 @@
         <div class="cta-sub" data-i18n="ctaSub">+1 506-292-1452 · WhatsApp Business</div>
       </div>
 
+      <div class="quest" id="quest">
+        <div class="quest-head">
+          <p class="quest-kicker" data-i18n="questKicker">Siguiente nivel</p>
+          <h2 class="quest-title" data-i18n="questTitle">Misión: consigue tu gemelo</h2>
+          <p class="quest-sub" data-i18n="questSub">Los mismos tres pasos, ahora aplicados a una herramienta real. Marca cada casilla a medida que avanzas.</p>
+        </div>
+
+        <div class="quest-progress">
+          <div class="quest-progress-bar"><div class="quest-progress-fill" id="quest-fill"></div></div>
+        </div>
+
+        <div class="quest-steps">
+          <div class="quest-step" data-step="1">
+            <div class="quest-step-shape"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" fill="none" stroke-width="3"/></svg></div>
+            <div class="quest-step-body">
+              <span class="quest-step-tag" data-i18n="step1Tag">Círculo · Paso 1</span>
+              <h3 data-i18n="step1Title">Pide acceso</h3>
+              <p data-i18n="step1Body">Un adulto de confianza pide acceso por WhatsApp. Cuando Dany confirma quién eres, se abre la misión.</p>
+              <a class="quest-btn quest-btn-wa" id="quest-wa-link" href="https://wa.me/15062921452">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                <span data-i18n="step1Cta">Pedir acceso</span>
+              </a>
+              <span class="quest-btn-sub" data-i18n="step1CtaSub">+1 506-292-1452 · WhatsApp Business</span>
+            </div>
+            <label class="quest-check"><input type="checkbox" data-quest-check="1"><span data-i18n="step1Check">Ya pedí acceso</span></label>
+          </div>
+
+          <div class="quest-step" data-step="2">
+            <div class="quest-step-shape"><svg viewBox="0 0 64 64" aria-hidden="true"><polygon points="32,8 56,54 8,54" fill="none" stroke-width="3" stroke-linejoin="round"/></svg></div>
+            <div class="quest-step-body">
+              <span class="quest-step-tag" data-i18n="step2Tag">Triángulo · Paso 2</span>
+              <h3 data-i18n="step2Title">Bifurca tu gemelo inicial</h3>
+              <p data-i18n="step2Body">Un "gemelo" es tu propia copia del set de herramientas básico. Bifurcarlo (fork) en GitHub crea esa copia, solo para ti, para practicar sin arriesgar nada.</p>
+              <a class="quest-btn quest-btn-gh" href="https://github.com/EVEglyphDesign/eve-hyperloop/fork" target="_blank" rel="noopener">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8Z"/></svg>
+                <span data-i18n="step2Cta">Bifurcar en GitHub</span>
+              </a>
+              <span class="quest-btn-sub" data-i18n="step2CtaSub">github.com/EVEglyphDesign/eve-hyperloop</span>
+            </div>
+            <label class="quest-check"><input type="checkbox" data-quest-check="2"><span data-i18n="step2Check">Ya bifurqué mi gemelo</span></label>
+          </div>
+
+          <div class="quest-step" data-step="3">
+            <div class="quest-step-shape"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" fill="none" stroke-width="3"/><ellipse cx="32" cy="32" rx="26" ry="10" fill="none" stroke-width="2" opacity=".55"/><ellipse cx="32" cy="32" rx="10" ry="26" fill="none" stroke-width="2" opacity=".55"/></svg></div>
+            <div class="quest-step-body">
+              <span class="quest-step-tag" data-i18n="step3Tag">Esfera · Paso 3</span>
+              <h3 data-i18n="step3Title">Conecta tus herramientas de todos los días</h3>
+              <p data-i18n="step3Body">Cada plataforma guarda tus cosas a su manera — no siempre a propósito, así fue como se construyeron. Conecta tu gemelo a una segunda pantalla para que nada se quede atrapado en un solo lugar.</p>
+              <div class="connect-grid">
+                <div class="connect-card">
+                  <h4 data-i18n="connectWaTitle">💬 WhatsApp</h4>
+                  <p data-i18n="connectWaBody">Guarda el número y usa el mismo chat para todo: pedir acceso, mandar fotos, hacer preguntas. Un solo hilo, nada perdido.</p>
+                </div>
+                <div class="connect-card">
+                  <h4 data-i18n="connectGlassesTitle">🕶️ Gafas IA</h4>
+                  <p data-i18n="connectGlassesBody">Empareja tus gafas con la app del teléfono y apaga "Cloud media" — así las fotos quedan bajo tu control antes de compartirlas.</p>
+                </div>
+                <div class="connect-card">
+                  <h4 data-i18n="connectIphoneTitle">📱 iPhone</h4>
+                  <p data-i18n="connectIphoneBody">Toma una foto de la pantalla o grábala, y mándala al mismo chat de tu gemelo. Así todo queda en un solo lugar.</p>
+                </div>
+                <div class="connect-card">
+                  <h4 data-i18n="connectAndroidTitle">🤖 Android</h4>
+                  <p data-i18n="connectAndroidBody">Haz lo mismo desde Android: captura o grava, y manda el archivo al mismo chat. Nadie se queda atascado en una sola marca.</p>
+                </div>
+              </div>
+            </div>
+            <label class="quest-check"><input type="checkbox" data-quest-check="3"><span data-i18n="step3Check">Ya conecté mis herramientas</span></label>
+          </div>
+        </div>
+
+        <div class="quest-done" id="quest-done" hidden>
+          <h3 data-i18n="questDoneTitle">La lección ahora es de todos.</h3>
+          <p data-i18n="questDoneBody">Completaste las tres formas con tu propio gemelo. Comparte lo que aprendiste con la próxima persona que empiece.</p>
+        </div>
+      </div>
+
       <footer>
         <p class="copy" data-i18n="copy">Pour le bien-être du peuple.</p>
         <p><span data-i18n="footerLine">EVE Hyperloop · administrado por el Pacific Utilities Design Council</span><br>
@@ -145,7 +270,27 @@
           copy: "Pour le bien-être du peuple.",
           footerLine: "EVE Hyperloop · administrado por el Pacific Utilities Design Council",
           priorArt: "Arte previo preservado en el historial de Git · ver",
-          waText: "Hola Dany — me gustaría conocer más sobre el wireframe del juego infantil EVE Hyperloop."
+          waText: "Hola Dany — me gustaría conocer más sobre el wireframe del juego infantil EVE Hyperloop.",
+          questKicker: "Siguiente nivel",
+          questTitle: "Misión: consigue tu gemelo",
+          questSub: "Los mismos tres pasos, ahora aplicados a una herramienta real. Marca cada casilla a medida que avanzas.",
+          step1Tag: "Círculo · Paso 1", step1Title: "Pide acceso",
+          step1Body: "Un adulto de confianza pide acceso por WhatsApp. Cuando Dany confirma quién eres, se abre la misión.",
+          step1Cta: "Pedir acceso", step1CtaSub: "+1 506-292-1452 · WhatsApp Business",
+          step1Check: "Ya pedí acceso",
+          step2Tag: "Triángulo · Paso 2", step2Title: "Bifurca tu gemelo inicial",
+          step2Body: "Un \"gemelo\" es tu propia copia del set de herramientas básico. Bifurcarlo (fork) en GitHub crea esa copia, solo para ti, para practicar sin arriesgar nada.",
+          step2Cta: "Bifurcar en GitHub", step2CtaSub: "github.com/EVEglyphDesign/eve-hyperloop",
+          step2Check: "Ya bifurqué mi gemelo",
+          step3Tag: "Esfera · Paso 3", step3Title: "Conecta tus herramientas de todos los días",
+          step3Body: "Cada plataforma guarda tus cosas a su manera — no siempre a propósito, así fue como se construyeron. Conecta tu gemelo a una segunda pantalla para que nada se quede atrapado en un solo lugar.",
+          connectWaTitle: "💬 WhatsApp", connectWaBody: "Guarda el número y usa el mismo chat para todo: pedir acceso, mandar fotos, hacer preguntas. Un solo hilo, nada perdido.",
+          connectGlassesTitle: "🕶️ Gafas IA", connectGlassesBody: "Empareja tus gafas con la app del teléfono y apaga \"Cloud media\" — así las fotos quedan bajo tu control antes de compartirlas.",
+          connectIphoneTitle: "📱 iPhone", connectIphoneBody: "Toma una foto de la pantalla o grábala, y mándala al mismo chat de tu gemelo. Así todo queda en un solo lugar.",
+          connectAndroidTitle: "🤖 Android", connectAndroidBody: "Haz lo mismo desde Android: captura o grava, y manda el archivo al mismo chat. Nadie se queda atascado en una sola marca.",
+          step3Check: "Ya conecté mis herramientas",
+          questDoneTitle: "La lección ahora es de todos.",
+          questDoneBody: "Completaste las tres formas con tu propio gemelo. Comparte lo que aprendiste con la próxima persona que empiece."
         },
         en: {
           docTitle: "EVE Hyperloop — Children's Educational Game (Wireframe)",
@@ -167,7 +312,27 @@
           copy: "Pour le bien-être du peuple.",
           footerLine: "EVE Hyperloop · stewarded by the Pacific Utilities Design Council",
           priorArt: "Prior art preserved in Git history · see",
-          waText: "Hi Dany — I'd like to learn about the EVE Hyperloop children's game wireframe."
+          waText: "Hi Dany — I'd like to learn about the EVE Hyperloop children's game wireframe.",
+          questKicker: "Next level",
+          questTitle: "Quest: get your twin",
+          questSub: "Same three steps, now applied to a real tool. Check each box as you go.",
+          step1Tag: "Circle · Step 1", step1Title: "Request access",
+          step1Body: "A trusted adult requests access on WhatsApp. Once Dany confirms who you are, the quest opens up.",
+          step1Cta: "Request access", step1CtaSub: "+1 506-292-1452 · WhatsApp Business",
+          step1Check: "I requested access",
+          step2Tag: "Triangle · Step 2", step2Title: "Fork your starter twin",
+          step2Body: "A \"twin\" is your own copy of the basic toolkit. Forking it on GitHub makes that copy — just for you — to practice on without risking anything.",
+          step2Cta: "Fork on GitHub", step2CtaSub: "github.com/EVEglyphDesign/eve-hyperloop",
+          step2Check: "I forked my twin",
+          step3Tag: "Sphere · Step 3", step3Title: "Connect your everyday tools",
+          step3Body: "Every platform keeps your stuff its own way — not always on purpose, that's just how they were built. Connect your twin to a second screen so nothing stays stuck in one place.",
+          connectWaTitle: "💬 WhatsApp", connectWaBody: "Save the number and use the same chat for everything: requesting access, sending photos, asking questions. One thread, nothing lost.",
+          connectGlassesTitle: "🕶️ AI glasses", connectGlassesBody: "Pair your glasses with the phone app and turn off \"Cloud media\" — that way photos stay under your control before you share them.",
+          connectIphoneTitle: "📱 iPhone", connectIphoneBody: "Snap a screenshot or screen-record, then send it into the same chat as your twin. Everything stays in one place.",
+          connectAndroidTitle: "🤖 Android", connectAndroidBody: "Do the same from Android: capture or record, and send the file into that same chat. No one gets stuck on a single brand.",
+          step3Check: "I connected my tools",
+          questDoneTitle: "The lesson now belongs to everyone.",
+          questDoneBody: "You completed all three shapes with your own twin. Share what you learned with the next person who starts."
         },
         fr: {
           docTitle: "EVE Hyperloop — Jeu éducatif pour enfants (Wireframe)",
@@ -189,7 +354,27 @@
           copy: "Pour le bien-être du peuple.",
           footerLine: "EVE Hyperloop · sous l'intendance du Pacific Utilities Design Council",
           priorArt: "Travaux antérieurs conservés dans l'historique Git · voir",
-          waText: "Bonjour Dany — j'aimerais en savoir plus sur le wireframe du jeu pour enfants EVE Hyperloop."
+          waText: "Bonjour Dany — j'aimerais en savoir plus sur le wireframe du jeu pour enfants EVE Hyperloop.",
+          questKicker: "Niveau suivant",
+          questTitle: "Quête : obtiens ton jumeau",
+          questSub: "Les mêmes trois étapes, appliquées cette fois à un vrai outil. Coche chaque case en avançant.",
+          step1Tag: "Cercle · Étape 1", step1Title: "Demande l'accès",
+          step1Body: "Un adulte de confiance demande l'accès sur WhatsApp. Une fois que Dany confirme qui tu es, la quête s'ouvre.",
+          step1Cta: "Demander l'accès", step1CtaSub: "+1 506-292-1452 · WhatsApp Business",
+          step1Check: "J'ai demandé l'accès",
+          step2Tag: "Triangle · Étape 2", step2Title: "Bifurque ton jumeau de départ",
+          step2Body: "Un \"jumeau\" est ta propre copie de la trousse de base. La bifurquer (fork) sur GitHub crée cette copie, juste pour toi, pour t'entraîner sans rien risquer.",
+          step2Cta: "Bifurquer sur GitHub", step2CtaSub: "github.com/EVEglyphDesign/eve-hyperloop",
+          step2Check: "J'ai bifurqué mon jumeau",
+          step3Tag: "Sphère · Étape 3", step3Title: "Connecte tes outils du quotidien",
+          step3Body: "Chaque plateforme garde tes affaires à sa façon — pas toujours à dessein, c'est juste comme elles ont été construites. Connecte ton jumeau à un deuxième écran pour que rien ne reste coincé au même endroit.",
+          connectWaTitle: "💬 WhatsApp", connectWaBody: "Enregistre le numéro et utilise le même fil pour tout : demander l'accès, envoyer des photos, poser des questions. Un seul fil, rien de perdu.",
+          connectGlassesTitle: "🕶️ Lunettes IA", connectGlassesBody: "Jumelle tes lunettes avec l'appli du téléphone et désactive \"Cloud media\" — ainsi les photos restent sous ton contrôle avant que tu les partages.",
+          connectIphoneTitle: "📱 iPhone", connectIphoneBody: "Prends une capture d'écran ou enregistre l'écran, puis envoie-la dans le même fil que ton jumeau. Tout reste au même endroit.",
+          connectAndroidTitle: "🤖 Android", connectAndroidBody: "Fais la même chose depuis Android : capture ou enregistre, et envoie le fichier dans ce même fil. Personne ne reste coincé sur une seule marque.",
+          step3Check: "J'ai connecté mes outils",
+          questDoneTitle: "La leçon appartient maintenant à tous.",
+          questDoneBody: "Tu as complété les trois formes avec ton propre jumeau. Partage ce que tu as appris avec la prochaine personne qui commence."
         }
       };
 
@@ -211,6 +396,8 @@
 
         const cta = document.getElementById("cta-link");
         if (cta) cta.href = WA_BASE + encodeURIComponent(dict.waText);
+        const questWa = document.getElementById("quest-wa-link");
+        if (questWa) questWa.href = WA_BASE + encodeURIComponent(dict.waText);
 
         document.querySelectorAll(".lang-btn").forEach(b => {
           b.classList.toggle("active", b.getAttribute("data-lang") === lang);
@@ -223,6 +410,44 @@
       document.querySelectorAll(".lang-btn").forEach(btn => {
         btn.addEventListener("click", () => applyLang(btn.getAttribute("data-lang")));
       });
+
+      // Quest: twin onboarding checklist (local-only, no backend — this is a wireframe)
+      (function(){
+        const checks = Array.from(document.querySelectorAll("[data-quest-check]"));
+        const fill = document.getElementById("quest-fill");
+        const done = document.getElementById("quest-done");
+        const STORE_KEY = "eve-quest-progress";
+
+        function loadState(){
+          try { return JSON.parse(localStorage.getItem(STORE_KEY) || "{}"); } catch(e){ return {}; }
+        }
+        function saveState(state){
+          try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch(e){}
+        }
+        function render(){
+          const total = checks.length;
+          const completed = checks.filter(c => c.checked).length;
+          if (fill) fill.style.width = (total ? (completed/total*100) : 0) + "%";
+          checks.forEach(c => {
+            const step = c.closest(".quest-step");
+            if (step) step.classList.toggle("done", c.checked);
+          });
+          if (done) done.hidden = completed < total;
+        }
+
+        const state = loadState();
+        checks.forEach(c => {
+          const key = c.getAttribute("data-quest-check");
+          if (state[key]) c.checked = true;
+          c.addEventListener("change", () => {
+            const s = loadState();
+            s[key] = c.checked;
+            saveState(s);
+            render();
+          });
+        });
+        render();
+      })();
 
       // Initial language: saved preference > browser language > Spanish default
       (function(){
