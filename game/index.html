@@ -102,6 +102,16 @@
       .quest-done h3{font-family:var(--serif);font-size:20px;margin:0 0 8px}
       .quest-done p{font-size:13.5px;color:var(--ink-soft);margin:0;max-width:420px;margin:0 auto}
 
+      /* Chapter 2 link card */
+      .chapter2{margin:48px 0 40px;padding-top:40px;border-top:1px solid var(--line);text-align:center}
+      .chapter2-inner{border:1px solid var(--line);border-radius:20px;padding:36px 28px;background:linear-gradient(160deg,#fdfaf4,#f3ede0)}
+      .chapter2-kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 10px}
+      .chapter2-title{font-family:var(--serif);font-weight:700;font-size:26px;margin:0 0 12px;letter-spacing:-.01em}
+      .chapter2-body{font-size:14.5px;color:var(--ink-soft);max-width:480px;margin:0 auto 22px;line-height:1.6}
+      .chapter2-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:999px;font-size:14.5px;font-weight:600;text-decoration:none;background:var(--ink);color:#fff;transition:background .15s,transform .15s}
+      .chapter2-btn:hover{background:#333;transform:translateY(-1px)}
+      .chapter2-btn svg{width:16px;height:16px;stroke:currentColor;fill:none}
+
       @media (max-width:640px){
         .connect-grid{grid-template-columns:1fr}
       }
@@ -241,6 +251,18 @@
         </div>
       </div>
 
+      <div class="chapter2">
+        <div class="chapter2-inner">
+          <p class="chapter2-kicker" data-i18n="ch2Kicker">Capítulo 2</p>
+          <h2 class="chapter2-title" data-i18n="ch2Title">Lo que conservamos</h2>
+          <p class="chapter2-body" data-i18n="ch2Body">Una historia real de un pueblo disperso, y de las tres cosas — familia, idioma, fe — que lo mantuvieron unido. Arma el rompecabezas y reúnelas.</p>
+          <a class="chapter2-btn" href="./what-we-kept.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span data-i18n="ch2Cta">Jugar el Capítulo 2</span>
+          </a>
+        </div>
+      </div>
+
       <footer>
         <p class="copy" data-i18n="copy">Pour le bien-être du peuple.</p>
         <p><span data-i18n="footerLine">EVE Hyperloop · administrado por el Pacific Utilities Design Council</span><br>
@@ -290,7 +312,11 @@
           connectAndroidTitle: "🤖 Android", connectAndroidBody: "Haz lo mismo desde Android: captura o grava, y manda el archivo al mismo chat. Nadie se queda atascado en una sola marca.",
           step3Check: "Ya conecté mis herramientas",
           questDoneTitle: "La lección ahora es de todos.",
-          questDoneBody: "Completaste las tres formas con tu propio gemelo. Comparte lo que aprendiste con la próxima persona que empiece."
+          questDoneBody: "Completaste las tres formas con tu propio gemelo. Comparte lo que aprendiste con la próxima persona que empiece.",
+          ch2Kicker: "Capítulo 2",
+          ch2Title: "Lo que conservamos",
+          ch2Body: "Una historia real de un pueblo disperso, y de las tres cosas — familia, idioma, fe — que lo mantuvieron unido. Arma el rompecabezas y reúnelas.",
+          ch2Cta: "Jugar el Capítulo 2"
         },
         en: {
           docTitle: "EVE Hyperloop — Children's Educational Game (Wireframe)",
@@ -332,7 +358,11 @@
           connectAndroidTitle: "🤖 Android", connectAndroidBody: "Do the same from Android: capture or record, and send the file into that same chat. No one gets stuck on a single brand.",
           step3Check: "I connected my tools",
           questDoneTitle: "The lesson now belongs to everyone.",
-          questDoneBody: "You completed all three shapes with your own twin. Share what you learned with the next person who starts."
+          questDoneBody: "You completed all three shapes with your own twin. Share what you learned with the next person who starts.",
+          ch2Kicker: "Chapter 2",
+          ch2Title: "What We Kept",
+          ch2Body: "A true story of a scattered people, and the three things — family, language, faith — that held them together. Solve the puzzle and reunite them.",
+          ch2Cta: "Play Chapter 2"
         },
         fr: {
           docTitle: "EVE Hyperloop — Jeu éducatif pour enfants (Wireframe)",
@@ -374,7 +404,11 @@
           connectAndroidTitle: "🤖 Android", connectAndroidBody: "Fais la même chose depuis Android : capture ou enregistre, et envoie le fichier dans ce même fil. Personne ne reste coincé sur une seule marque.",
           step3Check: "J'ai connecté mes outils",
           questDoneTitle: "La leçon appartient maintenant à tous.",
-          questDoneBody: "Tu as complété les trois formes avec ton propre jumeau. Partage ce que tu as appris avec la prochaine personne qui commence."
+          questDoneBody: "Tu as complété les trois formes avec ton propre jumeau. Partage ce que tu as appris avec la prochaine personne qui commence.",
+          ch2Kicker: "Chapitre 2",
+          ch2Title: "Ce que nous avons gardé",
+          ch2Body: "Une histoire vraie d'un peuple dispersé, et des trois choses — la famille, la langue, la foi — qui l'ont maintenu uni. Résous le casse-tête et réunis-les.",
+          ch2Cta: "Jouer au Chapitre 2"
         }
       };
 
