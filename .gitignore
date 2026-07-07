@@ -9,3 +9,5 @@
 # Editor cruft
 .DS_Store
 Thumbs.db
+.reskin-backup/
+RESKIN-SPEC.md

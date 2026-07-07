@@ -7,93 +7,100 @@
     <meta name="description" content="Individual user route into a digital twin: a short intro education, a skill test, then a guided digital-twin configuration menu. Test pass-through with your team." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
       /* === EVE Glyph · Individual Onboarding ================================
-         Three stages, one page so the team can walk it end-to-end:
-           1. LEARN     — short, glyph-honest intro to the canon
-           2. TEST      — six-question skill test gated against the register
-           3. CONFIGURE — guided digital-twin configuration menu
+         Four stages, one page so the team can walk it end-to-end:
+           1. LEARN        — short, glyph-honest intro to the canon
+           2. TEST         — six-question skill test gated against the register
+           3. META CONNECT — canon prerequisite: one durable human connection
+           4. CONFIGURE    — guided digital-twin configuration menu
 
          Canon discipline carried from /glyph.html:
            · the painted glyph stays achromatic
            · colour lives only in the GUIDANCE SYSTEM (microchip callouts,
              silk-screen stripes), never on the geometry
-           · every callout is shaped as an EVE-IC microchip (notch, pin-1 dot,
-             pin-leads, mono part-number, silk-screen accent stripe)
+           · every callout is shaped as an EVE-IC microchip (kicker label,
+             mono part-number, silk-screen accent stripe)
+
+         Reskin: presentation layer only (clean/light "game" system).
+         Content, gating logic, element IDs, localStorage keys, and the
+         copyright footer are preserved byte-for-byte per RESKIN-SPEC.md.
          ====================================================================== */
       :root{
-        --bg:#0b0d10; --bg-elev:#13161b; --bg-card:#161a20;
-        --fg:#e6ebf5; --fg-muted:#9aa3b2; --fg-soft:#6c7587;
-        --border:#262b34; --border-soft:#1c2027;
-        --accent:#d97e2f; --accent-soft:#e8a468;
-        --ok:#3fb27f; --bad:#d7464b;
-
-        /* Register colours — silk-screen guidance only */
-        --reg-past:#3a7bd5;       /* navy · past / soil */
-        --reg-future:#d7464b;     /* red · future / truth */
-        --reg-velocity:#ee8b3c;   /* orange · velocity */
-        --reg-hcp:#7c5ce0;        /* purple · HCP lattice */
-        --reg-di:#3fb27f;         /* green · decision intelligence */
-        --reg-ark:#7fc4e8;        /* baby blue · ARK vessel */
-
-        --serif:Georgia,"Times New Roman",serif;
+        --bg:#fdfaf4;
+        --ink:#1a1a1a;
+        --ink-soft:#5a5a5a;
+        --line:#e7e1d3;
+        --circle:#e8a468;
+        --triangle:#5f9e6e;
+        --sphere:#6a8caf;
+        --whatsapp:#25d366;
+        --whatsapp-dark:#128c7e;
+        --serif:Fraunces,Georgia,serif;
         --sans:Inter,system-ui,-apple-system,sans-serif;
-        --mono:"JetBrains Mono",ui-monospace,monospace;
+
+        /* Register colours — silk-screen guidance only, off-glyph */
+        --reg-past:#6a8caf;       /* blue · past / soil */
+        --reg-future:#a1584f;     /* rust-red · future / truth */
+        --reg-velocity:#e8a468;   /* orange · velocity */
+        --reg-hcp:#8a6fc2;        /* violet · HCP lattice */
+        --reg-di:#5f9e6e;         /* green · decision intelligence */
+        --reg-ark:#6a8caf;        /* blue · ARK vessel */
+        --ok:#4c8c5c;
+        --bad:#b0473f;
       }
       *{box-sizing:border-box}
-      html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
-      a{color:var(--accent-soft);text-decoration:none;border-bottom:1px solid rgba(232,164,104,.3)}
-      a:hover{border-bottom-color:var(--accent-soft)}
-      .wrap{max-width:1100px;margin:0 auto;padding:32px 24px 80px}
+      html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+      a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:2px}
+      a:hover{text-decoration-color:var(--ink-soft)}
+      .wrap{max-width:760px;margin:0 auto;padding:56px 24px 80px}
 
-      /* Header ------------------------------------------------------------ */
-      header.top{display:flex;gap:20px;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--border);margin-bottom:28px;flex-wrap:wrap}
-      .crest{width:56px;height:56px;flex-shrink:0;border-radius:6px;overflow:hidden;background:#0a0c10;border:1px solid var(--border-soft);filter:grayscale(1)}
+      /* Header -------------------------------------------------------------- */
+      header.top{display:flex;gap:18px;align-items:center;margin-bottom:40px;flex-wrap:wrap}
+      .crest{width:52px;height:52px;flex-shrink:0;border-radius:12px;overflow:hidden;background:#fff;border:1px solid var(--line);filter:grayscale(1)}
       .crest img{width:100%;height:100%;object-fit:cover;display:block}
-      .brand h1{font-family:Oswald,sans-serif;font-weight:700;font-size:22px;letter-spacing:.02em;line-height:1.1;margin:0 0 5px 0;color:var(--fg)}
-      .brand .tagline{font-family:var(--serif);font-style:italic;font-size:13.5px;color:var(--fg-muted);margin:0}
-      .home-link{margin-left:auto;font-family:Oswald,sans-serif;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-muted);padding:7px 12px;border:1px solid var(--border);border-radius:4px}
-      .home-link:hover{color:var(--accent-soft);border-color:var(--accent)}
+      .brand{flex:1 1 auto;min-width:0}
+      .brand h1{font-family:var(--serif);font-weight:700;font-size:28px;letter-spacing:-.01em;line-height:1.15;margin:0 0 4px 0;color:var(--ink)}
+      .brand .tagline{font-family:var(--serif);font-style:italic;font-size:14.5px;color:var(--ink-soft);margin:0}
+      .home-link{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);padding:8px 14px;border:1px solid var(--line);border-radius:999px;text-decoration:none;white-space:nowrap}
+      .home-link:hover{color:var(--ink);border-color:var(--ink-soft)}
 
-      /* Stage rail — three stages along a horizontal lattice */
-      .rail{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:32px}
-      .rail .step{position:relative;padding:18px 14px 14px 14px;background:linear-gradient(180deg,#181c22 0%,#0e1116 100%);border:1px solid #2a3038;border-radius:4px;box-shadow:0 1px 0 rgba(255,255,255,.04) inset;cursor:pointer;transition:border-color .15s ease, transform .15s ease}
-      .rail .step:hover{border-color:#3a414d;transform:translateY(-1px)}
-      .rail .step.active{border-color:var(--accent)}
-      .rail .step::before{content:"";position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:18px;height:7px;background:#0b0d10;border:1px solid #2a3038;border-top:none;border-bottom-left-radius:9px;border-bottom-right-radius:9px}
-      .rail .step::after{content:"";position:absolute;top:6px;left:8px;width:5px;height:5px;border-radius:50%;background:var(--fg-soft);opacity:.7}
-      .rail .step.active::after{background:var(--accent-soft);opacity:1}
-      .rail .lk{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.22em;color:var(--fg-soft);display:flex;align-items:center;gap:6px;margin-bottom:6px}
-      .rail .lk::before{content:"";display:inline-block;width:6px;height:6px;border-radius:1px;background:currentColor;opacity:.85}
-      .rail .ln{font-family:Oswald,sans-serif;font-size:14px;font-weight:600;color:var(--fg);letter-spacing:.02em;margin-bottom:4px}
-      .rail .lb{font-size:11.5px;color:var(--fg-muted);line-height:1.5}
-      .rail .stripe{position:absolute;left:10px;right:10px;bottom:6px;height:2px;border-radius:1px;background:var(--fg-soft);opacity:.85}
-      .rail .step-learn .lk{color:var(--reg-past)} .rail .step-learn .stripe{background:var(--reg-past)}
-      .rail .step-test  .lk{color:var(--reg-velocity)} .rail .step-test  .stripe{background:var(--reg-velocity)}
-      .rail .step-link  .lk{color:var(--reg-hcp)} .rail .step-link  .stripe{background:var(--reg-hcp)}
-      .rail .step-conf  .lk{color:var(--reg-di)} .rail .step-conf  .stripe{background:var(--reg-di)}
-      .rail .step .badge{position:absolute;top:8px;right:10px;font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--fg-soft);text-transform:uppercase}
-      .rail .step.done .badge{color:var(--ok)}
-      .rail .step.locked{opacity:.55;cursor:not-allowed}
+      /* Stage rail — four stages, progress-bar style ------------------------ */
+      .quest-progress{margin:0 0 28px}
+      .quest-progress-bar{height:6px;background:var(--line);border-radius:999px;overflow:hidden}
+      .quest-progress-fill{height:100%;background:linear-gradient(90deg,var(--circle),var(--triangle),var(--sphere));border-radius:999px;transition:width .35s ease}
+
+      .rail{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:40px}
+      .rail .step{position:relative;padding:16px 14px 14px;background:#fff;border:1px solid var(--line);border-radius:16px;cursor:pointer;transition:box-shadow .15s ease, transform .15s ease, opacity .15s ease}
+      .rail .step:hover{transform:translateY(-1px);box-shadow:0 2px 8px rgba(0,0,0,.05)}
+      .rail .step.active{box-shadow:0 0 0 2px var(--ink) inset}
+      .rail .lk{font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-soft);margin-bottom:6px;display:block}
+      .rail .ln{font-family:var(--serif);font-weight:700;font-size:14.5px;color:var(--ink);letter-spacing:-.005em;margin-bottom:4px}
+      .rail .lb{font-size:11.5px;color:var(--ink-soft);line-height:1.5}
+      .rail .stripe{position:absolute;left:14px;right:14px;bottom:0;height:3px;border-radius:3px 3px 0 0;opacity:.9}
+      .rail .step-learn .stripe{background:var(--circle)}
+      .rail .step-test  .stripe{background:var(--triangle)}
+      .rail .step-link  .stripe{background:var(--reg-hcp)}
+      .rail .step-conf  .stripe{background:var(--sphere)}
+      .rail .step .badge{position:absolute;top:12px;right:14px;font-size:10px;letter-spacing:.1em;color:var(--ink-soft);text-transform:uppercase}
+      .rail .step.done .badge{color:var(--ok);font-weight:600}
+      .rail .step.locked{opacity:.5;cursor:not-allowed}
       .rail .step.locked .badge::before{content:"🔒 ";letter-spacing:0}
 
-      /* Stage panel ------------------------------------------------------- */
-      .panel{display:none;background:var(--bg-card);border:1px solid var(--border-soft);border-radius:6px;padding:26px 28px 28px 28px}
+      /* Stage panel ----------------------------------------------------------- */
+      .panel{display:none}
       .panel.show{display:block}
-      .panel h2{font-family:Oswald,sans-serif;font-size:20px;font-weight:700;letter-spacing:.02em;margin:0 0 6px 0}
-      .panel .sub{font-family:var(--serif);font-style:italic;color:var(--fg-muted);margin:0 0 22px 0}
+      .panel h2{font-family:var(--serif);font-size:28px;font-weight:700;letter-spacing:-.01em;margin:0 0 8px 0}
+      .panel .sub{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--ink-soft);margin:0 0 28px 0;max-width:560px}
 
-      /* Register cards (Learn) — six microchip lessons */
+      /* Register cards (Learn) — six lesson cards ----------------------------- */
       .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:6px}
-      .cards .card{position:relative;padding:18px 14px 14px 14px;background:linear-gradient(180deg,#181c22 0%,#0e1116 100%);border:1px solid #2a3038;border-radius:4px;box-shadow:0 1px 0 rgba(255,255,255,.04) inset}
-      .cards .card::before{content:"";position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:18px;height:7px;background:#0b0d10;border:1px solid #2a3038;border-top:none;border-bottom-left-radius:9px;border-bottom-right-radius:9px}
-      .cards .card::after{content:"";position:absolute;top:6px;left:8px;width:5px;height:5px;border-radius:50%;background:var(--fg-soft);opacity:.7}
-      .cards .card .lk{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.22em;margin-bottom:6px;display:flex;align-items:center;gap:6px;color:var(--fg-soft)}
-      .cards .card .lk::before{content:"";display:inline-block;width:6px;height:6px;border-radius:1px;background:currentColor;opacity:.85}
-      .cards .card .ln{font-family:Oswald,sans-serif;font-size:13px;font-weight:600;margin-bottom:5px}
-      .cards .card .lb{font-size:12px;color:var(--fg-muted);line-height:1.55;margin-bottom:8px}
-      .cards .card .stripe{position:absolute;left:10px;right:10px;bottom:6px;height:2px;border-radius:1px;opacity:.9}
+      .cards .card{position:relative;padding:18px 16px 20px;background:#fff;border:1px solid var(--line);border-radius:16px}
+      .cards .card .lk{font-size:10px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px;display:block;color:var(--ink-soft)}
+      .cards .card .ln{font-family:var(--serif);font-weight:700;font-size:15px;margin-bottom:6px;letter-spacing:-.005em}
+      .cards .card .lb{font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin-bottom:10px}
+      .cards .card .stripe{position:absolute;left:16px;right:16px;bottom:0;height:3px;border-radius:3px 3px 0 0;opacity:.9}
       .c-past .lk{color:var(--reg-past)} .c-past .stripe{background:var(--reg-past)}
       .c-future .lk{color:var(--reg-future)} .c-future .stripe{background:var(--reg-future)}
       .c-velocity .lk{color:var(--reg-velocity)} .c-velocity .stripe{background:var(--reg-velocity)}
@@ -101,82 +108,90 @@
       .c-di .lk{color:var(--reg-di)} .c-di .stripe{background:var(--reg-di)}
       .c-ark .lk{color:var(--reg-ark)} .c-ark .stripe{background:var(--reg-ark)}
 
-      .principle{margin-top:22px;padding:18px 20px;background:#11141a;border-left:3px solid var(--accent);border-radius:4px}
-      .principle h3{font-family:Oswald,sans-serif;font-size:13.5px;margin:0 0 6px 0;color:var(--accent-soft);letter-spacing:.02em}
-      .principle p{margin:6px 0 0 0;font-size:13px;color:var(--fg-muted);line-height:1.6}
+      .principle{margin-top:16px;padding:20px 22px;background:#fff;border:1px solid var(--line);border-radius:16px}
+      .principle h3{font-family:var(--serif);font-weight:700;font-size:16.5px;margin:0 0 8px 0;color:var(--ink);letter-spacing:-.005em}
+      .principle p{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.6}
 
-      /* Test ------------------------------------------------------------- */
-      .q{padding:18px 18px 16px 18px;background:#11141a;border:1px solid var(--border-soft);border-radius:5px;margin-bottom:14px}
-      .q .qlabel{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.18em;color:var(--fg-soft);margin-bottom:6px}
-      .q .qtext{font-family:Oswald,sans-serif;font-size:14.5px;color:var(--fg);margin-bottom:12px;letter-spacing:.01em}
+      /* Test -------------------------------------------------------------------- */
+      .q{padding:20px 20px 18px;background:#fff;border:1px solid var(--line);border-radius:16px;margin-bottom:14px}
+      .q .qlabel{font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-soft);margin-bottom:8px}
+      .q .qtext{font-family:var(--serif);font-weight:700;font-size:17px;color:var(--ink);margin-bottom:14px;letter-spacing:-.005em;line-height:1.35}
       .q .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-      .q .opts label{display:flex;align-items:flex-start;gap:9px;padding:9px 11px;background:#0d1015;border:1px solid var(--border-soft);border-radius:4px;font-size:12.5px;color:var(--fg-muted);cursor:pointer;line-height:1.45;transition:border-color .12s ease, background .12s ease}
-      .q .opts label:hover{border-color:#3a414d;background:#11161d}
-      .q .opts input{accent-color:var(--accent);margin-top:2px}
-      .q .opts label.right{border-color:var(--ok);background:rgba(63,178,127,.07);color:var(--fg)}
-      .q .opts label.wrong{border-color:var(--bad);background:rgba(215,70,75,.07);color:var(--fg)}
-      .q .explain{margin-top:10px;font-size:12px;color:var(--fg-muted);font-style:italic;display:none;line-height:1.55}
+      .q .opts label{display:flex;align-items:flex-start;gap:9px;padding:10px 12px;background:#fdfaf4;border:1px solid var(--line);border-radius:12px;font-size:13px;color:var(--ink-soft);cursor:pointer;line-height:1.45;transition:border-color .12s ease, background .12s ease}
+      .q .opts label:hover{border-color:var(--ink-soft);background:#fff}
+      .q .opts input{accent-color:var(--sphere);margin-top:2px}
+      .q .opts label.right{border-color:var(--ok);background:rgba(76,140,92,.08);color:var(--ink)}
+      .q .opts label.wrong{border-color:var(--bad);background:rgba(176,71,63,.08);color:var(--ink)}
+      .q .explain{margin-top:12px;font-size:13px;color:var(--ink-soft);font-family:var(--serif);font-style:italic;display:none;line-height:1.55}
       .q.answered .explain{display:block}
 
-      .actions{display:flex;gap:12px;align-items:center;margin-top:18px;flex-wrap:wrap}
-      .btn{font-family:Oswald,sans-serif;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:10px 16px;border-radius:4px;border:1px solid var(--border);background:#11141a;color:var(--fg);cursor:pointer;transition:border-color .12s ease, color .12s ease}
-      .btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent-soft)}
-      .btn.primary{background:#1a1410;border-color:var(--accent);color:var(--accent-soft)}
-      .btn.primary:hover:not(:disabled){background:#22180f}
+      .actions{display:flex;gap:12px;align-items:center;margin-top:20px;flex-wrap:wrap}
+      .btn{font-family:var(--sans);font-size:13.5px;font-weight:600;letter-spacing:.01em;padding:12px 20px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;transition:border-color .12s ease, background .12s ease}
+      .btn:hover:not(:disabled){border-color:var(--ink-soft);background:#fdfaf4}
+      .btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}
+      .btn.primary:hover:not(:disabled){background:#333}
       .btn:disabled{opacity:.4;cursor:not-allowed}
-      .score{font-family:var(--mono);font-size:12px;color:var(--fg-muted);letter-spacing:.04em}
-      .score strong{color:var(--fg)}
+      .score{font-size:13px;color:var(--ink-soft);letter-spacing:.01em}
+      .score strong{color:var(--ink)}
       .score.pass strong{color:var(--ok)}
       .score.fail strong{color:var(--bad)}
 
-      /* Configure -------------------------------------------------------- */
+      /* Configure ----------------------------------------------------------------- */
       .form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-      .form .field{padding:14px 14px 12px 14px;background:#11141a;border:1px solid var(--border-soft);border-radius:5px}
+      .form .field{padding:16px 16px 14px;background:#fff;border:1px solid var(--line);border-radius:16px}
       .form .field.full{grid-column:1 / -1}
-      .form .field label{display:block;font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.18em;color:var(--fg-soft);margin-bottom:6px}
-      .form .field .hint{font-size:11.5px;color:var(--fg-soft);font-family:var(--serif);font-style:italic;margin-top:5px;line-height:1.5}
+      .form .field label{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-soft);margin-bottom:8px}
+      .form .field .hint{font-size:12px;color:var(--ink-soft);font-family:var(--serif);font-style:italic;margin-top:8px;line-height:1.5}
       .form .field input[type=text],
       .form .field select,
-      .form .field textarea{width:100%;background:#0d1015;border:1px solid var(--border-soft);border-radius:4px;padding:9px 11px;color:var(--fg);font-family:var(--sans);font-size:13px;line-height:1.4;outline:none}
+      .form .field textarea{width:100%;background:#fdfaf4;border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--ink);font-family:var(--sans);font-size:13.5px;line-height:1.4;outline:none}
       .form .field input[type=text]:focus,
       .form .field select:focus,
-      .form .field textarea:focus{border-color:var(--accent)}
+      .form .field textarea:focus{border-color:var(--sphere)}
       .form .field textarea{resize:vertical;min-height:64px}
       .form .checks{display:flex;flex-wrap:wrap;gap:8px}
-      .form .checks label{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;background:#0d1015;border:1px solid var(--border-soft);border-radius:14px;font-size:12px;color:var(--fg-muted);cursor:pointer}
-      .form .checks input{accent-color:var(--accent)}
-      .form .checks label:has(input:checked){border-color:var(--accent);color:var(--fg)}
+      .form .checks label{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;background:#fdfaf4;border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-soft);cursor:pointer}
+      .form .checks input{accent-color:var(--sphere)}
+      .form .checks label:has(input:checked){border-color:var(--ink-soft);color:var(--ink);background:#fff}
 
-      .preview{margin-top:22px;padding:18px 20px;background:#0d1015;border:1px solid var(--border-soft);border-radius:5px;font-family:var(--mono);font-size:12px;color:var(--fg-muted);line-height:1.6;white-space:pre-wrap;word-break:break-word}
-      .preview strong{color:var(--accent-soft)}
+      .preview{margin-top:22px;padding:20px 22px;background:#fff;border:1px solid var(--line);border-radius:16px;font-family:ui-monospace,"SF Mono",Consolas,monospace;font-size:12.5px;color:var(--ink-soft);line-height:1.65;white-space:pre-wrap;word-break:break-word}
+      .preview strong{color:var(--ink)}
 
-      .canon-note{margin-top:32px;padding:18px 20px;background:#11141a;border:1px solid var(--border-soft);border-radius:5px;font-size:13px;color:var(--fg-muted);line-height:1.65}
-      .canon-note strong{color:var(--accent-soft);font-weight:600}
+      .canon-note{margin-top:40px;padding:20px 22px;background:#fff;border:1px solid var(--line);border-radius:16px;font-size:13.5px;color:var(--ink-soft);line-height:1.65}
+      .canon-note strong{color:var(--ink);font-weight:600}
 
-      footer.foot{margin-top:42px;padding-top:22px;border-top:1px solid var(--border);font-size:12px;color:var(--fg-soft);font-family:var(--mono);line-height:1.6}
-      footer.foot .ital{margin-top:8px;font-style:italic;font-family:var(--serif);color:var(--fg-muted)}
+      footer.foot{margin-top:56px;padding-top:24px;border-top:1px solid var(--line);text-align:center;font-size:12px;color:var(--ink-soft);line-height:1.7}
+      footer.foot .ital{margin-top:10px;font-style:italic;font-family:var(--serif)}
 
-      /* LinkedIn gate panel */
-      .gate{padding:22px 22px 18px 22px;background:#11141a;border:1px solid var(--border-soft);border-radius:5px;margin-bottom:14px}
-      .gate .pn{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--reg-hcp);margin-bottom:6px;display:flex;align-items:center;gap:6px}
-      .gate .pn::before{content:"";display:inline-block;width:6px;height:6px;border-radius:1px;background:currentColor;opacity:.85}
-      .gate h3{font-family:Oswald,sans-serif;font-size:15px;font-weight:600;margin:0 0 6px 0;color:var(--fg);letter-spacing:.02em}
-      .gate p{margin:0 0 12px 0;font-size:13px;color:var(--fg-muted);line-height:1.6}
-      .gate .steps{margin:0 0 14px 0;padding-left:0;list-style:none;counter-reset:gs}
-      .gate .steps li{counter-increment:gs;position:relative;padding:10px 12px 10px 44px;background:#0d1015;border:1px solid var(--border-soft);border-radius:4px;font-size:13px;color:var(--fg-muted);margin-bottom:8px;line-height:1.55}
-      .gate .steps li::before{content:counter(gs);position:absolute;left:12px;top:8px;width:22px;height:22px;border:1px solid var(--reg-hcp);border-radius:50%;font-family:var(--mono);font-size:11px;color:var(--reg-hcp);display:flex;align-items:center;justify-content:center;font-weight:600}
-      .gate .steps li.done{border-color:var(--ok);color:var(--fg)}
+      /* Meta gate panel ------------------------------------------------------------ */
+      .gate{padding:24px 24px 20px;background:#fff;border:1px solid var(--line);border-radius:16px;margin-bottom:14px}
+      .gate .pn{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--reg-hcp);margin-bottom:8px}
+      .gate h3{font-family:var(--serif);font-size:19px;font-weight:700;margin:0 0 10px 0;color:var(--ink);letter-spacing:-.005em}
+      .gate p{margin:0 0 16px 0;font-size:14px;color:var(--ink-soft);line-height:1.6}
+      .gate .steps{margin:0 0 16px 0;padding-left:0;list-style:none;counter-reset:gs}
+      .gate .steps li{counter-increment:gs;position:relative;padding:12px 14px 12px 46px;background:#fdfaf4;border:1px solid var(--line);border-radius:12px;font-size:13.5px;color:var(--ink-soft);margin-bottom:8px;line-height:1.55}
+      .gate .steps li::before{content:counter(gs);position:absolute;left:14px;top:11px;width:22px;height:22px;border:1px solid var(--reg-hcp);border-radius:50%;font-size:11px;color:var(--reg-hcp);display:flex;align-items:center;justify-content:center;font-weight:600;background:#fff}
+      .gate .steps li.done{border-color:var(--ok);color:var(--ink)}
       .gate .steps li.done::before{border-color:var(--ok);color:var(--ok);content:"✓"}
-      .gate label.confirm{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;background:#0d1015;border:1px solid var(--border-soft);border-radius:4px;font-size:12.5px;color:var(--fg-muted);cursor:pointer;line-height:1.5}
-      .gate label.confirm input{accent-color:var(--reg-hcp);margin-top:2px}
-      .gate label.confirm:has(input:checked){border-color:var(--reg-hcp);color:var(--fg)}
-      .gate .canon-flag{margin-top:14px;padding:12px 14px;background:rgba(124,92,224,.06);border-left:3px solid var(--reg-hcp);border-radius:3px;font-size:12.5px;color:var(--fg-muted);line-height:1.55}
+      .gate label.confirm{display:flex;align-items:flex-start;gap:10px;padding:13px 15px;background:#fdfaf4;border:1px solid var(--line);border-radius:12px;font-size:13px;color:var(--ink-soft);cursor:pointer;line-height:1.5}
+      .gate label.confirm input{accent-color:var(--reg-hcp);margin-top:2px;width:16px;height:16px}
+      .gate label.confirm:has(input:checked){border-color:var(--reg-hcp);color:var(--ink);background:#fff}
+      .gate .canon-flag{margin-top:16px;padding:14px 16px;background:rgba(138,111,194,.07);border-left:3px solid var(--reg-hcp);border-radius:8px;font-size:13px;color:var(--ink-soft);line-height:1.55}
       .gate .canon-flag strong{color:var(--reg-hcp);font-weight:600}
+
+      /* Pill CTA (WhatsApp primary) ------------------------------------------------ */
+      .cta{display:inline-flex;align-items:center;gap:10px;background:var(--whatsapp);color:#fff;padding:14px 24px;border-radius:999px;font-weight:600;font-size:14.5px;text-decoration:none;border:none;transition:background .15s}
+      .cta:hover{background:var(--whatsapp-dark)}
+      .cta svg{width:18px;height:18px;fill:currentColor}
 
       @media (max-width:860px){
         .cards{grid-template-columns:1fr}
         .form{grid-template-columns:1fr}
         .q .opts{grid-template-columns:1fr}
+        .rail{grid-template-columns:1fr 1fr}
+      }
+      @media (max-width:480px){
+        .brand h1{font-size:23px}
         .rail{grid-template-columns:1fr}
       }
     </style>
@@ -192,33 +207,38 @@
         <a class="home-link" href="./" aria-label="Back to EVE Research home">← Home</a>
       </header>
 
-      <!-- Four-stage rail. Each stage is a microchip card; click to switch.
-           Learn → Test → LinkedIn connect (canon prerequisite) → Configure. -->
+      <!-- Progress bar across the four stages -->
+      <div class="quest-progress">
+        <div class="quest-progress-bar"><div class="quest-progress-fill" id="stage-fill" style="width:0%"></div></div>
+      </div>
+
+      <!-- Four-stage rail. Each stage is a card; click to switch.
+           Learn → Test → Meta connect (canon prerequisite) → Configure. -->
       <nav class="rail" aria-label="Onboarding stages">
         <div class="step step-learn active" data-stage="learn" tabindex="0" role="button" aria-label="Stage 1 · Learn">
           <span class="badge" id="badge-learn">01</span>
-          <div class="lk">EVE-IC · LRN-001</div>
+          <span class="lk">EVE-IC · LRN-001</span>
           <div class="ln">Learn the register</div>
           <div class="lb">Six-card primer on the canon. Two minutes.</div>
           <div class="stripe"></div>
         </div>
         <div class="step step-test locked" data-stage="test" tabindex="0" role="button" aria-label="Stage 2 · Test">
           <span class="badge" id="badge-test">02</span>
-          <div class="lk">EVE-IC · TST-002</div>
+          <span class="lk">EVE-IC · TST-002</span>
           <div class="ln">Skill test</div>
           <div class="lb">Six questions, one per register. 5/6 to pass.</div>
           <div class="stripe"></div>
         </div>
-        <div class="step step-link locked" data-stage="link" tabindex="0" role="button" aria-label="Stage 3 · LinkedIn connect">
+        <div class="step step-link locked" data-stage="link" tabindex="0" role="button" aria-label="Stage 3 · Meta connect">
           <span class="badge" id="badge-link">03</span>
-          <div class="lk">EVE-IC · LNK-003</div>
-          <div class="ln">LinkedIn connect</div>
-          <div class="lb">Connect to Dany Theriault before the fork is issued.</div>
+          <span class="lk">EVE-IC · LNK-003</span>
+          <div class="ln">Meta connect</div>
+          <div class="lb">One durable human connection — WhatsApp, or any Meta profile — before the fork is issued.</div>
           <div class="stripe"></div>
         </div>
         <div class="step step-conf locked" data-stage="conf" tabindex="0" role="button" aria-label="Stage 4 · Configure">
           <span class="badge" id="badge-conf">04</span>
-          <div class="lk">EVE-IC · CFG-003</div>
+          <span class="lk">EVE-IC · CFG-003</span>
           <div class="ln">Configure your digital twin</div>
           <div class="lb">Guided menu. HCP seat, consent surface, register weights.</div>
           <div class="stripe"></div>
@@ -228,41 +248,41 @@
       <!-- ===== STAGE 1 · LEARN ============================================ -->
       <section class="panel show" id="panel-learn">
         <h2>Learn the register</h2>
-        <p class="sub">Six microchip cards. Each one carries a single colour, off-glyph, as silk-screen only. The painted glyph stays grayscale.</p>
+        <p class="sub">Six cards. Each one carries a single colour, off-glyph, as silk-screen only. The painted glyph stays grayscale.</p>
 
         <div class="cards">
           <div class="card c-past">
-            <div class="lk">EVE-IC · PAST-001</div>
+            <span class="lk">EVE-IC · PAST-001</span>
             <div class="ln">Past · soil</div>
             <div class="lb">Where you grew from. Public-domain corpus, prior art, the geometry that predates the microchip. Carried, not owned.</div>
             <div class="stripe"></div>
           </div>
           <div class="card c-future">
-            <div class="lk">EVE-IC · FUT-002</div>
+            <span class="lk">EVE-IC · FUT-002</span>
             <div class="ln">Future · truth</div>
             <div class="lb">Where the velocity points. Verified, watermarked, under the umbrella. Not predicted — specified, with consent.</div>
             <div class="stripe"></div>
           </div>
           <div class="card c-velocity">
-            <div class="lk">EVE-IC · VEL-003</div>
+            <span class="lk">EVE-IC · VEL-003</span>
             <div class="ln">Velocity vector</div>
             <div class="lb">Past → future. The sweep that carries the design forward, accountable to where it came from.</div>
             <div class="stripe"></div>
           </div>
           <div class="card c-hcp">
-            <div class="lk">EVE-IC · HCP-004</div>
+            <span class="lk">EVE-IC · HCP-004</span>
             <div class="ln">HCP lattice</div>
             <div class="lb">Three Human Control Points: apex (utility operator), base-left (individual — that's you), base-right (enterprise). Two-of-three quorum.</div>
             <div class="stripe"></div>
           </div>
           <div class="card c-di">
-            <div class="lk">EVE-IC · DI-005</div>
+            <span class="lk">EVE-IC · DI-005</span>
             <div class="ln">Decision intelligence</div>
             <div class="lb">Centroid of the inner circle. Where human judgment merges with machine inference. No wires required, no vendor mediation. The lattice is the protocol.</div>
             <div class="stripe"></div>
           </div>
           <div class="card c-ark">
-            <div class="lk">EVE-IC · ARK-006</div>
+            <span class="lk">EVE-IC · ARK-006</span>
             <div class="ln">ARK vessel</div>
             <div class="lb">Half-circle below the chord. Two-way vessel — pours back as freely as it fills. Protocol standard, patent pending.</div>
             <div class="stripe"></div>
@@ -375,37 +395,44 @@
           <button class="btn primary" id="grade-test">Grade my answers</button>
           <button class="btn" id="reset-test">Reset</button>
           <span class="score" id="score">unscored</span>
-          <button class="btn primary" id="go-link" disabled>Continue to LinkedIn connect →</button>
+          <button class="btn primary" id="go-link" disabled>Continue to Meta connect →</button>
         </div>
       </section>
 
-      <!-- ===== STAGE 3 · LINKEDIN CONNECT ================================= -->
+      <!-- ===== STAGE 3 · META CONNECT ===================================== -->
       <!-- Canon prerequisite: the digital-twin fork is never issued without
-           a LinkedIn connection to Dany Theriault. This is the human
-           verification surface — not vendor SSO, not a form. Two simple
-           steps, then a checkbox confirmation that travels with the local
-           configuration save. -->
+           one durable human connection. This is the human verification
+           surface — not vendor SSO, not a form. WhatsApp is the primary
+           carry; a Meta profile handed over is the fallback for anyone
+           without WhatsApp. Both are durable, archived, reversible carries
+           that travel with the local configuration save. -->
       <section class="panel" id="panel-link">
-        <h2>LinkedIn connect</h2>
-        <p class="sub">Canon prerequisite before the digital-twin fork is issued. Two steps. No vendor SSO, no automated handshake — a person connects to a person.</p>
+        <h2>Meta connect</h2>
+        <p class="sub">Canon prerequisite before the digital-twin fork is issued. One durable human connection. No vendor SSO, no automated handshake — a person connects to a person, and the connection is kept.</p>
 
         <div class="gate">
           <div class="pn">EVE-IC · LNK-003 · prerequisite</div>
-          <h3>Connect to Dany Theriault on LinkedIn</h3>
-          <p>The individual route ends at a watermarked fork of EVE that you carry yourself, sovereign. Before that fork is issued, the canon asks for one verifiable human connection. Open the profile, send the request, then confirm below.</p>
+          <h3>Reach Dany on WhatsApp — or hand over your Meta profile</h3>
+          <p>The individual route ends at a watermarked fork of EVE that you carry yourself, sovereign. Before that fork is issued, the canon asks for one verifiable, durable human connection. WhatsApp is the primary carry. If you do not have WhatsApp, hand over any Meta profile (Facebook or Instagram) so Dany can look you up and reach out — either path is kept, archived, and reversible.</p>
 
           <ol class="steps" id="link-steps">
-            <li id="ls-1">Open <a href="https://www.linkedin.com/in/danytheriault/" target="_blank" rel="noopener" id="open-li">linkedin.com/in/danytheriault</a> in a new tab.</li>
-            <li id="ls-2">Send a connection request. A short note (“EVE individual route”) helps Dany route you quickly.</li>
+            <li id="ls-1">Primary — open <a href="https://wa.me/15062921452?text=Hi%20Dany%20%E2%80%94%20EVE%20individual%20route%2C%20requesting%20my%20twin%20fork." target="_blank" rel="noopener" id="open-li">WhatsApp · +1 506-292-1452</a> and send the pre-filled message.</li>
+            <li id="ls-2">No WhatsApp? Paste your own Meta profile link below (Facebook or Instagram). Dany will look you up and reach out.</li>
           </ol>
+
+          <div class="field full" style="margin:0 0 14px 0">
+            <label style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--reg-hcp);display:block;margin-bottom:8px">EVE-IC · LNK-003 · Meta fallback (optional)</label>
+            <input type="url" id="meta-profile" placeholder="https://facebook.com/you  ·  or  ·  https://instagram.com/you" style="width:100%;padding:11px 13px;background:#fdfaf4;border:1px solid var(--line);border-radius:10px;color:var(--ink);font-family:var(--sans);font-size:13.5px" />
+            <div class="hint" style="font-size:12px;color:var(--ink-soft);margin-top:8px;font-family:var(--serif);font-style:italic">Your own profile — a durable connection point, not a lead. Carried under the umbrella, archived, reversible.</div>
+          </div>
 
           <label class="confirm">
             <input type="checkbox" id="li-confirm">
-            <span>I confirm I have sent the LinkedIn connection request to <strong>linkedin.com/in/danytheriault</strong>. I understand the digital-twin fork will be issued after the connection is accepted; until then I am working on a local, reversible draft.</span>
+            <span>I confirm I have made one durable connection — <strong>reached Dany on WhatsApp</strong>, or <strong>handed over my Meta profile above</strong>. I understand the digital-twin fork is issued after the connection lands; until then I am working on a local, reversible draft.</span>
           </label>
 
           <div class="canon-flag">
-            <strong>Canon · HCP-004.</strong> The LinkedIn step is the base-left seat asking for two-of-three quorum. Without it the lattice does not form, and the fork is not yours.
+            <strong>Canon · HCP-004.</strong> The Meta connect is the base-left seat asking for two-of-three quorum. Without one durable human carry the lattice does not form, and the fork is not yours.
           </div>
         </div>
 
@@ -495,7 +522,7 @@
       </section>
 
       <div class="canon-note">
-        <strong>Canon discipline.</strong> The painted glyph is achromatic. The colour register lives in the guidance system only — every callout above is an EVE-IC microchip with the register colour as silk-screen, never on the geometry. Every save here is local and reversible: you can spin backwards from any prior state, per the Golden Rule.
+        <strong>Canon discipline.</strong> The painted glyph is achromatic. The colour register lives in the guidance system only — every callout above carries the register colour as silk-screen, never on the geometry. Every save here is local and reversible: you can spin backwards from any prior state, per the Golden Rule.
       </div>
 
       <footer class="foot">
@@ -506,12 +533,25 @@
 
     <script>
       // ===== Stage navigation =============================================
-      // Three stages: learn → test → configure. Test must be passed
-      // (>= 5/6) before configure unlocks. Stages are addressable by URL
+      // Four stages: learn → test → link (Meta connect) → conf. Test must be
+      // passed (>= 5/6) before Meta connect unlocks; Meta connect must be
+      // confirmed before configure unlocks. Stages are addressable by URL
       // hash so a tester can deep-link.
       (function(){
         var stages = ['learn','test','link','conf'];
         var passed = false;
+
+        function updateProgress(){
+          var doneCount = document.querySelectorAll('.rail .step.done').length;
+          var activeIdx = stages.indexOf(currentStage());
+          var pct = ((doneCount) / stages.length) * 100;
+          var fill = document.getElementById('stage-fill');
+          if (fill) fill.style.width = pct + '%';
+        }
+        function currentStage(){
+          var el = document.querySelector('.panel.show');
+          return el ? el.id.replace('panel-','') : 'learn';
+        }
 
         function show(stage){
           stages.forEach(function(s){
@@ -521,6 +561,7 @@
             if (step) step.classList.toggle('active', s===stage);
           });
           if (history.replaceState) history.replaceState(null,'','#'+stage);
+          updateProgress();
         }
         document.querySelectorAll('.rail .step').forEach(function(step){
           step.addEventListener('click', function(){
@@ -541,29 +582,34 @@
           unlock('test'); show('test');
         });
 
-        // ===== Stage 2 → 3 (LinkedIn) =====================================
+        // ===== Stage 2 → 3 (Meta connect) =================================
         var goLink = document.getElementById('go-link');
         goLink.addEventListener('click', function(){
           unlock('link'); show('link');
         });
 
-        // ===== Stage 3 · LinkedIn gate ====================================
-        // Open-the-profile click marks step 1 done; confirmation checkbox
-        // marks step 2 done and unlocks Configure. Both flags persist in
-        // localStorage so reload preserves progress.
+        // ===== Stage 3 · Meta connect gate ================================
+        // WhatsApp open marks step 1; the confirmation checkbox marks the
+        // durable carry and unlocks Configure. The Meta profile fallback is
+        // persisted too — a durable, archived, reversible connection point,
+        // not an ephemeral lead. All flags live in localStorage so reload
+        // preserves progress.
         var openLi   = document.getElementById('open-li');
         var ls1      = document.getElementById('ls-1');
         var ls2      = document.getElementById('ls-2');
         var liConf   = document.getElementById('li-confirm');
+        var metaProf = document.getElementById('meta-profile');
         var linkSt   = document.getElementById('link-status');
         var goConf   = document.getElementById('go-conf');
 
         try {
-          if (localStorage.getItem('eve-li-opened')==='1') ls1.classList.add('done');
-          if (localStorage.getItem('eve-li-confirmed')==='1'){
+          if (localStorage.getItem('eve-meta-opened')==='1') ls1.classList.add('done');
+          var savedProf = localStorage.getItem('eve-meta-profile');
+          if (savedProf && metaProf) metaProf.value = savedProf;
+          if (localStorage.getItem('eve-meta-confirmed')==='1'){
             ls2.classList.add('done');
             liConf.checked = true;
-            linkSt.classList.add('pass'); linkSt.innerHTML = 'connection sent · <strong>fork unlocked</strong>';
+            linkSt.classList.add('pass'); linkSt.innerHTML = 'connection carried · <strong>fork unlocked</strong>';
             goConf.disabled = false;
             unlock('conf');
             markDone('link');
@@ -573,26 +619,33 @@
         if (openLi){
           openLi.addEventListener('click', function(){
             ls1.classList.add('done');
-            try { localStorage.setItem('eve-li-opened','1'); } catch(_){}
+            try { localStorage.setItem('eve-meta-opened','1'); } catch(_){}
+          });
+        }
+        if (metaProf){
+          metaProf.addEventListener('input', function(){
+            var v = metaProf.value.trim();
+            try { if (v) { localStorage.setItem('eve-meta-profile', v); ls2.classList.add('done'); } else { localStorage.removeItem('eve-meta-profile'); } } catch(_){}
           });
         }
         liConf.addEventListener('change', function(){
           if (liConf.checked){
             ls2.classList.add('done');
             ls1.classList.add('done'); // implicit
-            try { localStorage.setItem('eve-li-opened','1'); localStorage.setItem('eve-li-confirmed','1'); } catch(_){}
+            try { localStorage.setItem('eve-meta-opened','1'); localStorage.setItem('eve-meta-confirmed','1'); } catch(_){}
             linkSt.classList.remove('fail'); linkSt.classList.add('pass');
-            linkSt.innerHTML = 'connection sent · <strong>fork unlocked</strong>';
+            linkSt.innerHTML = 'connection carried · <strong>fork unlocked</strong>';
             goConf.disabled = false;
             unlock('conf');
             markDone('link');
           } else {
             ls2.classList.remove('done');
-            try { localStorage.removeItem('eve-li-confirmed'); } catch(_){}
+            try { localStorage.removeItem('eve-meta-confirmed'); } catch(_){}
             linkSt.classList.remove('pass'); linkSt.classList.add('fail');
             linkSt.textContent = 'awaiting confirmation';
             goConf.disabled = true;
           }
+          updateProgress();
         });
 
         function unlock(stage){
@@ -604,6 +657,7 @@
           if (step) step.classList.add('done');
           var badge = document.getElementById('badge-'+stage);
           if (badge) badge.textContent = '✓';
+          updateProgress();
         }
 
         // ===== Stage 2 · grading ==========================================
@@ -635,7 +689,7 @@
           score.classList.remove('pass','fail');
           if (right >= 5){
             score.classList.add('pass');
-            score.innerHTML += ' — LinkedIn connect unlocked';
+            score.innerHTML += ' — Meta connect unlocked';
             passed = true;
             unlock('link');
             markDone('test');
@@ -736,6 +790,8 @@
           renderPreview();
           saveStatus.textContent='';
         });
+
+        updateProgress();
       })();
     </script>
   </body>
