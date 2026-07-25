@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Capítulo 3 — Los cuatro días perdidos · EVE Hyperloop</title>
+    <meta name="description" content="Capítulo 3 de EVE Hyperloop. Doce puertas, treinta días cada una, y cuatro días que nadie contó. Marca los cuartos y completa el año en 364." />
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root{
+        --bg:#fdfaf4; --ink:#1a1a1a; --ink-soft:#5a5a5a; --line:#e7e1d3;
+        --sun:#e8a468; --sun-deep:#c9762f; --day:#7a5c2e; --done:#5f9e6e;
+        --panel:#f6f1e4;
+        --serif:Fraunces,Georgia,serif; --sans:Inter,system-ui,-apple-system,sans-serif;
+      }
+      *{box-sizing:border-box}
+      html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+      .wrap{max-width:760px;margin:0 auto;padding:56px 24px 80px}
+      a{color:var(--day)}
+
+      .lang-switch{position:fixed;top:18px;right:18px;display:flex;gap:6px;z-index:50;background:rgba(253,250,244,.85);backdrop-filter:blur(6px);padding:6px;border:1px solid var(--line);border-radius:999px}
+      .lang-btn{appearance:none;border:none;background:transparent;cursor:pointer;width:34px;height:30px;border-radius:999px;font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;padding:0;transition:background .15s,transform .15s;opacity:.55}
+      .lang-btn:hover{transform:translateY(-1px);opacity:1}
+      .lang-btn.active{background:#fff;opacity:1;box-shadow:0 0 0 1px var(--line)}
+      .lang-btn:focus-visible{outline:2px solid var(--day);outline-offset:2px}
+
+      .back{display:inline-block;font-size:13px;color:var(--ink-soft);text-decoration:none;margin-bottom:26px}
+      .back:hover{color:var(--ink)}
+      header{margin-bottom:34px}
+      .kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
+      h1{font-family:var(--serif);font-weight:700;font-size:42px;line-height:1.08;letter-spacing:-.01em;margin:0 0 12px 0}
+      .tagline{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ink-soft);margin:0}
+
+      .stage{margin:34px 0 0;display:flex;flex-direction:column;align-items:center}
+      .prompt{font-family:var(--serif);font-size:19px;line-height:1.45;text-align:center;max-width:34ch;margin:0 0 6px;min-height:2.9em;display:flex;align-items:center;justify-content:center}
+      .subprompt{font-size:14px;color:var(--ink-soft);text-align:center;max-width:40ch;margin:0 0 18px;min-height:2.6em}
+
+      svg.year{width:100%;max-width:400px;height:auto;display:block;touch-action:manipulation}
+      .gate{fill:none;stroke:#ded4be;stroke-width:15;cursor:pointer;transition:stroke .35s ease}
+      .gate:hover{stroke:#cdbf9f}
+      .gate.lit{stroke:var(--sun);cursor:default;animation:none}
+      .gate:focus-visible{outline:none;stroke:var(--sun-deep)}
+      .hint .gate:not(.lit){animation:breathe 2.6s ease-in-out infinite}
+      @keyframes breathe{0%,100%{stroke:#ded4be}50%{stroke:#e9dcc0}}
+      .gatehit{fill:transparent;stroke:transparent;stroke-width:30;cursor:pointer}
+      .gnum{font-family:var(--sans);font-size:10px;font-weight:600;fill:var(--ink-soft);pointer-events:none;opacity:0;transition:opacity .3s}
+      .gnum.on{opacity:1;fill:#fff}
+
+      .quarter{opacity:0;pointer-events:none;transition:opacity .5s ease}
+      .quarter.avail{opacity:1;pointer-events:auto}
+      .qring{fill:var(--bg);stroke:var(--day);stroke-width:2;stroke-dasharray:3 3;cursor:pointer;transition:fill .3s,stroke-dasharray .3s}
+      .quarter.set .qring{fill:var(--day);stroke-dasharray:none;cursor:default}
+      .qlabel{font-family:var(--serif);font-size:12px;font-weight:700;fill:var(--day);text-anchor:middle;pointer-events:none;transition:fill .3s}
+      .quarter.set .qlabel{fill:#fdfaf4}
+      .quarter:focus{outline:none}
+      .quarter:focus-visible{outline:none}
+      .quarter:focus-visible .qring{stroke-width:3.5;stroke-dasharray:none}
+      .spoke{stroke:var(--day);stroke-width:2;stroke-linecap:round;opacity:0;transition:opacity .7s ease}
+      .spoke.on{opacity:.85}
+
+      .count{font-family:var(--serif);font-weight:700;font-size:46px;text-anchor:middle;fill:var(--ink);font-variant-numeric:tabular-nums lining-nums}
+      .countsub{font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-anchor:middle;fill:var(--ink-soft);text-transform:uppercase}
+      .ringdone{fill:none;stroke:var(--done);stroke-width:2;opacity:0;transition:opacity .8s ease}
+      .ringdone.on{opacity:.55}
+
+      .status{margin-top:14px;font-size:13px;color:var(--ink-soft);text-align:center;min-height:1.5em}
+      .reset{appearance:none;visibility:hidden;background:transparent;border:1px solid var(--line);color:var(--ink-soft);font-family:var(--sans);font-size:12px;padding:7px 15px;border-radius:999px;cursor:pointer;margin-top:16px}
+      .reset:hover{border-color:var(--day);color:var(--day)}
+      .reset.on{visibility:visible}
+
+      .finish{margin-top:34px;border:1px solid var(--line);background:var(--panel);border-left:3px solid var(--day);padding:24px 24px 20px;border-radius:3px;display:none}
+      .finish.on{display:block}
+      .finish .verse{font-family:var(--serif);font-size:19px;line-height:1.5;margin:0 0 12px}
+      .finish .ref{font-size:12px;color:var(--ink-soft);margin:0 0 16px}
+      .finish .after{font-size:15px;margin:0}
+
+      section.note{margin-top:44px;border-top:1px solid var(--line);padding-top:24px}
+      h2{font-family:var(--serif);font-size:20px;font-weight:700;margin:0 0 10px}
+      .note p{font-size:14.5px;color:var(--ink-soft);margin:0 0 12px}
+      details{margin-top:22px;border:1px solid var(--line);border-radius:3px;padding:14px 16px;background:#fbf8f0}
+      summary{font-size:13px;font-weight:600;cursor:pointer;color:var(--day)}
+      details p{font-size:13.5px;color:var(--ink-soft);margin:12px 0 0}
+      footer{margin-top:46px;border-top:1px solid var(--line);padding-top:18px;font-size:12px;color:var(--ink-soft)}
+      footer .copy{font-family:var(--serif);font-style:italic;color:var(--day)}
+
+      @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+      @media (max-width:520px){h1{font-size:32px}.wrap{padding:44px 18px 64px}.count{font-size:38px}}
+    </style>
+  </head>
+  <body>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button class="lang-btn" data-lang="es" title="Español" aria-label="Español">🇪🇸</button>
+      <button class="lang-btn" data-lang="en" title="English" aria-label="English">🇬🇧</button>
+      <button class="lang-btn" data-lang="fr" title="Français" aria-label="Français">🇫🇷</button>
+    </div>
+
+    <div class="wrap">
+      <a class="back" href="./index.html" data-i18n="back">← EVE Hyperloop</a>
+
+      <header>
+        <div class="kicker" data-i18n="kicker">Capítulo 3</div>
+        <h1 data-i18n="title">Los cuatro días perdidos</h1>
+        <p class="tagline" data-i18n="tagline">Un año al que le faltan cuatro días. Devuélveselos.</p>
+      </header>
+
+      <div class="stage">
+        <p class="prompt" id="prompt" data-i18n="p1">Doce puertas. El sol entra por una cada mes.</p>
+        <p class="subprompt" id="subprompt" data-i18n="s1">Toca cada puerta para contar sus treinta días.</p>
+
+        <svg class="year hint" id="board" viewBox="0 38 400 324" role="group" aria-label="El año como un círculo de doce puertas">
+          <g id="gates"></g>
+          <g id="spokes"></g>
+          <circle class="ringdone" id="ringdone" cx="200" cy="200" r="106" />
+          <g id="quarters"></g>
+          <text class="count" id="count" x="200" y="200">0</text>
+          <text class="countsub" id="countsub" x="200" y="222">días</text>
+        </svg>
+
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+        <button class="reset" id="reset" data-i18n="reset">Empezar de nuevo</button>
+      </div>
+
+      <div class="finish" id="finish">
+        <p class="verse" data-i18n="verse">«Y la verdad y la paz estarán unidas por todos los días del mundo y por todas las generaciones de los hombres.»</p>
+        <p class="ref" data-i18n="ref">1 Henoc 11:2 · traducción de R. H. Charles, dominio público</p>
+        <p class="after" data-i18n="after">Eso es PAIX. Nadie fue vencido. Solo se terminó de contar.</p>
+      </div>
+
+      <section class="note">
+        <h2 data-i18n="noteTitle">De dónde viene esto</h2>
+        <p data-i18n="note1">Hace más de dos mil años alguien escribió un calendario: el sol sale por seis puertas y se pone por otras seis, y el año se completa en trescientos sesenta y cuatro días. También escribió que cuatro de esos días se dejaron de contar — uno en la primera puerta, uno en la tercera, uno en la cuarta y uno en la sexta.</p>
+        <p data-i18n="note2">El libro se perdió en Europa durante unos mil trescientos años. Nunca se perdió en Etiopía, donde la Iglesia lo guardó entero. Cuando volvió, aparecieron copias todavía más antiguas en el desierto, junto al Mar Muerto — y coincidían.</p>
+        <p data-i18n="note3">Eso es lo mismo que el Capítulo 2, «Lo que conservamos». Un registro no muere porque su gente haya sido dispersada. Muere cuando nadie lo sigue leyendo.</p>
+
+        <details>
+          <summary data-i18n="adultSum">Para padres, catequistas y maestros</summary>
+          <p data-i18n="adult1">Este capítulo usa una sola sección del Libro de Henoc: el libro astronómico, 1 Henoc 72–82. Es un calendario. Los Vigilantes, los Nefilim, las parábolas, las visiones y el juicio quedan deliberadamente fuera: un niño no tiene que tener miedo para aprender algo verdadero.</p>
+          <p data-i18n="adult2">El Libro de Henoc no forma parte del canon católico. Sí es Escritura canónica en las Iglesias ortodoxas Tewahedo de Etiopía y Eritrea y para los Beta Israel. Aquí se presenta como patrimonio y astronomía, no como doctrina, y nada de la catequesis depende de él. Las citas son textuales, de una traducción de dominio público.</p>
+          <p data-i18n="adult3">El extracto completo, con todas sus fuentes y sus exclusiones, es público.</p>
+        </details>
+      </section>
+
+      <footer>
+        <p><span data-i18n="footLine">EVE Hyperloop · Capítulo 3 · administrado por el Pacific Utilities Design Council</span><br />
+        <a href="../world/enoch/LES-QUATRE-JOURS-PERDUS.md" data-i18n="footLink">Leer el extracto completo</a> · <a href="./what-we-kept.html" data-i18n="footCh2">Capítulo 2 — Lo que conservamos</a></p>
+        <p class="copy">Pour le bien-être du peuple.</p>
+        <p style="font-size:11px">© 2026 Dany Theriault. EVE Glyph Design.</p>
+      </footer>
+    </div>
+
+    <script>
+      const I18N = {
+        es:{docTitle:"Capítulo 3 — Los cuatro días perdidos · EVE Hyperloop",
+          back:"← EVE Hyperloop",kicker:"Capítulo 3",title:"Los cuatro días perdidos",
+          tagline:"Un año al que le faltan cuatro días. Devuélveselos.",
+          p1:"Doce puertas. El sol entra por una cada mes.",s1:"Toca cada puerta para contar sus treinta días.",
+          p2:"Trescientos sesenta. Pero el año todavía no está entero.",
+          s2:"Faltan cuatro días que nadie contó. Están en los cuatro cuartos del año. Tócalos.",
+          p3:"Trescientos sesenta y cuatro. El año está completo.",
+          s3:"Devolviste los cuatro días. Mira lo que dibujaron.",
+          gateMsg:"Puerta {n} · treinta días",dayMsg:"Día devuelto · puerta {p}",
+          days:"días",reset:"Empezar de nuevo",
+          verse:"«Y la verdad y la paz estarán unidas por todos los días del mundo y por todas las generaciones de los hombres.»",
+          ref:"1 Henoc 11:2 · traducción de R. H. Charles, dominio público",
+          after:"Eso es PAIX. Nadie fue vencido. Solo se terminó de contar.",
+          noteTitle:"De dónde viene esto",
+          note1:"Hace más de dos mil años alguien escribió un calendario: el sol sale por seis puertas y se pone por otras seis, y el año se completa en trescientos sesenta y cuatro días. También escribió que cuatro de esos días se dejaron de contar — uno en la primera puerta, uno en la tercera, uno en la cuarta y uno en la sexta.",
+          note2:"El libro se perdió en Europa durante unos mil trescientos años. Nunca se perdió en Etiopía, donde la Iglesia lo guardó entero. Cuando volvió, aparecieron copias todavía más antiguas en el desierto, junto al Mar Muerto — y coincidían.",
+          note3:"Eso es lo mismo que el Capítulo 2, «Lo que conservamos». Un registro no muere porque su gente haya sido dispersada. Muere cuando nadie lo sigue leyendo.",
+          adultSum:"Para padres, catequistas y maestros",
+          adult1:"Este capítulo usa una sola sección del Libro de Henoc: el libro astronómico, 1 Henoc 72–82. Es un calendario. Los Vigilantes, los Nefilim, las parábolas, las visiones y el juicio quedan deliberadamente fuera: un niño no tiene que tener miedo para aprender algo verdadero.",
+          adult2:"El Libro de Henoc no forma parte del canon católico. Sí es Escritura canónica en las Iglesias ortodoxas Tewahedo de Etiopía y Eritrea y para los Beta Israel. Aquí se presenta como patrimonio y astronomía, no como doctrina, y nada de la catequesis depende de él. Las citas son textuales, de una traducción de dominio público.",
+          adult3:"El extracto completo, con todas sus fuentes y sus exclusiones, es público.",
+          footLine:"EVE Hyperloop · Capítulo 3 · administrado por el Pacific Utilities Design Council",
+          footLink:"Leer el extracto completo",footCh2:"Capítulo 2 — Lo que conservamos"},
+
+        en:{docTitle:"Chapter 3 — The Four Lost Days · EVE Hyperloop",
+          back:"← EVE Hyperloop",kicker:"Chapter 3",title:"The Four Lost Days",
+          tagline:"A year that is four days short. Give them back.",
+          p1:"Twelve gates. The sun comes through one of them each month.",s1:"Tap each gate to count its thirty days.",
+          p2:"Three hundred and sixty. But the year is not whole yet.",
+          s2:"Four days were never counted. They sit at the four turns of the year. Tap them.",
+          p3:"Three hundred and sixty-four. The year is complete.",
+          s3:"You gave the four days back. Look at what they drew.",
+          gateMsg:"Gate {n} · thirty days",dayMsg:"Day returned · portal {p}",
+          days:"days",reset:"Start again",
+          verse:"“And truth and peace shall be associated together throughout all the days of the world and throughout all the generations of men.”",
+          ref:"1 Enoch 11:2 · R. H. Charles translation, public domain",
+          after:"That is PAIX. Nobody was defeated. A count was finished.",
+          noteTitle:"Where this comes from",
+          note1:"More than two thousand years ago someone wrote down a calendar: the sun rises through six gates and sets through six more, and the year is completed in three hundred and sixty-four days. The same writer said four of those days stopped being counted — one in the first gate, one in the third, one in the fourth and one in the sixth.",
+          note2:"The book was lost in Europe for something like thirteen hundred years. It was never lost in Ethiopia, where the Church kept it whole. When it came back, even older copies turned up in the desert by the Dead Sea — and they matched.",
+          note3:"That is the same story as Chapter 2, “What We Kept.” A record does not die because its people were scattered. It dies when nobody keeps reading it.",
+          adultSum:"For parents, catechists and teachers",
+          adult1:"This chapter uses one section of the Book of Enoch only: the Astronomical Book, 1 Enoch 72–82. It is a calendar. The Watchers, the Nephilim, the Parables, the Dream Visions and the judgement material are deliberately left out — a child should not have to be frightened in order to be taught something true.",
+          adult2:"The Book of Enoch is not in the Catholic canon. It is canonical Scripture in the Ethiopian and Eritrean Orthodox Tewahedo Churches and for the Beta Israel. It is presented here as heritage and astronomy, not as doctrine, and no catechetical claim rests on it. Quotations are verbatim from a public-domain translation.",
+          adult3:"The full extract, with every source and every exclusion listed, is public.",
+          footLine:"EVE Hyperloop · Chapter 3 · stewarded by the Pacific Utilities Design Council",
+          footLink:"Read the full extract",footCh2:"Chapter 2 — What We Kept"},
+
+        fr:{docTitle:"Chapitre 3 — Les quatre jours perdus · EVE Hyperloop",
+          back:"← EVE Hyperloop",kicker:"Chapitre 3",title:"Les quatre jours perdus",
+          tagline:"Une année à qui il manque quatre jours. Rends-les-lui.",
+          p1:"Douze portes. Le soleil passe par une seule chaque mois.",s1:"Touche chaque porte pour compter ses trente jours.",
+          p2:"Trois cent soixante. Mais l'année n'est pas encore entière.",
+          s2:"Quatre jours n'ont jamais été comptés. Ils se tiennent aux quatre tournants de l'année. Touche-les.",
+          p3:"Trois cent soixante-quatre. L'année est complète.",
+          s3:"Tu as rendu les quatre jours. Regarde ce qu'ils ont dessiné.",
+          gateMsg:"Porte {n} · trente jours",dayMsg:"Jour rendu · porte {p}",
+          days:"jours",reset:"Recommencer",
+          verse:"« Et la vérité et la paix seront unies pour tous les jours du monde et pour toutes les générations des hommes. »",
+          ref:"1 Hénoch 11:2 · traduction de R. H. Charles, domaine public",
+          after:"C'est PAIX. Personne n'a été vaincu. On a simplement fini de compter.",
+          noteTitle:"D'où cela vient",
+          note1:"Il y a plus de deux mille ans, quelqu'un a écrit un calendrier : le soleil se lève par six portes et se couche par six autres, et l'année s'achève en trois cent soixante-quatre jours. Le même texte dit que quatre de ces jours ont cessé d'être comptés — un à la première porte, un à la troisième, un à la quatrième et un à la sixième.",
+          note2:"Le livre a été perdu en Europe pendant environ mille trois cents ans. Il n'a jamais été perdu en Éthiopie, où l'Église l'a gardé entier. Quand il est revenu, des copies encore plus anciennes sont sorties du désert, près de la mer Morte — et elles concordaient.",
+          note3:"C'est la même histoire que le Chapitre 2, « Ce que nous avons gardé ». Un registre ne meurt pas parce que son peuple a été dispersé. Il meurt quand plus personne ne le lit.",
+          adultSum:"Pour les parents, les catéchètes et les enseignants",
+          adult1:"Ce chapitre n'utilise qu'une seule section du Livre d'Hénoch : le livre astronomique, 1 Hénoch 72–82. C'est un calendrier. Les Veilleurs, les Néphilim, les paraboles, les visions et le jugement restent délibérément dehors — un enfant n'a pas à avoir peur pour apprendre quelque chose de vrai.",
+          adult2:"Le Livre d'Hénoch ne fait pas partie du canon catholique. Il est Écriture canonique dans les Églises orthodoxes téwahedo d'Éthiopie et d'Érythrée et pour les Beta Israel. Il est présenté ici comme patrimoine et astronomie, non comme doctrine, et aucune affirmation catéchétique n'en dépend. Les citations sont textuelles, tirées d'une traduction du domaine public.",
+          adult3:"L'extrait complet, avec toutes ses sources et toutes ses exclusions, est public.",
+          footLine:"EVE Hyperloop · Chapitre 3 · administré par le Pacific Utilities Design Council",
+          footLink:"Lire l'extrait complet",footCh2:"Chapitre 2 — Ce que nous avons gardé"}
+      };
+
+      let LANG = "es";
+      function applyLang(lang){
+        if(!I18N[lang]) lang = "es";
+        LANG = lang;
+        const t = I18N[lang];
+        document.documentElement.lang = lang;
+        document.title = t.docTitle;
+        document.querySelectorAll("[data-i18n]").forEach(el=>{
+          const k = el.getAttribute("data-i18n");
+          if(t[k] !== undefined) el.textContent = t[k];
+        });
+        document.querySelectorAll(".lang-btn").forEach(b=>{
+          b.classList.toggle("active", b.getAttribute("data-lang") === lang);
+        });
+        document.getElementById("countsub").textContent = t.days;
+        renderPhaseText();
+      }
+      document.querySelectorAll(".lang-btn").forEach(b=>{
+        b.addEventListener("click", ()=>applyLang(b.getAttribute("data-lang")));
+      });
+
+      // ---- board -------------------------------------------------------
+      const NS = "http://www.w3.org/2000/svg";
+      const CX = 200, CY = 200, R = 140, GAP = 2.2;
+      const PORTALS = ["I","III","IV","VI"];   // 1 Enoch 82:6
+      const QANG = [-90, 0, 90, 180];          // after months 12, 3, 6, 9
+      const gatesG = document.getElementById("gates");
+      const quartG = document.getElementById("quarters");
+      const spokeG = document.getElementById("spokes");
+      const countEl = document.getElementById("count");
+      const statusEl = document.getElementById("status");
+      const finishEl = document.getElementById("finish");
+
+      let lit = 0, placed = 0;
+
+      const pol = (a,r)=>[CX + r*Math.cos(a*Math.PI/180), CY + r*Math.sin(a*Math.PI/180)];
+      function arc(a0,a1,r){
+        const [x0,y0]=pol(a0,r), [x1,y1]=pol(a1,r);
+        return `M ${x0.toFixed(2)} ${y0.toFixed(2)} A ${r} ${r} 0 0 1 ${x1.toFixed(2)} ${y1.toFixed(2)}`;
+      }
+
+      for(let i=0;i<12;i++){
+        const a0 = -90 + i*30 + GAP, a1 = -90 + (i+1)*30 - GAP;
+        const p = document.createElementNS(NS,"path");
+        p.setAttribute("d", arc(a0,a1,R)); p.setAttribute("class","gate");
+        p.setAttribute("tabindex","0"); p.setAttribute("role","button");
+        p.setAttribute("aria-label","Gate "+(i+1));
+        const mid = (a0+a1)/2, [tx,ty] = pol(mid,R);
+        const tn = document.createElementNS(NS,"text");
+        tn.setAttribute("x",tx.toFixed(2)); tn.setAttribute("y",(ty+3.5).toFixed(2));
+        tn.setAttribute("text-anchor","middle"); tn.setAttribute("class","gnum");
+        tn.textContent = "30";
+        const hit = document.createElementNS(NS,"path");
+        hit.setAttribute("d", arc(a0,a1,R)); hit.setAttribute("class","gatehit");
+        const fire = ()=>lightGate(i,p,tn);
+        p.addEventListener("click",fire); hit.addEventListener("click",fire);
+        p.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();fire();} });
+        gatesG.appendChild(p); gatesG.appendChild(hit); gatesG.appendChild(tn);
+      }
+
+      QANG.forEach((ang,i)=>{
+        const [x,y] = pol(ang,R);
+        const g = document.createElementNS(NS,"g");
+        g.setAttribute("class","quarter"); g.setAttribute("tabindex","-1");
+        g.setAttribute("role","button"); g.setAttribute("aria-label","Uncounted day, portal "+PORTALS[i]);
+        const c = document.createElementNS(NS,"circle");
+        c.setAttribute("cx",x.toFixed(2)); c.setAttribute("cy",y.toFixed(2));
+        c.setAttribute("r","15"); c.setAttribute("class","qring");
+        const t = document.createElementNS(NS,"text");
+        t.setAttribute("x",x.toFixed(2)); t.setAttribute("y",(y+4.2).toFixed(2));
+        t.setAttribute("class","qlabel"); t.textContent = PORTALS[i];
+        const sp = document.createElementNS(NS,"line");
+        const [ix,iy] = pol(ang,64);
+        sp.setAttribute("x1",x.toFixed(2)); sp.setAttribute("y1",y.toFixed(2));
+        sp.setAttribute("x2",ix.toFixed(2)); sp.setAttribute("y2",iy.toFixed(2));
+        sp.setAttribute("class","spoke");
+        spokeG.appendChild(sp);
+        g.appendChild(c); g.appendChild(t);
+        const fire = ()=>placeDay(i,g,sp);
+        g.addEventListener("click",fire);
+        g.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();fire();} });
+        quartG.appendChild(g);
+      });
+
+      const quarters = Array.from(quartG.children);
+      const spokes   = Array.from(spokeG.children);
+
+      function setCount(n){ countEl.textContent = String(n); }
+
+      function lightGate(i,p,tn){
+        if(p.classList.contains("lit")) return;
+        p.classList.add("lit"); tn.classList.add("on"); lit++;
+        document.getElementById("board").classList.remove("hint");
+        document.getElementById("reset").classList.add("on");
+        setCount(lit*30);
+        statusEl.textContent = I18N[LANG].gateMsg.replace("{n}", i+1);
+        if(lit === 12) openQuarters();
+        renderPhaseText();
+      }
+
+      function openQuarters(){
+        quarters.forEach(q=>{ q.classList.add("avail"); q.setAttribute("tabindex","0"); });
+      }
+
+      function placeDay(i,g,sp){
+        if(!g.classList.contains("avail") || g.classList.contains("set")) return;
+        g.classList.add("set"); g.setAttribute("tabindex","-1"); sp.classList.add("on");
+        placed++;
+        setCount(360 + placed);
+        statusEl.textContent = I18N[LANG].dayMsg.replace("{p}", PORTALS[i]);
+        if(placed === 4){
+          document.getElementById("ringdone").classList.add("on");
+          finishEl.classList.add("on");
+        }
+        renderPhaseText();
+      }
+
+      function renderPhaseText(){
+        const t = I18N[LANG];
+        const pr = document.getElementById("prompt"), sb = document.getElementById("subprompt");
+        if(placed === 4){ pr.textContent = t.p3; sb.textContent = t.s3; }
+        else if(lit === 12){ pr.textContent = t.p2; sb.textContent = t.s2; }
+        else { pr.textContent = t.p1; sb.textContent = t.s1; }
+      }
+
+      document.getElementById("reset").addEventListener("click", ()=>{
+        lit = 0; placed = 0; setCount(0);
+        document.getElementById("board").classList.add("hint");
+        document.getElementById("reset").classList.remove("on");
+        gatesG.querySelectorAll(".gate").forEach(p=>p.classList.remove("lit"));
+        gatesG.querySelectorAll(".gnum").forEach(n=>n.classList.remove("on"));
+        quarters.forEach(q=>{ q.classList.remove("avail","set"); q.setAttribute("tabindex","-1"); });
+        spokes.forEach(s=>s.classList.remove("on"));
+        document.getElementById("ringdone").classList.remove("on");
+        finishEl.classList.remove("on");
+        statusEl.textContent = "";
+        renderPhaseText();
+      });
+
+      (function(){
+        const nav = (navigator.language || "es").slice(0,2).toLowerCase();
+        applyLang(I18N[nav] ? nav : "es");
+      })();
+    </script>
+  </body>
+</html>
